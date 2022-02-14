@@ -1,0 +1,47 @@
+<header>
+<div class="row mb-4 fixed-top" style="height:50px"  >
+<div class="col-12 mb-1 ">
+
+<div class="position-absolute  top-1 end-0 m-1">
+<button type="button" class="btn btn-outline-dark" routerLink="/signin_up">Signin/up</button>
+</div>
+</div>
+</div>
+
+<div class="container m-lg-5" style="height: 50px;">
+  <div class="card bg-dark text-white">
+    <img src="https://www.lsa-conso.fr/mediatheque/4/8/0/000413084_5.jpg" class="card-img" alt="...">
+    <div class="card-img-overlay">
+      <h5 class="card-title">marketinf</h5>
+      <h6 class="card-subtitle ">présentation</h6>
+      <p class="card-text">this app web is for marketing influencer it should be used by a manager of compagne and influencers</p>
+    </div>
+  </div><br> 
+<form class="d-flex mt-5">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form><br>
+<div class="container">
+ <div class="mb-2 row mt-lg-5">
+   <div class="col-4" *ngFor="let produit of produits">
+    <div class="card" style="width: 18rem;">
+        <img [src]="produit.urlphot" class="card-img-top" >
+        <div class="card-body">
+          <h5 class="card-title">{{produit.name}}</h5>
+          <p class="card-text">{{produit.descript}}</p>
+        </div>
+        
+      </div>
+  </div>
+
+ </div>
+</div>
+</div>
+</header>
+
+
+
+   
+
+
+

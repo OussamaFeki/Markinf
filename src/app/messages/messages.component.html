@@ -1,0 +1,40 @@
+<div class="row m-3" style="max-height: 100%;">
+    <div class="col-12 " >
+      <app-navbar></app-navbar>
+  </div>
+  </div><br>
+  <div class="row" style="max-height: 100%;">
+      <div class="col-2 bg-info" style="max-height: 100%;">
+        <i class="fas fa-user-circle fa-5x" ></i><p>manager</p>
+        <div class="list-group" id="list-tab" role="tablist"> 
+        <a class="list-group-item list-group-item-action w-100 p-5" id="list-home-list" data-bs-toggle="list" routerLink="/signin_up/manager" role="tab" aria-controls="list-home">les influanceurs</a>
+          <a class="list-group-item list-group-item-action w-100 p-5" id="list-profile-list" data-bs-toggle="list" routerLink="../produit" role="tab" aria-controls="list-profile">les produit </a>
+          <a class="list-group-item list-group-item-action w-100 p-5" id="list-messages-list" data-bs-toggle="list" routerLink="../ninf" role="tab" aria-controls="list-messages">les nouveaux influanceur </a>
+          <a class="list-group-item list-group-item-action w-100 p-5" id="list-settings-list" data-bs-toggle="list" routerLink="../anonce" role="tab" aria-controls="list-settings">creer un annonce</a>
+          <a class="list-group-item list-group-item-action active w-100 p-5" id="list-settings-list" data-bs-toggle="list" routerLink="../messages" role="tab" aria-controls="list-settings">les messages</a>
+          
+        </div>
+      </div>
+      <div class="col-10">
+      <form class="d-flex mt-5">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form><br>
+      <app-messlist></app-messlist>
+      <nav aria-label="..."   >
+        <ul class="pagination">
+          <li class="page-item disabled">
+            <span class="page-link">Previous</span>
+          </li>
+          <li class="page-item"><a class="page-link" routerLink="#">1</a></li>
+          <li class="page-item active" aria-current="page">
+            <span class="page-link">2</span>
+          </li>
+          <li class="page-item"><a class="page-link" routerLink="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" routerLink="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+     </div>
+    </div>

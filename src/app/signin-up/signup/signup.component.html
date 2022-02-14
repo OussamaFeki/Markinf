@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="text-center">
+         <h1>SignUp</h1>
+        </div>
+         <form [formGroup]="myForm" (ngSubmit)=" print()">
+          <div class="mb-3"  >
+              <label for="exampleInputEmail1" class="form-label">Fullname</label>
+              <input type="text" name="email" class="form-control" formControlName="fname" required>
+              <div class="alert alert-danger" *ngIf="myForm.get('fname').touched && myForm.get('fname').hasError('required')">Fullname is required  </div>
+            </div>
+          <div class="mb-3"  >
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" name="email" class="form-control" formControlName="mail" required>
+            <div class="alert alert-danger" *ngIf="myForm.get('mail').touched && myForm.get('mail').hasError('required')">this mail is required  </div>
+            <div class="alert alert-danger" *ngIf="myForm.get('mail').touched && myForm.get('mail').hasError('email')">this email so must be exist @</div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" name="pass" class="form-control"  formControlName="pass" required>
+          <div class="alert alert-danger" *ngIf="myForm.get('pass').touched && myForm.get('pass').hasError('required')">password is required</div>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Logup</button> <br>
+          <a routerLink="../../signin_up" style="color: white;">alredy signed up ?</a>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
