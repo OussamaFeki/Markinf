@@ -1,0 +1,8 @@
+.p-5{
+    background:linear-gradient(60deg,#15fad4,#ffffff);
+}
+.bg-register-image1{
+    background: url("https://previews.123rf.com/images/valentint/valentint1701/valentint170103090/69298434-%EB%93%B1%EB%A1%9D-%EC%95%84%EC%9D%B4%EC%BD%98-%ED%8C%8C%EB%9E%80%EC%83%89-%EB%82%AE%EC%9D%80-%ED%8F%B4-%EB%A6%AC-%EB%B0%B0%EA%B2%BD%EC%97%90-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8-%EB%8B%A8%EC%B6%94%EB%A5%BC-%EB%93%B1%EB%A1%9D%ED%95%A9%EB%8B%88%EB%8B%A4-.jpg");
+    background-position: center;
+    background-size: cover;
+}

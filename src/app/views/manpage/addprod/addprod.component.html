@@ -1,0 +1,43 @@
+<div class="card text-center">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link " aria-current="true" (click)="tocranon()">create an annonce </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active">add product</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+        <form   class="row g-3"  (ngSubmit)="add()" >
+            <div class="col-md-4">
+              <label for="validationDefault01" class="form-label" >Product name:</label>
+              <input type="text" class="form-control"    name="name"  required >
+            </div>
+            <div class="col-md-4">
+              <label for="validationDefault02" class="form-label">mark</label>
+              <input type="text" class="form-control" name="mark" required >
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">image</label>
+              <div class="input-group">
+                <input type="file" class="form-control" required name="image"  name="image" required >
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="validationDefault03" class="form-label">descrption</label>
+              <textarea class="form-control"   name="mark"  required > </textarea>
+            </div>
+            <div class="col-md-3">
+              <label for="validationDefault04" class="form-label">price</label>
+              <input type="text" class="form-control"  name="price"  required >
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit" >Submit form</button>
+            </div>
+          </form>
+    </div>
+  </div>
+
+

@@ -1,33 +1,90 @@
-<div class="back">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="text-center">
-           <h1>LogIn</h1>
+<!-- <div class="back">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="text-center">
+             <h1>LogIn</h1>
+            </div>
+             <form [formGroup]="myForm1" (ngSubmit)=" print()">
+              <div class="mb-3"  >
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" name="email" class="form-control" formControlName="mail" required>
+                <div class="alert alert-danger" *ngIf="myForm1.get('mail').touched && myForm1.get('mail').hasError('required')">this mail is required  </div>
+                <div class="alert alert-danger" *ngIf="myForm1.get('mail').touched && myForm1.get('mail').hasError('email')">this is email so must be exist @</div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" name="pass" class="form-control"  formControlName="pass" required>
+              <div class="alert alert-danger" *ngIf="myForm1.get('pass').touched && myForm1.get('pass').hasError('required')">password is required</div>
+              </div>
+              <button type="submit" class="btn btn-primary" [disabled]="myForm1.invalid">LogIn</button><br>
+              <a routerLink="/signup" style="color: white;"  >signup</a>
+            </form>
           </div>
-           <form [formGroup]="myForm1" (ngSubmit)=" print()">
-            <div class="mb-3"  >
-              <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" name="email" class="form-control" formControlName="mail" required>
-              <div class="alert alert-danger" *ngIf="myForm1.get('mail').touched && myForm1.get('mail').hasError('required')">this mail is required  </div>
-              <div class="alert alert-danger" *ngIf="myForm1.get('mail').touched && myForm1.get('mail').hasError('email')">this is email so must be exist @</div>
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" name="pass" class="form-control"  formControlName="pass" required>
-            <div class="alert alert-danger" *ngIf="myForm1.get('pass').touched && myForm1.get('pass').hasError('required')">password is required</div>
-            </div>
-            <button type="submit" class="btn btn-primary" [disabled]="myForm1.invalid">LogIn</button><br>
-            <a routerLink="signup" style="color: white;">signup</a>
-          </form>
         </div>
       </div>
+  </div><br>
+  <div class="position-absolute bottom-0 start-0">
+      <p>choose acount</p>
+      <button class="btn btn-primary" routerLink="/manager">manager</button><br>
+      <button class="btn btn-primary" (click)=" toinfluancer()" >influencer</button>
+  </div>
+  </div> -->
+  <div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-12 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image1"></div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-300 mb-4">Welcome Back!</h1>
+                                </div>
+                                <form class="user" #f="ngForm" (ngSubmit)=" print(f)">
+                                    <div  class="form-group">
+                                        <input type="email" class="form-control form-control-user"
+                                            id="exampleInputEmail" placeholder="Enter Email Address..." name="email" #email="ngModel"  required ngModel>
+                                            <!-- <div class="alert alert-danger" *ngIf="myForm1.get('email').touched && myForm1.get('email').hasError('required')">this mail is required  </div>
+                                            <div class="alert alert-danger" *ngIf="myForm1.get('email').touched && myForm1.get('email').hasError('email')">this is email so must be exist @</div> -->
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-user" placeholder="Password"  name="pass" #pass="ngModel"  required ngModel>
+                                        <!-- <div class="alert alert-danger" *ngIf="myForm1.get('pass').touched && myForm1.get('pass').hasError('required')">password is required</div> -->
+                                    </div>
+                                    <button type="submit" href="index.html"  class="btn btn-primary btn-user btn-block">
+                                        Login
+                                    </button>
+                                    <hr>
+                                    <a href="index.html" class="btn btn-google btn-user btn-block">
+                                        <i class="fab fa-google fa-fw"></i> Login with Google
+                                    </a>
+                                    <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                    </a>
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="forgot-password.html" style="color: white;">Forgot Password?</a>
+                                </div>
+                                <div class="text-center">
+                                    <a class="small" routerLink="/signup" style="color:white">Create an Account!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
-</div><br>
-<div class="position-absolute bottom-0 start-0">
-    <p>choose acount</p>
-    <button class="btn btn-primary" routerLink="/signin_up/manager">manager</button><br>
-    <button class="btn btn-primary" (click)=" toinfluancer()" >influencer</button>
-</div>
+
 </div>

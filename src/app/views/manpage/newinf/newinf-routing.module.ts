@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NewinfComponent } from './newinf/newinf.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path:'',component:NewinfComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ManpageComponent } from './manpage/manpage.component';
 import { InfpageComponent } from './infpage/infpage.component';
 import { FrontpageComponent } from './frontpage/frontpage.component';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -10,10 +12,12 @@ import { FrontpageComponent } from './frontpage/frontpage.component';
   declarations: [
     ManpageComponent,
     InfpageComponent,
-    FrontpageComponent
+    FrontpageComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
   ]
 })
 export class LayoutsModule { }

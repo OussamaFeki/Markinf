@@ -1,0 +1,20 @@
+<h1>influencers</h1> <br>
+<table class="table">
+  <form ></form>
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Fullname </th>
+        <th scope="col">email</th>
+        <th scope="col">for accept</th>
+        <th scope="col">for refuse</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr class="listes" *ngFor="let item of list">
+        <td>{{item.fullname}}</td>
+        <td>{{item.email}}</td>
+        <td><i class="fa-solid fa-circle-check"></i></td>
+        <td><i class="fa-solid fa-circle-xmark"></i></td>
+      </tr>
+    </tbody>
+  </table>

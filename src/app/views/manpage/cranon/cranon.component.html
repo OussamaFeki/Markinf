@@ -1,0 +1,34 @@
+<div class="card text-center">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="true" routerLink="">create an annonce </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)='toaddprod()'>add product</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+        <form  class="row g-3"  (ngSubmit)="add()" >
+            <div class="col-md-4">
+              <label for="validationDefault01" class="form-label" >sujet</label>
+              <input type="text" class="form-control"    formControlName="sujet"  required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">image</label>
+              <div class="input-group">
+                <input type="file" class="form-control" formControlName="image"  required >
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="validationDefault03" class="form-label">descrption</label>
+              <textarea class="form-control"   formControlName="mark" required ></textarea>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit" >Submit form</button>
+            </div>
+          </form>
+    </div>
+  </div>
+

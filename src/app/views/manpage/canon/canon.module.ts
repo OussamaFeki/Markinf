@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { CanonRoutingModule } from './canon-routing.module';
-import { CanonComponent } from './canon/canon.component';
 
 
 @NgModule({
-  declarations: [
-    CanonComponent
-  ],
+  declarations: [],
   imports: [
     CommonModule,
-    CanonRoutingModule
+    CanonRoutingModule,
+    FormsModule
   ]
 })
 export class CanonModule { }
