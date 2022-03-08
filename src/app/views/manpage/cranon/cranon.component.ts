@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,10 @@ export class CranonComponent implements OnInit {
   myForm:any
   constructor(private route:Router,private formbuilder:FormBuilder) { 
     this.myForm=this.formbuilder.group({
-      
+      sujet:['',Validators.required],
+      image:['',Validators.required],
+      description:['',Validators.required]
+
     })
   }
    

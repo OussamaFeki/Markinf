@@ -2,16 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { NewinfRoutingModule } from './newinf-routing.module';
-import { NewinfComponent } from './newinf/newinf.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { NewinfComponent } from './newinf.component';
+
+
 
 
 @NgModule({
-  declarations: [
-    NewinfComponent
-  ],
+  declarations: [NewinfComponent],
   imports: [
     CommonModule,
-    NewinfRoutingModule
+    NewinfRoutingModule,
+    BrowserModule,
+    FormsModule,
   ]
 })
 export class NewinfModule { }

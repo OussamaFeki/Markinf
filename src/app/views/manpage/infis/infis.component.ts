@@ -17,6 +17,13 @@ list:any
   
   ngOnInit(): void {
   }
+  del(id:any,i:any){
+    this.share.deleteinf(id).subscribe((data)=>{
+      console.log(data);
+      this.list.splice(i,1)
+    })
+
+  }
   ngOnDestroy(): void {
   this.obj.unsubscribe()
   }

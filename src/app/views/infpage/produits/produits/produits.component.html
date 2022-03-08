@@ -1,1 +1,23 @@
-<p>produits works!</p>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Product name</th>
+        <th scope="col">marck</th>
+        <th scope="col">image</th>
+        <th scope="col">description</th>
+        <th scope="col">price</th>
+        <th scope="col">details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="lists" *ngFor="let element of list;index as i">
+        <th scope="row">{{element.name}}</th>
+        <td>{{element.mark}}</td>
+        <td>{{element.image}}</td>
+        <td>{{element.description}}</td>
+        <td>{{element.price}}</td>
+        <td (click)="detail(element._id)" ><i class="fa-solid fa-file-lines"></i></td>
+      </tr>
+    </tbody>
+    <p *ngIf="list===null">there is no products </p>
+  </table>

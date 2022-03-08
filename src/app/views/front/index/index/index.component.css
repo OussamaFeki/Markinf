@@ -27,9 +27,7 @@
       font-size: 6vw;
       color:gray;
     }
-    .col-12{
-      background:linear-gradient(60deg,#0e1111,#1d93ca);
-    }
+    
     .col-12 header p{
       color: aqua;
     
@@ -39,4 +37,7 @@
       background-repeat: no-repeat;
       background-size: cover;
     } 
+    .coloro{
+      background-color: linear-gradient(60deg,#2b48ca,#d338fa,#54c08a);
+    }
     

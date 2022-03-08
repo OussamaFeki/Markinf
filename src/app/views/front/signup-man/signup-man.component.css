@@ -1,0 +1,20 @@
+.p-5{
+    background:linear-gradient(60deg,#4b4ef8,#f55af5);
+ }
+ .bg-register-image1{
+    background: url("https://www.coach-rh.com/img/plan-de-formation-manager-haut-min.png");
+    background-position: center;
+    background-size: cover;
+ }
+ .btn-user:hover{
+ color: white;
+ }
+ .fa-ban{
+    color: red;
+ }
+ .fa-circle-check{
+    color:greenyellow;
+ }
+ a.small{
+     color:black
+ }

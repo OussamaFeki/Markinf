@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {  Validators } from '@angular/forms';
+import {  FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ShareserviceService } from 'src/app/services/shareservice.service';
 @Component({
   selector: 'app-addprod',
   templateUrl: './addprod.component.html',
@@ -9,16 +10,26 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class AddprodComponen implements OnInit {
   myForm:any
-  constructor(private route:Router) {
-    this.myForm= new FormGroup({
-      name: new FormControl(''),
-      mark: new FormControl(''),
-    });
+  
+  constructor(private route:Router ,private formbuild:FormBuilder,private share:ShareserviceService) {
+    this.myForm=this.formbuild.group({
+      name:['',Validators.required],
+      mark:['',Validators.required],
+      image:['',Validators.required],
+      description:['',Validators.required],
+      price:['',Validators.required],
+      tage:['',Validators.required]
+      
+    })
    }
 
   ngOnInit(): void {
   }
-  add(){}
+  add(){
+    let profile=this.myForm.value
+    this.share.addprod(profile).subscribe(doc=>console.log(doc))
+    
+  }
   tocranon(){
     this.route.navigate(['manager/anonce'])
   }

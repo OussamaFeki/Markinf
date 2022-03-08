@@ -10,9 +10,7 @@ import { RouterModule } from '@angular/router';
 
 
 @NgModule({
-  declarations: [
-    CranonComponent
-  ],
+  declarations: [CranonComponent],
   imports: [
     CommonModule,
     CranonRoutingModule,

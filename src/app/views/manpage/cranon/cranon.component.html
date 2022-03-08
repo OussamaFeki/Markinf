@@ -10,7 +10,7 @@
       </ul>
     </div>
     <div class="card-body">
-        <form  class="row g-3"  (ngSubmit)="add()" >
+        <form  class="row g-3" [formGroup]="myForm" (ngSubmit)="add()" >
             <div class="col-md-4">
               <label for="validationDefault01" class="form-label" >sujet</label>
               <input type="text" class="form-control"    formControlName="sujet"  required>
@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-6">
               <label for="validationDefault03" class="form-label">descrption</label>
-              <textarea class="form-control"   formControlName="mark" required ></textarea>
+              <textarea class="form-control"   formControlName="description" required ></textarea>
             </div>
             <div class="col-12">
               <button class="btn btn-primary" type="submit" >Submit form</button>

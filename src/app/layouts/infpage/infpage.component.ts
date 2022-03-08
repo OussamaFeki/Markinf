@@ -9,16 +9,21 @@ import { AuthoInfService } from 'src/app/services/autho-inf.service';
 })
 export class InfpageComponent implements OnInit {
   username:any
-  role:any
+  // role:any
   constructor(private auth:AuthoInfService,private route:Router ) {
+    // if (!localStorage.getItem('token')){
+    //   route.navigate(['/login'])
+    // }
     this.username=this.auth.getprof().fullname
-    this.role=this.auth.getprof().role
+    // this.role=this.auth.getprof().role
+    console.log(this.auth.IsloggedIn())
   }
 
   ngOnInit(): void {
   }
   logout(){
    localStorage.clear()
+
    this.route.navigate(['/login'])
   }
 

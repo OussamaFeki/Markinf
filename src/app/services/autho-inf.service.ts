@@ -9,7 +9,7 @@ export class AuthoInfService {
     user:'',
     role:''
   }
-  IsloggedIn:boolean=false
+  
   helper = new JwtHelperService();
   constructor(private http:HttpClient) {
 
@@ -18,13 +18,32 @@ export class AuthoInfService {
     return this.http.post('http://localhost:3000/login',profile)
   }
   issavetoken(token:any){
-    let decodeToken=this.helper.decodeToken(token)
    localStorage.setItem('token',token)
-   this.IsloggedIn=true
   }
   getprof(){
    let token:any=localStorage.getItem('token')
+   if(!token){
+     return null
+   }else{
    let decodeToken=this.helper.decodeToken(token)
-   return decodeToken 
+   return decodeToken} 
+  }
+  IsloggedIn(){
+    let token:any=localStorage.getItem('token')
+    let decodetoken=this.getprof()
+    if(!decodetoken){
+     return false
+    }else{
+    let role=decodetoken.role
+    if(role!=='influencer'){
+      return false
+    }
+    if(this.helper.isTokenExpired(token)){
+      return false
+    }
+    return true
+  }}
+  Registry(f:any){
+    return this.http.post('http://localhost:3000/addinf',f)
   }
 }
