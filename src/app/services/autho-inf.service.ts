@@ -46,4 +46,16 @@ export class AuthoInfService {
   Registry(f:any){
     return this.http.post('http://localhost:3000/addinf',f)
   }
+  getmansofinf(id:any){
+    return this.http.get('http://localhost:3000/mansofinf/'+id)
+  }
+  upavatar(id:any,image:any){
+    return this.http.put('http://localhost:3000/upavatarofinf/'+id,image)
+  }
+  refuse(id:any,id_man:any){
+    return this.http.get('http://localhost:3000/refuseman?man_id='+id_man+'&inf_id='+id)
+  }
+  getinf(id:any){
+    return this.http.get('http://localhost:3000/influencer/'+id)
+  }
 }

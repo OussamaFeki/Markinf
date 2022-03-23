@@ -42,4 +42,23 @@ export class AuthoManService {
   RegMan(f:any){
     return this.http.post('http://localhost:3000/registery',f)
   }
+  getinfsofman(id_man:any){
+    return this.http.get('http://localhost:3000/infsofman/'+id_man)
+  }
+  getman(id:any){
+    return this.http.get('http://localhost:3000/manager/'+id)
+  }
+  firinf(man_id:any,id:any){
+    return this.http.patch('http://localhost:3000/fir/'+man_id,id)
+  }
+  upavatar(man_id:any,image:any){
+    return this.http.put('http://localhost:3000/upavatar/'+man_id,image)
+  }
+  config(id_man:any,form:any){
+    return this.http.put('http://localhost:3000/configman/'+id_man,form)
+  }
+  refuse(id_man:any,id:any){
+     return this.http.get('http://localhost:3000/refuse?man_id='+id_man+'&id='+id)
+  }
+  
 }

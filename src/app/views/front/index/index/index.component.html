@@ -21,7 +21,7 @@
     
     <!-- Image Header -->
     <div class="w3-display-container w3-animate-opacity ">
-      <ngb-carousel *ngIf="images"  >
+      <ngb-carousel *ngIf="images" [showNavigationArrows]="false"  >
         <ng-template ngbSlide>
           <div class="picsum-img-wrapper">
             <img [src]="images[0]" style="width:100%;min-height:350px;max-height:500px;" >

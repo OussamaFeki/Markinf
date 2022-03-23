@@ -1,7 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { AuthoManService } from 'src/app/services/autho-man.service';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
 
 @Component({
@@ -14,15 +17,33 @@ export class ProductsComponent implements OnInit {
   list:any
   totalLength:any;
   page:number=1;
-  id:any
-  constructor(private share :ShareserviceService,private route:Router,config: NgbModalConfig, private modalService: NgbModal) {
-    this.obj=this.share.getallprod().subscribe((doc)=>{
-      this.list=doc;
-      // this.totalLength =doc.;
-    })
-    config.backdrop = 'static';
-      config.keyboard = false;
-   }
+  id:any;
+  man:any
+  man_id:any
+  myForm:any
+  // prodprofile={
+  //  name:'',
+  //  mark:'',
+  //  image:'',
+  //  description:'',
+  //  price:'',
+  //  tag:''
+  // }
+  constructor(private share :ShareserviceService,private route:Router,config: NgbModalConfig, private modalService: NgbModal,private auth:AuthoManService,private formbuild:FormBuilder) {
+      this.man_id=this.auth.getprof().id 
+      this.obj=this.share.getprodman(this.man_id).subscribe((doc)=>{
+      this.list=doc
+      })
+      this.myForm=this.formbuild.group({
+        name:['',Validators.required],
+        mark:[null,Validators.required],
+        image:['',Validators.required],
+        description:['',Validators.required],
+        price:['',Validators.required], 
+      })
+      config.backdrop = 'static';
+      config.keyboard = true;
+    }
    del(id:any,i:any){
     this.share.deleteprod(id).subscribe(doc=>{
       console.log(doc)
@@ -38,9 +59,25 @@ export class ProductsComponent implements OnInit {
     this.modalService.open(content);
     this.id=id
   }
-  
-  update(f:any){
-    let profile=f
-    this.share.upprod(profile,this.id).subscribe(doc=>console.log(doc))
+  selectImage(event:any){
+    if(event.target.files.length >0){
+      const file =event.target.files[0]
+      this.myForm.patchValue({
+        image:file
+      });
+      this.myForm.get('image')?.updateValueAndValidity()
+    }
+  }
+  update(){
+    const formData:any =new FormData();
+    formData.append('name', this.myForm.get('name').value)
+    formData.append('mark', this.myForm.get('mark').value)
+    formData.append('image', this.myForm.get('image').value)
+    formData.append('description', this.myForm.get('description').value)
+    formData.append('price', this.myForm.get('price').value)
+    // formData.append('tage', this.myForm.get('tage').value)
+    // let profile=this.myForm.value
+    // console.log(profile)
+    this.share.upprod(formData,this.id).subscribe(doc=>console.log(doc),(err:HttpErrorResponse)=>{console.log(err.message)})
   }
 }

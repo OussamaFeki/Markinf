@@ -31,18 +31,24 @@ const routes: Routes = [
       {path:'ninf',loadChildren:()=>import('./views/manpage/newinf/newinf-routing.module').then(m=>m.NewinfRoutingModule)},
       {path:'produits',loadChildren:()=>import('./views/manpage/products/products-routing.module').then(m=>m.ProductsRoutingModule)},
       {path:'produit/:id',loadChildren:()=>import('./views/oneprod/oneprod-routing.module').then(m=>m.OneprodRoutingModule)},
+      {path:'profile',loadChildren:()=>import('./views/profman/profman-routing.module').then(m=>m.ProfmanRoutingModule)},
       {path:'anonce',children:[
         {path:'',loadChildren:()=>import('./views/manpage/cranon/cranon-routing.module').then(m=>m.CranonRoutingModule)},
         {path:'addprod',loadChildren:()=>import('./views/manpage/addprod/addprod-routing.module').then(m=>m.AddprodRoutingModule)}, 
       ]},
+      {path:'config',loadChildren:()=>import('./views/configaccount/configaccount-routing.module').then(m=>m.ConfigaccountRoutingModule)},
       {path:'messages',loadChildren:()=>import('./views/manpage/message/message-routing.module').then(m=>m.MessageRoutingModule)},
-
     ]},
   {path:'influencer',component:InfpageComponent,canActivate:[InfGuardGuard],children:[
     {path:'',loadChildren:()=>import('./views/infpage/welcom/welcom-routing.module').then(m=>m.WelcomRoutingModule)},
     {path:'produits',loadChildren:()=>import('./views/infpage/produits/produits-routing.module').then(m=>m.ProduitsRoutingModule)},
     {path:'pub',loadChildren:()=>import('./views/infpage/pubs/pubs-routing.module').then(m=>m.PubsRoutingModule)},
     {path:'produit/:id',loadChildren:()=>import('./views/oneprod/oneprod-routing.module').then(m=>m.OneprodRoutingModule)},
+    {path:'man/:id',loadChildren:()=>import('./views/profman/profman-routing.module').then(m=>m.ProfmanRoutingModule)},
+    {path:'mans',loadChildren:()=>import('./views/infpage/manofinf/manofinf-routing.module').then(m=>m.ManofinfRoutingModule)},
+    {path:'config',loadChildren:()=>import('./views/configaccount/configaccount-routing.module').then(m=>m.ConfigaccountRoutingModule)},
+    {path:'profile',loadChildren:()=>import('./views/profinf/profinf-routing.module').then(m=>m.ProfinfRoutingModule)},
+    {path:'newmans',loadChildren:()=>import('./views/infpage/newman/newman-routing.module').then(m=>m.NewmanRoutingModule)}
     ]}, 
   {path:'**',component:NotfoundComponent}
 ];

@@ -1,0 +1,13 @@
+
+ <div class="card mb-3 ">
+   <img *ngIf="item.image!=null" [src]="item.image" class="card-img-top">
+   <img *ngIf="item.image==null" src="assets/admin/img/undraw_profile.svg" class="card-img-top">
+   <form   class="row g-3" [formGroup]="myForm"  (ngSubmit)="change()" >
+   <input type="file" *ngIf="condition" formControlName="profile"  required (change)="selectImage($event)">
+   <button type="submit" class="btn btn-primary">change</button>
+   </form>
+    <div class="card-body">
+    <h5 class="card-title">{{item.fullname}}</h5>
+    <p class="card-text">{{item.email}}</p>
+    </div>
+    </div>  

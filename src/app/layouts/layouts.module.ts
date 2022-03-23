@@ -20,6 +20,11 @@ import { AdminpageComponent } from './adminpage/adminpage.component';
 import { ManagersModule } from '../views/Adminpage/managers/managers.module';
 import { DashbordModule } from '../views/Adminpage/dashbord/dashbord.module';
 import { InfluencersModule } from '../views/Adminpage/influencers/influencers.module';
+import { ProfmanModule } from '../views/profman/profman.module';
+import { ManofinfModule } from '../views/infpage/manofinf/manofinf.module';
+import { ConfigaccountModule } from '../views/configaccount/configaccount.module';
+import { ProfinfModule } from '../views/profinf/profinf.module';
+import { NewmanModule } from '../views/infpage/newman/newman.module';
 
 
 
@@ -49,7 +54,12 @@ import { InfluencersModule } from '../views/Adminpage/influencers/influencers.mo
     SignupManModule,
     ManagersModule,
     DashbordModule,
-    InfluencersModule
+    InfluencersModule,
+    ProfmanModule,
+    ManofinfModule,
+    ConfigaccountModule,
+    ProfinfModule,
+    NewmanModule
   ]
 })
 export class LayoutsModule { }

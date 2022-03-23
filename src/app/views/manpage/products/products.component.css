@@ -4,3 +4,15 @@
 .fa-pen-to-square{
     color:yellow;
 }
+.image{
+    width: 300px;
+    height: 300px;
+}
+img{
+    width: 300px;
+    height: 300px;
+}
+.card{
+    width: 310px;
+    height: fit-content;
+} 

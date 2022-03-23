@@ -22,7 +22,7 @@
             <div class="col-md-4">
               <label class="form-label">image</label>
               <div class="input-group">
-                <input type="text" class="form-control" required name="image"  formControlName="image" >
+                <input type="file" class="form-control" required name="image"  (change)="selectImage($event)" >
               </div>
             </div>
             <div class="col-md-6">

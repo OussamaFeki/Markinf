@@ -12,6 +12,9 @@ color: white;
 .fa-ban{
    color: red;
 }
+.btn-instagram .btn-user:hover{
+background-color: linear-gradient(30deg,#4153ec,#f1f525,#f5be25);
+}
 .fa-circle-check{
    color:greenyellow;
 }

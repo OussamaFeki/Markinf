@@ -1,1 +1,21 @@
-<p>managers works!</p>
+<h1>managers</h1> <br>
+<table class="table">
+  <form ></form>
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Fullname </th>
+        <th scope="col">email</th>
+        <th scope="col">for details</th>
+        <th scope="col">for delete</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr class="listes" *ngFor="let item of list;index as i">
+        <td>{{item.fullname}}</td>
+        <td>{{item.email}}</td>
+        <td><i class="fa-solid fa-file-lines"></i></td>
+        <td><i class="fa-solid fa-trash-can" (click)="del(item._id,i)"></i></td>
+      </tr>
+    </tbody>
+    <p *ngIf="!list" >there is no influencers </p>
+  </table>

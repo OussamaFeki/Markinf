@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductsComponent } from './products.component';
 
@@ -17,6 +17,7 @@ import { ProductsComponent } from './products.component';
     NgxPaginationModule,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
   ]
 })

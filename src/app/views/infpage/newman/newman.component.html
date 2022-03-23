@@ -1,0 +1,21 @@
+<h1>New managers</h1> <br>
+<table class="table">
+  <form ></form>
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Fullname </th>
+        <th scope="col">email</th>
+        <th scope="col">for accept</th>
+        <th scope="col">for refuse</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr class="listes" *ngFor="let item of list;index as i">
+        <td>{{item.fullname}}</td>
+        <td>{{item.email}}</td>
+        <td (click)="accepter(item._id,i)"><i class="fa-solid fa-circle-check"></i></td>
+        <td (click)="refuse(item._id,i)"><i class="fa-solid fa-circle-xmark"></i></td>
+      </tr>
+    </tbody>
+    <p *ngIf="!list" >there is no managers </p>
+  </table>
