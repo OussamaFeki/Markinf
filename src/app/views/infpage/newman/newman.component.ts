@@ -1,8 +1,8 @@
 import { Component, OnInit ,OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthoInfService } from 'src/app/services/autho-inf.service';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
-
+import io from 'socket.io-client'
 @Component({
   selector: 'app-newman',
   templateUrl: './newman.component.html',
@@ -13,12 +13,18 @@ export class NewmanComponent implements OnInit,OnDestroy {
   obj:Subscription;
   id_inf:any;
   p: number = 1;
-  constructor(private share:ShareserviceService,private auth:AuthoInfService) {this.id_inf=this.auth.getprof().id
+  socket:any
+  constructor(private share:ShareserviceService,private auth:AuthoInfService) {
+    this.id_inf=this.auth.getprof().id
+    this.socket=io('http://localhost:3000')
     this.obj=this.share.boiteinvitofinf(this.id_inf).subscribe((data:any)=> {
       this.list=data
     }) }
   
   ngOnInit(): void {
+    this.obj=this.listen(`datainf ${this.id_inf}`).subscribe((data:any)=>{
+      this.list=data
+     })
   }
  accepter(id:any,i:any){
   this.share.addinfs(id,this.id_inf).subscribe((data:any)=>{
@@ -48,5 +54,12 @@ export class NewmanComponent implements OnInit,OnDestroy {
 }
 ngOnDestroy(): void {
     this.obj.unsubscribe()
+}
+listen(eventName:any){
+  return new Observable((sub:any)=>{
+    this.socket.on(eventName,(data:any)=>{
+    sub.next(data)
+    })
+  })
 }
 }

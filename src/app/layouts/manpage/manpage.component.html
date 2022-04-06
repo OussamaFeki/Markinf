@@ -86,9 +86,9 @@
                   <span>influanceurs</span></a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" routerLink="ninf">
+            <a class="nav-link" routerLink="ninf" (click)="desnotif()">
               <i class="fa-solid fa-user-plus"></i>
-               <span>new influanceurs</span></a>
+               <span>new influanceurs</span><span *ngIf="test" class="badge badge-danger badge-counter">*</span></a>
           </li>
           <li class="nav-item ">
             <a class="nav-link" routerLink="anonce">

@@ -31,9 +31,9 @@
                 <span>My managers</span></a>
         </li>
         <li class="nav-item ">
-            <a class="nav-link" routerLink="newmans">
+            <a class="nav-link" routerLink="newmans" (click)="desnot()">
                 <i class="fa-brands fa-black-tie"></i>
-                <span>New Managers</span><span *ngIf="numberofnewman!=null" class="badge badge-danger badge-counter">{{numberofnewman}}</span></a>
+                <span>New Managers</span><span *ngIf="test" class="badge badge-danger badge-counter">*</span></a>
         </li>
         <!-- Divider -->
         <hr class="sidebar-divider">

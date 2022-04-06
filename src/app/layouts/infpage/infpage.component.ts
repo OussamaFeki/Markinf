@@ -6,7 +6,6 @@ import { AuthoInfService } from 'src/app/services/autho-inf.service';
 import io from 'socket.io-client'
 import { Observable } from 'rxjs';
 import { WebSocketService } from 'src/app/services/web-socket.service';
-const socket=io('http://localhost:3000')
 @Component({
   selector: 'app-infpage',
   templateUrl: './infpage.component.html',
@@ -21,6 +20,7 @@ export class InfpageComponent implements OnInit {
   counter:any
   numberofnewman:any
   socket:any
+  test:any
   constructor(private auth:AuthoInfService,private route:Router,private formbuilder:FormBuilder) {
     this.myForm=this.formbuilder.group({
       fullname:['']
@@ -29,13 +29,15 @@ export class InfpageComponent implements OnInit {
     this.id=this.auth.getprof().id
     this.auth.getinf(this.id).subscribe(doc=>this.prof=doc)
     console.log(this.auth.IsloggedIn())
+    this.socket=io('http://localhost:3000')
     
   }
 
   ngOnInit(): void {
-   socket.on('data1',(res)=>{
-     console.log(res)
-   })
+    this.listen(`notif ${this.id}`).subscribe((data:any)=>{
+      this.test=data
+      console.log(this.test)
+     })
   }
   logout(){
    localStorage.clear()
@@ -47,5 +49,15 @@ export class InfpageComponent implements OnInit {
        this.route.navigateByUrl(`/influencer/managers${this.address}`)
     }else{
       this.route.navigate(['/influencer/managers'])}
+  }
+  listen(eventName:any){
+    return new Observable((sub:any)=>{
+      this.socket.on(eventName,(data:any)=>{
+      sub.next(data)
+      })
+    })
+  }
+  desnot(){
+    this.test=false
   }
 }
