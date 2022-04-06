@@ -27,13 +27,24 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./src/assets/admin/vendor/jquery/jquery.min.js",
+              "./src/assets/admin/vendor/jquery-easing/jquery.easing.min.js",
+              "./src/assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js",
+              "./src/assets/admin/js/sb-admin-2.min.js",
+              "./src/assets/admin/vendor/chart.js/Chart.min.js",
+              "./src/assets/admin/js/demo/chart-area-demo.js",
+              "./src/assets/admin/js/demo/chart-pie-demo.js"
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -95,7 +106,8 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.css"

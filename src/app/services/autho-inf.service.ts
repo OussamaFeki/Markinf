@@ -58,4 +58,10 @@ export class AuthoInfService {
   getinf(id:any){
     return this.http.get('http://localhost:3000/influencer/'+id)
   }
+  invitman(id_man:any,idinf:any){
+    return this.http.get('http://localhost:3000/addnewinf?id='+id_man+'&infid='+idinf)
+  }
+  invited(id_man:any,idinf:any){
+    return this.http.get('http://localhost:3000/newinfid?id_man='+id_man+'&id_inf='+idinf)
+  }
 }

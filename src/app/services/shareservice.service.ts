@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,10 @@ export class ShareserviceService {
 
   constructor(private http:HttpClient) {
   }
-  
+  private _refreshrequired= new Subject<void>();
+  get Refreshrequired(){
+    return this._refreshrequired;
+  }
   getallinf(){
    return this.http.get('http://localhost:3000/influencers')  
   }
@@ -20,6 +24,9 @@ export class ShareserviceService {
   }
   getman(id:any){
     return this.http.get('http://localhost:3000/manager/'+id)
+  }
+  searchman(fullname:any){
+    return this.http.get('http://localhost:3000/researchman?fullname='+fullname)
   }
   getallprod(){
     return this.http.get('http://localhost:3000/products')
@@ -42,10 +49,10 @@ export class ShareserviceService {
   deleteinf(id:any){
     return this.http.delete('http://localhost:3000/delete/'+id) 
   }
-  boiteinvit(id:any){
-    return this.http.get('http://localhost:3000/newinf/'+id)
+  boiteinvit(id:any):Observable<any>{
+    return this.http.get<any>('http://localhost:3000/newinf/'+id)
   }
-  boiteinvitofinf(id:any){
+  boiteinvitofinf(id:any):Observable<any>{
     return this.http.get('http://localhost:3000/newman/'+id)
   }
   addinfs(id_man:any,id:any){

@@ -60,5 +60,13 @@ export class AuthoManService {
   refuse(id_man:any,id:any){
      return this.http.get('http://localhost:3000/refuse?man_id='+id_man+'&id='+id)
   }
-  
+  invited(id_man:any,idinf:any){
+    return this.http.get('http://localhost:3000/newmanid?id_man='+id_man+'&id_inf='+idinf)
+  }
+  invitinf(id:any,id_man:any){
+    return this.http.get('http://localhost:3000/addnewman?id='+id+'&manid='+id_man)
+  }
+  accepted(id_man:any,idinf:any){
+    return this.http.get('http://localhost:3000/findmanid?id_man='+id_man+'&id_inf='+idinf)
+  }
 }

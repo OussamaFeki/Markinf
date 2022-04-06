@@ -9,19 +9,19 @@ import { AuthoInfService } from 'src/app/services/autho-inf.service';
   styleUrls: ['./profinf.component.css']
 })
 export class ProfinfComponent implements OnInit {
-  id_man:any
+  id_inf:any
   item:any
   condition:any
   myForm:any
   constructor(private auth:AuthoInfService,private formbuilder:FormBuilder,private route:ActivatedRoute) {
     if (this.auth.IsloggedIn()){
-      this.id_man=this.auth.getprof().id
+      this.id_inf=this.auth.getprof().id
       }else{
         this.route.params.subscribe((res)=>{
-          this.id_man=res.id
-          console.log(this.id_man)})
+          this.id_inf=res.id
+          console.log(this.id_inf)})
       }
-      this.auth.getinf(this.id_man).subscribe((doc:any)=>{this.item=doc;
+      this.auth.getinf(this.id_inf).subscribe((doc:any)=>{this.item=doc;
       console.log(this.item.image)
       })
      this.condition=this.auth.IsloggedIn()
@@ -45,6 +45,6 @@ export class ProfinfComponent implements OnInit {
   change(){
     const formData:any =new FormData();
     formData.append('image', this.myForm.get('image').value)
-    this.auth.upavatar(this.id_man,formData).subscribe(doc=>{console.log(doc)})
+    this.auth.upavatar(this.id_inf,formData).subscribe(doc=>{console.log(doc)})
   }
 }

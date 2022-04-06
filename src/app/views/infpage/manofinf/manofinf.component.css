@@ -1,13 +1,13 @@
 .fa-circle-check{
     color: green;
 }
-.fa-trash-can{
+.fa-user-minus{
     color: red;
 }
 .fa-file-lines{
     color:cadetblue
 }
 img{
-    weight:30px;
-    height:30px;
+    weight:10px;
+    height:40px;
 }

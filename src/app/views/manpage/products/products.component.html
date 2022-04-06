@@ -69,7 +69,7 @@
   </table> -->
   <h1>products</h1>
   <div class="row row-cols-1 row-cols-md-3 g-4" >
-  <div class="col" *ngFor="let element of list;index as i" >
+  <div class="col" *ngFor="let element of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
     <div class="card">
       <img [src]="element.image" class="card-img-top" >
       <div class="card-body">
@@ -123,3 +123,8 @@
     </div>
   </div>
 </div>
+<p *ngIf="list==''">there is no product</p>
+<pagination-controls 
+(pageChange)="p = $event" 
+class="float-right" *ngIf="list!=''">
+</pagination-controls>

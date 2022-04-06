@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthoInfService } from 'src/app/services/autho-inf.service';
 import { AuthoManService } from 'src/app/services/autho-man.service';
@@ -10,11 +11,12 @@ import { ShareserviceService } from 'src/app/services/shareservice.service';
   templateUrl: './manofinf.component.html',
   styleUrls: ['./manofinf.component.css']
 })
-export class ManofinfComponent implements OnInit {
+export class ManofinfComponent implements OnInit ,OnDestroy {
  obj:Subscription;
  id:any;
- list:any
-  constructor(private auth:AuthoInfService,private share:ShareserviceService) {
+ list:any;
+ p: number = 1;
+  constructor(private auth:AuthoInfService,private share:ShareserviceService,private router:Router) {
     this.id=this.auth.getprof().id
     this.obj=this.auth.getmansofinf(this.id).subscribe((data:any)=>this.list=data)
    }
@@ -34,5 +36,11 @@ export class ManofinfComponent implements OnInit {
     },(err:HttpErrorResponse)=>{
       console.log(err)
     })
+  }
+  toprofman(id:any){
+    this.router.navigateByUrl('/influencer/man/'+id)
+  }
+  ngOnDestroy(): void {
+      this.obj.unsubscribe()
   }
 }

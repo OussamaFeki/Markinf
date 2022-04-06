@@ -1,5 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, Observable } from 'rxjs';
+import { AuthoAdminService } from 'src/app/services/autho-admin.service';
+import { AuthoInfService } from 'src/app/services/autho-inf.service';
+import { AuthoManService } from 'src/app/services/autho-man.service';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
 
 @Component({
@@ -9,18 +14,67 @@ import { ShareserviceService } from 'src/app/services/shareservice.service';
 })
 export class ManagersComponent implements OnInit ,OnDestroy {
 list:any
+search:any
 obj:Subscription
-constructor(private share:ShareserviceService) {
-  this.obj=this.share.getallman().subscribe(doc=>this.list=doc)
- }
-
+condition:any
+infcond:any
+id:any
+invit:any=[]
+accept:any=[]
+wait:any=[]
+p: number = 1;
+obs:any
+constructor(private share:ShareserviceService,private route:ActivatedRoute,private auth:AuthoAdminService,private auth1:AuthoInfService,private auth2:AuthoManService,
+  private router:Router,
+  
+  ) {
+  this.route.queryParams.subscribe(params=>{
+    if (params.fullname!=undefined){
+    this.search=params.fullname}
+    else{
+      this.search=''
+    }
+    // this.obs=new Observable()
+    
+    this.obj=this.share.searchman(this.search).subscribe((doc:any)=>{
+      this.list=doc
+      // list$=this.list
+      // console.log(list$)
+      if(this.infcond){
+        this.id=this.auth1.getprof().id
+        for(let i in this.list){
+          this.isinvit(this.list[i]._id,i)
+          this.accepted(this.list[i]._id,i)
+          this.waiting(this.list[i]._id,i)
+        }
+      }
+     } )
+  })
+  this.condition=this.auth.IsloggedIn()
+  this.infcond=this.auth1.IsloggedIn()
+  this.obj=this.share.searchman(this.search).subscribe((doc:any)=>{
+    this.list=doc
+    if(this.infcond){
+      this.id=this.auth1.getprof().id
+      for(let i in this.list){
+        this.isinvit(this.list[i]._id,i)
+        this.accepted(this.list[i]._id,i)
+        this.waiting(this.list[i]._id,i)
+      }
+    }
+   } )
+  
+  
+   
+}
 ngOnInit(): void {
+
 }
 ngOnDestroy(): void {
   this.obj.unsubscribe()
     
 }
-  del(id:any,i:any){
+del(id:any,i:any){
     this.share.delman(id).subscribe((data)=>{
       console.log(data);
       this.list.splice(i,1);
@@ -28,5 +82,39 @@ ngOnDestroy(): void {
         console.log(dat)
       })
     })
+    }
+invitation(id_man:any,i:any){
+  if(this.id){
+  this.auth1.invitman(id_man,this.id).subscribe(doc=>
+    {console.log(doc)
+     this.invit[i]=true   
+    },
+  (err:HttpErrorResponse)=>{console.log(err)})
   }
+}
+isinvit(id_man:any,i:any){
+ this.auth1.invited(id_man,this.id).subscribe(doc=>{
+   this.invit[i]=doc 
+ })
+
+}
+desinvit(id_man:any,i:any){
+ this.auth2.refuse(id_man,this.id).subscribe(doc=>{
+   this.invit[i]=false
+   console.log(doc)
+ })
+}
+toprofman(id:any){
+  this.router.navigateByUrl('/admin/man/'+id)
+}
+accepted(id_man:any,i:any){
+  this.auth2.accepted(id_man,this.id).subscribe(doc=>{
+    this.accept[i]=doc 
+  })
+}
+waiting(id_man:any,i:any){
+  this.auth2.invited(this.id,id_man).subscribe(doc=>{
+    this.wait[i]=doc 
+  })
+}
 }

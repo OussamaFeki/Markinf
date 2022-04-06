@@ -10,15 +10,19 @@
       </tr>
     </thead>
     <tbody >
-      <tr class="listes" *ngFor="let item of list;index as i">
+      <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage: 7, currentPage: p };index as i">
         <td>{{item.fullname}}</td>
         <td>{{item.email}}</td>
         <td><img class="img-profile rounded-circle" *ngIf="item.image==null" src='assets/admin/img/undraw_profile.svg'>
         <img class="img-profile rounded-circle" *ngIf="item.image!=null" [src]="item.image">
         </td>
-        <td><i class="fa-solid fa-file-lines"></i></td>
-        <td><i class="fa-solid fa-trash-can" (click)="fier(item._id,i)"></i></td>
+        <td><i class="fa-solid fa-file-lines" (click)="toprofman(item._id)" ></i></td>
+        <td><i class="fa-solid fa-user-minus" (click)="fier(item._id,i)"></i></td>
       </tr>
     </tbody>
-    <p *ngIf="list==undefined" >there is no influencers</p>
+    <p *ngIf="list==''" >there is no influencers</p>
+    <pagination-controls 
+(pageChange)="p = $event" 
+class="float-right" *ngIf="list!=''">
+</pagination-controls>
   </table>

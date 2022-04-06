@@ -17,13 +17,15 @@ const routes: Routes = [
     {path:'',loadChildren:()=>import('./views/front/index/index-routing.module').then(m=>m.IndexRoutingModule)},
     {path:'login',loadChildren:()=>import('./views/front/log-in/log-in-routing.module').then(m=>m.LogInRoutingModule)},
     {path:'signup',loadChildren:()=>import('./views/front/sign-up/sign-up-routing.module').then(m=>m.SignUpRoutingModule)},
-    {path:'man/signup',loadChildren:()=>import('./views/front/signup-man/signup-man-routing.module').then(m=>m.SignupManRoutingModule)}
+    {path:'man/signup',loadChildren:()=>import('./views/front/signup-man/signup-man-routing.module').then(m=>m.SignupManRoutingModule)},
+    {path:'annoncer',loadChildren:()=>import('./views/infpage/anonspage/anonspage-routing.module').then(m=>m.AnonspageRoutingModule)}
   ]},
   {path:'admin',component:AdminpageComponent,canActivate:[GuardadminGuard],children:[
     {path:'',loadChildren:()=>import('./views/Adminpage/dashbord/dashbord-routing.module').then(m=>m.DashbordRoutingModule)},
     {path:'managers',loadChildren:()=>import('./views/Adminpage/managers/managers-routing.module').then(m=>m.ManagersRoutingModule)},
     {path:'influencers',loadChildren:()=>import('./views/Adminpage/influencers/influencers-routing.module').then(m=>m.InfluencersRoutingModule)},
-
+    {path:'profile/:id',loadChildren:()=>import('./views/profinf/profinf-routing.module').then(m=>m.ProfinfRoutingModule)},
+    {path:'man/:id',loadChildren:()=>import('./views/profman/profman-routing.module').then(m=>m.ProfmanRoutingModule)},
   ]},
     {path:'manager',component:ManpageComponent,canActivate:[GaurdManagGuard],children:[
       {path:'',loadChildren:()=>import('./views/manpage/welcom/welcom-routing.module').then(m=>m.WelcomRoutingModule)},
@@ -32,6 +34,8 @@ const routes: Routes = [
       {path:'produits',loadChildren:()=>import('./views/manpage/products/products-routing.module').then(m=>m.ProductsRoutingModule)},
       {path:'produit/:id',loadChildren:()=>import('./views/oneprod/oneprod-routing.module').then(m=>m.OneprodRoutingModule)},
       {path:'profile',loadChildren:()=>import('./views/profman/profman-routing.module').then(m=>m.ProfmanRoutingModule)},
+      {path:'profile/:id',loadChildren:()=>import('./views/profinf/profinf-routing.module').then(m=>m.ProfinfRoutingModule)},
+      {path:'influencers',loadChildren:()=>import('./views/Adminpage/influencers/influencers-routing.module').then(m=>m.InfluencersRoutingModule)},
       {path:'anonce',children:[
         {path:'',loadChildren:()=>import('./views/manpage/cranon/cranon-routing.module').then(m=>m.CranonRoutingModule)},
         {path:'addprod',loadChildren:()=>import('./views/manpage/addprod/addprod-routing.module').then(m=>m.AddprodRoutingModule)}, 
@@ -45,6 +49,7 @@ const routes: Routes = [
     {path:'pub',loadChildren:()=>import('./views/infpage/pubs/pubs-routing.module').then(m=>m.PubsRoutingModule)},
     {path:'produit/:id',loadChildren:()=>import('./views/oneprod/oneprod-routing.module').then(m=>m.OneprodRoutingModule)},
     {path:'man/:id',loadChildren:()=>import('./views/profman/profman-routing.module').then(m=>m.ProfmanRoutingModule)},
+    {path:'managers',loadChildren:()=>import('./views/Adminpage/managers/managers-routing.module').then(m=>m.ManagersRoutingModule)},
     {path:'mans',loadChildren:()=>import('./views/infpage/manofinf/manofinf-routing.module').then(m=>m.ManofinfRoutingModule)},
     {path:'config',loadChildren:()=>import('./views/configaccount/configaccount-routing.module').then(m=>m.ConfigaccountRoutingModule)},
     {path:'profile',loadChildren:()=>import('./views/profinf/profinf-routing.module').then(m=>m.ProfinfRoutingModule)},

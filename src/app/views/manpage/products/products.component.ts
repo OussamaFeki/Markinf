@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -7,16 +7,16 @@ import { Subscription } from 'rxjs';
 import { AuthoManService } from 'src/app/services/autho-man.service';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
 
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit,OnDestroy {
   obj:Subscription
-  list:any
+  list:any=[]
   totalLength:any;
-  page:number=1;
   id:any;
   man:any
   man_id:any
@@ -29,6 +29,8 @@ export class ProductsComponent implements OnInit {
   //  price:'',
   //  tag:''
   // }
+  p: number = 1;
+  
   constructor(private share :ShareserviceService,private route:Router,config: NgbModalConfig, private modalService: NgbModal,private auth:AuthoManService,private formbuild:FormBuilder) {
       this.man_id=this.auth.getprof().id 
       this.obj=this.share.getprodman(this.man_id).subscribe((doc)=>{
@@ -79,5 +81,8 @@ export class ProductsComponent implements OnInit {
     // let profile=this.myForm.value
     // console.log(profile)
     this.share.upprod(formData,this.id).subscribe(doc=>console.log(doc),(err:HttpErrorResponse)=>{console.log(err.message)})
+  }
+  ngOnDestroy(): void {
+      this.obj.unsubscribe()
   }
 }

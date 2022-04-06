@@ -5,6 +5,7 @@ import { InfisRoutingModule } from './infis-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { InfisComponent } from './infis.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [InfisComponent],
@@ -12,7 +13,8 @@ import { InfisComponent } from './infis.component';
     CommonModule,
     InfisRoutingModule,
     BrowserModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ]
 })
 export class InfisModule { }

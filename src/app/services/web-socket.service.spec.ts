@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UpprodImgService } from './upprod-img.service';
+import { WebSocketService } from './web-socket.service';
 
-describe('UpprodImgService', () => {
-  let service: UpprodImgService;
+describe('WebSocketService', () => {
+  let service: WebSocketService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UpprodImgService);
+    service = TestBed.inject(WebSocketService);
   });
 
   it('should be created', () => {

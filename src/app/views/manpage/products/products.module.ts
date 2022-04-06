@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductsComponent } from './products.component';
+import { HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { ProductsComponent } from './products.component';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
+    HttpClientModule,
   ]
 })
 export class ProductsModule { }

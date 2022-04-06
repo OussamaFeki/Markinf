@@ -1,5 +1,5 @@
 <h1>managers</h1> <br>
-<table class="table">
+<table class="table" *ngIf="condition">
   <form ></form>
     <thead class="table-dark">
       <tr>
@@ -10,12 +10,41 @@
       </tr>
     </thead>
     <tbody >
-      <tr class="listes" *ngFor="let item of list;index as i">
+      <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage: 5, currentPage: p };index as i">
         <td>{{item.fullname}}</td>
         <td>{{item.email}}</td>
-        <td><i class="fa-solid fa-file-lines"></i></td>
+        <td><i class="fa-solid fa-file-lines" (click)="toprofman(item._id)"></i></td>
         <td><i class="fa-solid fa-trash-can" (click)="del(item._id,i)"></i></td>
       </tr>
     </tbody>
-    <p *ngIf="!list" >there is no influencers </p>
+    <p *ngIf="!list" >there is no managers </p>
+    <pagination-controls 
+(pageChange)="p = $event" 
+class="float-right">
+</pagination-controls>
   </table>
+  <table class="table" *ngIf="infcond" >
+    <form ></form>
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Fullname </th>
+          <th scope="col">email</th>
+          <th scope="col">opperation</th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr class="listes" *ngFor="let item of list | paginate:{ itemsPerPage: 7, currentPage: p };index as i">
+          <td>{{item.fullname}}</td>
+          <td>{{item.email}}</td>
+          <td *ngIf="!invit[i]&&!accept[i]&&!wait[i]" ><i class="fa-solid fa-user-plus" (click)="invitation(item._id,i)"></i></td>
+          <td *ngIf="accept[i]" routerLink="../mans"><i class="fa-solid fa-user-check" ></i></td>
+          <td *ngIf="invit[i]"><i class="fa-solid fa-user-clock" (click)="desinvit(item._id,i)"></i></td>
+          <td *ngIf="wait[i]" routerLink="../newmans">attend...</td>
+        </tr>
+      </tbody>
+      <p *ngIf="!list" >there is no managers </p>
+      <pagination-controls 
+(pageChange)="p = $event" 
+class="float-right">
+</pagination-controls>
+    </table>

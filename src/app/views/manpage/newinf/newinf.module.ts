@@ -5,6 +5,7 @@ import { NewinfRoutingModule } from './newinf-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NewinfComponent } from './newinf.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -16,6 +17,7 @@ import { NewinfComponent } from './newinf.component';
     NewinfRoutingModule,
     BrowserModule,
     FormsModule,
+    NgxPaginationModule,
   ]
 })
 export class NewinfModule { }

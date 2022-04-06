@@ -14,7 +14,7 @@ export class AdminpageComponent implements OnInit {
     this.myForm=this.formbuilder.group({
       fullname:['']
     })
-   }
+  }
 
   ngOnInit(): void {
   }

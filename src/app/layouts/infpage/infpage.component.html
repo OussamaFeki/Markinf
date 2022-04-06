@@ -27,13 +27,13 @@
         </li>
         <li class="nav-item ">
             <a class="nav-link" routerLink="mans">
-                <i class="fa-brands fa-product-hunt"></i>
+                <i class="fa-solid fa-user-tie"></i>
                 <span>My managers</span></a>
         </li>
         <li class="nav-item ">
             <a class="nav-link" routerLink="newmans">
-                <i class="fa-brands fa-product-hunt"></i>
-                <span>New Managers</span></a>
+                <i class="fa-brands fa-black-tie"></i>
+                <span>New Managers</span><span *ngIf="numberofnewman!=null" class="badge badge-danger badge-counter">{{numberofnewman}}</span></a>
         </li>
         <!-- Divider -->
         <hr class="sidebar-divider">
@@ -71,12 +71,13 @@
 
                 <!-- Topbar Search -->
                 <form
-                    class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+                    [formGroup]="myForm" (ngSubmit)="search()">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                            aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for managers.."
+                            aria-label="Search" aria-describedby="basic-addon2" formControlName="fullname">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
+                            <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
@@ -116,7 +117,7 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-bell fa-fw" style="color:rgb(60, 89, 250);"></i>
                             <!-- Counter - Alerts -->
-                            <span class="badge badge-danger badge-counter">3+</span>
+                            <span class="badge badge-danger badge-counter">{{counter}}</span>
                         </a>
                         <!-- Dropdown - Alerts -->
                         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
