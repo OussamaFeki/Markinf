@@ -1,1 +1,23 @@
-<p>configaccount works!</p>
+<h1>Configueration</h1>
+<div class="contatiner" >
+    <form [formGroup]="myform" (ngSubmit)="change()">
+      <div class="mb-3 m-2">
+        <label for="exampleFormControlInput1" class="form-label">oldpassword</label><br>
+        <input type="email" class="form-control-user" id="exampleFormControlInput1" placeholder="OldPassword" formControlName="oldpass" required>
+      </div>
+      <div class="mb-3 m-2">
+        <label for="exampleFormControlInput1" class="form-label">Newpassword</label><br>
+        <input type="email" class="form-control-user" id="exampleFormControlInput1" placeholder="NewPassword" formContorlName="newpass" required>
+      </div>
+      <div class="mb-3 m-2">
+        <button type="submit" class="btn btn-primary">change</button>
+      </div>
+    </form>
+    <form>
+      <div class="d-grid gap-2 col-6 mx-auto">
+      <a href="index.html"  class="btn btn-facebook btn-user btn-block ">
+        <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+    </a>
+      </div>
+    </form>  
+</div>

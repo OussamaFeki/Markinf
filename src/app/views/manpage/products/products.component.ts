@@ -21,14 +21,6 @@ export class ProductsComponent implements OnInit,OnDestroy {
   man:any
   man_id:any
   myForm:any
-  // prodprofile={
-  //  name:'',
-  //  mark:'',
-  //  image:'',
-  //  description:'',
-  //  price:'',
-  //  tag:''
-  // }
   p: number = 1;
   
   constructor(private share :ShareserviceService,private route:Router,config: NgbModalConfig, private modalService: NgbModal,private auth:AuthoManService,private formbuild:FormBuilder) {

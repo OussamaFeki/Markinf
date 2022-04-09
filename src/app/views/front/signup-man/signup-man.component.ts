@@ -36,6 +36,7 @@ export class SignupManComponent implements OnInit {
   let profile =this.myForm.value
   this.auth.RegMan(profile).subscribe((doc:any)=>{
     this.message=doc.msg
+    this.myForm.reset()
   },(err:HttpErrorResponse)=>{
     if(err.error.errors){
       this.erromessage=err.error.errors.msg

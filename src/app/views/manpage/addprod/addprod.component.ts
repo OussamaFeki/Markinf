@@ -1,20 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import {  FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
 import { AuthoManService } from 'src/app/services/autho-man.service';
-import { formatDiagnosticsWithColorAndContext } from 'typescript';
+import { ToastServiceService } from 'src/app/services/toast-service.service';
 @Component({
   selector: 'app-addprod',
   templateUrl: './addprod.component.html',
   styleUrls: ['./addprod.component.css']
 })
-export class AddprodComponen implements OnInit {
+export class AddprodComponen implements OnInit,OnDestroy {
   myForm:any
   id_man:any
   image:any
-  constructor(private route:Router ,private formbuild:FormBuilder,private share:ShareserviceService,private auth:AuthoManService) {
+  constructor(private route:Router ,private formbuild:FormBuilder,private share:ShareserviceService,private auth:AuthoManService , private toast:ToastServiceService) {
     this.myForm=this.formbuild.group({
       name:['',Validators.required],
       mark:['',Validators.required],
@@ -37,7 +36,7 @@ export class AddprodComponen implements OnInit {
       this.myForm.get('image')?.updateValueAndValidity()
     }
   }
-  add(){
+  add(dan:any){
     const formData:any =new FormData();
     formData.append('name', this.myForm.get('name').value)
     formData.append('mark', this.myForm.get('mark').value)
@@ -50,10 +49,19 @@ export class AddprodComponen implements OnInit {
     //let profile=this.myForm.value
     console.log(formData)
     console.log(this.myForm.value)
-    this.share.addprod(formData,this.id_man).subscribe(doc=>console.log(doc))
+    this.share.addprod(formData,this.id_man).subscribe(doc=>{
+      console.log(doc)
+      this.toast.show('registred',{ classname: 'bg-success text-light', delay: 10000 });
+      this.myForm.reset()
+    },(err)=>{
+      this.toast.show(dan, { classname: 'bg-danger text-light', delay: 15000 });
+    })
     
   }
   tocranon(){
     this.route.navigate(['manager/anonce'])
+  }
+  ngOnDestroy(): void {
+    this.toast.clear();
   }
 }

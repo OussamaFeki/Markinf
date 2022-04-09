@@ -40,6 +40,7 @@ export class SignUpComponent implements OnInit {
       console.log(doc.doc)
       this.route.navigate(['../signup'])
       this.message=doc.msg
+      this.myForm.reset()
     },(error:HttpErrorResponse)=>{console.log(error)
       if(error.error.errors){
         this.erromessage=error.error.errors.msg

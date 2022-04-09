@@ -16,7 +16,7 @@ export class AuthoManService {
   issavetoken(token:any){
     localStorage.setItem('token',token)
    }
-   getprof(){
+  getprof(){
     let token:any=localStorage.getItem('token')
     if(!token){
       return null
@@ -69,4 +69,7 @@ export class AuthoManService {
   accepted(id_man:any,idinf:any){
     return this.http.get('http://localhost:3000/findmanid?id_man='+id_man+'&id_inf='+idinf)
   }
+  // configpass(id_man:any,form:any){
+  //   return this.http.put('http://localhost:3000/configman/:id_man'+id_man,form)
+  // }
 }

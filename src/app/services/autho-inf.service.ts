@@ -64,4 +64,7 @@ export class AuthoInfService {
   invited(id_man:any,idinf:any){
     return this.http.get('http://localhost:3000/newinfid?id_man='+id_man+'&id_inf='+idinf)
   }
+  loginfb(){
+    return this.http.get('http://localhost:3000/auth/facebook')
+  }
 }

@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,8 @@ import { ConfigaccountComponent } from './configaccount.component';
   declarations: [ConfigaccountComponent],
   imports: [
     CommonModule,
-    ConfigaccountRoutingModule
+    ConfigaccountRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class ConfigaccountModule { }
