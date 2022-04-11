@@ -15,9 +15,10 @@
     </form>
     <form>
       <div class="d-grid gap-2 col-6 mx-auto">
-      <a href="index.html"  class="btn btn-facebook btn-user btn-block ">
-        <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-    </a>
+    <a (click)="submitLogin()"*ngIf="profile==undefined&&isinf"   class="btn btn-facebook btn-user btn-block ">
+      <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+  </a>
+  <p *ngIf="profile!=undefined&&isinf"> your facebook is logged in </p>
       </div>
     </form>  
 </div>

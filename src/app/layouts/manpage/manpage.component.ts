@@ -20,11 +20,14 @@ export class ManpageComponent implements OnInit {
   countnotif:any
   socket:any
   test:any
+  image:any
   constructor(private route:Router,private auth:AuthoManService,private share:ShareserviceService,private formbuilder:FormBuilder) {
     this.username=this.auth.getprof().fullname
     this.id=this.auth.getprof().id
     this.socket=io('http://localhost:3000')
-    this.share.getman(this.id).subscribe(doc=>this.prof=doc)
+    this.share.getman(this.id).subscribe(doc=>{this.prof=doc
+    this.image=this.prof.image
+    })
     console.log(this.auth.IsloggedIn())
     this.myForm=this.formbuilder.group({
       fullname:['']

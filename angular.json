@@ -32,7 +32,8 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+              "src/styles.css",
+              "./src/assets/admin/vendor/fontawesome-free/css/all.min.css"
             ],
             "scripts": [
               "./src/assets/admin/vendor/jquery/jquery.min.js",

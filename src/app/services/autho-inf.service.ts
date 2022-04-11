@@ -67,4 +67,10 @@ export class AuthoInfService {
   loginfb(){
     return this.http.get('http://localhost:3000/auth/facebook')
   }
+  addprof(id:any,name:any){
+    return this.http.get('http://localhost:3000/countfb?id='+id+'&name='+name)
+  }
+  enregistprof(infid:any,profid:any){
+    return this.http.get('http://localhost:3000/addproftoinf?infid='+infid+'&profid='+profid)
+  }
 }

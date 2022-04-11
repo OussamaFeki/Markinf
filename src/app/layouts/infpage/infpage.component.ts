@@ -21,13 +21,16 @@ export class InfpageComponent implements OnInit {
   numberofnewman:any
   socket:any
   test:any
+  image:any
   constructor(private auth:AuthoInfService,private route:Router,private formbuilder:FormBuilder) {
     this.myForm=this.formbuilder.group({
       fullname:['']
     })
     this.username=this.auth.getprof().fullname
     this.id=this.auth.getprof().id
-    this.auth.getinf(this.id).subscribe(doc=>this.prof=doc)
+    this.auth.getinf(this.id).subscribe(doc=>{this.prof=doc
+    this.image=this.prof.image
+    })
     console.log(this.auth.IsloggedIn())
     this.socket=io('http://localhost:3000')
     

@@ -6,8 +6,6 @@ import {FacebookLoginProvider} from 'angularx-social-login'
 import { LogInRoutingModule } from './log-in-routing.module';
 import { LogInComponent } from './log-in/log-in.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppComponent } from 'src/app/app.component';
-import { tokenToString } from 'typescript';
 
 @NgModule({
   declarations: [

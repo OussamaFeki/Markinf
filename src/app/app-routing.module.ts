@@ -18,7 +18,7 @@ const routes: Routes = [
     {path:'login',loadChildren:()=>import('./views/front/log-in/log-in-routing.module').then(m=>m.LogInRoutingModule)},
     {path:'signup',loadChildren:()=>import('./views/front/sign-up/sign-up-routing.module').then(m=>m.SignUpRoutingModule)},
     {path:'man/signup',loadChildren:()=>import('./views/front/signup-man/signup-man-routing.module').then(m=>m.SignupManRoutingModule)},
-    {path:'annoncer',loadChildren:()=>import('./views/infpage/anonspage/anonspage-routing.module').then(m=>m.AnonspageRoutingModule)}
+    {path:'annoncer',loadChildren:()=>import('./views/infpage/anonspage/anonspage-routing.module').then(m=>m.AnonspageRoutingModule)},
   ]},
   {path:'admin',component:AdminpageComponent,canActivate:[GuardadminGuard],children:[
     {path:'',loadChildren:()=>import('./views/Adminpage/dashbord/dashbord-routing.module').then(m=>m.DashbordRoutingModule)},
@@ -26,6 +26,7 @@ const routes: Routes = [
     {path:'influencers',loadChildren:()=>import('./views/Adminpage/influencers/influencers-routing.module').then(m=>m.InfluencersRoutingModule)},
     {path:'profile/:id',loadChildren:()=>import('./views/profinf/profinf-routing.module').then(m=>m.ProfinfRoutingModule)},
     {path:'man/:id',loadChildren:()=>import('./views/profman/profman-routing.module').then(m=>m.ProfmanRoutingModule)},
+    {path:'config',loadChildren:()=>import('./views/configaccount/configaccount-routing.module').then(m=>m.ConfigaccountRoutingModule)},
   ]},
     {path:'manager',component:ManpageComponent,canActivate:[GaurdManagGuard],children:[
       {path:'',loadChildren:()=>import('./views/manpage/welcom/welcom-routing.module').then(m=>m.WelcomRoutingModule)},
