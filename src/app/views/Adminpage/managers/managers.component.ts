@@ -24,7 +24,9 @@ accept:any=[]
 wait:any=[]
 p: number = 1;
 obs:any
-constructor(private share:ShareserviceService,private route:ActivatedRoute,private auth:AuthoAdminService,private auth1:AuthoInfService,private auth2:AuthoManService,
+constructor(private share:ShareserviceService,private route:ActivatedRoute,private auth:AuthoAdminService
+  ,private auth1:AuthoInfService
+  ,private auth2:AuthoManService,
   private router:Router,
   
   ) {
@@ -46,6 +48,10 @@ constructor(private share:ShareserviceService,private route:ActivatedRoute,priva
           this.isinvit(this.list[i]._id,i)
           this.accepted(this.list[i]._id,i)
           this.waiting(this.list[i]._id,i)
+          if(this.invit[i]&this.wait[i]){
+            this.share.addinfs(this.list[i]._id,this.id).subscribe(doc=>{console.log(doc)})
+            this.share.addmans(this.list[i]._id,this.id).subscribe(doc=>{console.log(doc)})
+          }
         }
       }
      } )
@@ -68,7 +74,12 @@ constructor(private share:ShareserviceService,private route:ActivatedRoute,priva
    
 }
 ngOnInit(): void {
-
+  for(let i in this.list){
+    if(this.invit[i]&this.wait[i]){
+      this.share.addinfs(this.list[i]._id,this.id).subscribe(doc=>{console.log(doc)})
+      this.share.addmans(this.list[i]._id,this.id).subscribe(doc=>{console.log(doc)})
+    }
+  }
 }
 ngOnDestroy(): void {
   this.obj.unsubscribe()
@@ -82,12 +93,16 @@ del(id:any,i:any){
         console.log(dat)
       })
     })
-    }
+}
 invitation(id_man:any,i:any){
   if(this.id){
   this.auth1.invitman(id_man,this.id).subscribe(doc=>
     {console.log(doc)
-     this.invit[i]=true   
+     this.invit[i]=true
+     if(this.invit[i]&this.wait[i]){
+      this.share.addinfs(this.list[i]._id,this.id).subscribe(doc=>{console.log(doc)})
+      this.share.addmans(this.list[i]._id,this.id).subscribe(doc=>{console.log(doc)})
+    }   
     },
   (err:HttpErrorResponse)=>{console.log(err)})
   }

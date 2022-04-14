@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthoInfService } from 'src/app/services/autho-inf.service';
 import { AuthoAdminService } from 'src/app/services/autho-admin.service';
-import { FacebookLoginProvider, SocialAuthService } from 'angularx-social-login';
-import { isToken } from 'typescript';
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
@@ -24,7 +22,7 @@ export class LogInComponent implements OnInit {
     private aut:AuthoManService,
     private modalService: NgbModal,
     private authadmin:AuthoAdminService,
-    private authService:SocialAuthService) { 
+    ) { 
     this.myForm1=this.formbuilder.group({
       mail:['',[Validators.email,Validators.required]],
       pass:['',Validators.required]
@@ -32,12 +30,6 @@ export class LogInComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.authState.subscribe((user)=>{
-      console.log(user)
-    })
-  }
-  submitLogin(){
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
   }
   d(content:any){
     this.modalService.dismissAll(content)

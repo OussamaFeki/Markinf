@@ -5,6 +5,7 @@ import { ProfmanRoutingModule } from './profman-routing.module';
 import { RouterModule } from '@angular/router';
 import { ProfmanComponent } from './profman.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ProfmanRoutingModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule,
   ]
 })
 export class ProfmanModule { }

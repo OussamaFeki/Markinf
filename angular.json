@@ -31,6 +31,7 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
+              "node_modules/ngx-toastr/toastr.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
               "./src/assets/admin/vendor/fontawesome-free/css/all.min.css"

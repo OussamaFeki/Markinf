@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ToastrModule } from 'ngx-toastr';
 import { AddprodRoutingModule } from './addprod-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
@@ -16,6 +17,9 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     BrowserModule,
     RouterModule,
+    ToastrModule.forRoot({
+      timeOut:1000
+    })
     
   ]
 })

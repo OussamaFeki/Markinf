@@ -8,7 +8,7 @@ import { AuthoAdminService } from 'src/app/services/autho-admin.service';
 import { AuthoInfService } from 'src/app/services/autho-inf.service';
 import { AuthoManService } from 'src/app/services/autho-man.service';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
-
+import io from 'socket.io-client'
 @Component({
   selector: 'app-influencers',
   templateUrl: './influencers.component.html',
@@ -26,6 +26,7 @@ export class InfluencersComponent implements OnInit ,OnDestroy {
   accept:any=[]
   wait:any=[]
   p: number = 1;
+  socket:any
   constructor(private share:ShareserviceService,private route:ActivatedRoute,private auth:AuthoAdminService,private formbuilder:FormBuilder,private router:Router,private auth2:AuthoInfService,private auth1:AuthoManService){
     this.route.queryParams.subscribe(params=>{
       console.log(params.fullname)
@@ -45,6 +46,7 @@ export class InfluencersComponent implements OnInit ,OnDestroy {
             this.waiting(this.list[i]._id,i)
           }
         }
+        this.socket=io('http://localhost:3000')
        }
        )
     })
@@ -71,6 +73,12 @@ export class InfluencersComponent implements OnInit ,OnDestroy {
   }
 
   ngOnInit(): void {
+    // for(let i in this.list){
+    //   this.isinvit(this.list[i]._id,i)
+    //   this.accepted(this.list[i]._id,i)
+    //   this.waiting(this.list[i]._id,i)
+    // }
+    
   }
  ngOnDestroy(): void {
   this.obj.unsubscribe()
@@ -94,7 +102,11 @@ export class InfluencersComponent implements OnInit ,OnDestroy {
   if(this.id){
   this.auth1.invitinf(id_inf,this.id).subscribe(doc=>
     {console.log(doc)
-     this.invit[i]=true   
+     this.invit[i]=true 
+     if(this.invit[i]&this.wait[i]){
+      this.share.addinfs(this.id,this.list[i]._id).subscribe(doc=>{console.log(doc)})
+      this.share.addmans(this.id,this.list[i]._id).subscribe(doc=>{console.log(doc)})
+    }  
     },
   (err:HttpErrorResponse)=>{console.log(err)})
   }

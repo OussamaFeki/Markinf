@@ -19,19 +19,23 @@ export class ConfigaccountComponent implements OnInit {
   id:any
   item:any
   profile:any
+  prof:boolean=false
   constructor(private authinf:AuthoInfService,
     private authman: AuthoManService,
     private authadm:AuthoAdminService ,
-    private formbuild:FormBuilder,
-    private authService:SocialAuthService) {
+    private formbuild:FormBuilder) {
    this.isinf=this.authinf.IsloggedIn()
    this.isadm=this.authadm.IsloggedIn()
-   this.isman=this.authman.IsloggedIn()
+   this.isman=this.authman.IsloggedIn() 
+   
    if(this.isinf){
      this.id=this.authinf.getprof().id
      this.authinf.getinf(this.id).subscribe((doc:any)=>{this.item=doc;
       console.log(this.item.image);
       this.profile=doc.profile
+      if(this.profile!=undefined){
+        this.prof=true
+      }
       console.log(this.profile)
       })
    }
@@ -49,14 +53,6 @@ export class ConfigaccountComponent implements OnInit {
      oldpass:['',Validators.required],
      newpass:['',Validators.required],
    })
-  }
-  submitLogin(){
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((doc:any)=>{
-      this.authinf.addprof(doc.id,doc.name).subscribe((doc:any)=>{
-        console.log(doc)
-        this.authinf.enregistprof(this.id,doc._id).subscribe(doc=>console.log(doc))
-      },(err:HttpErrorResponse)=>console.log(err))
-    })
   }
 
   ngOnInit(): void {

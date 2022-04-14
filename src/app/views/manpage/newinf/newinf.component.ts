@@ -1,4 +1,3 @@
-import { DashbordComponent } from './../../Adminpage/dashbord/dashbord.component';
 import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit,OnDestroy } from '@angular/core';
 import { ShareserviceService } from 'src/app/services/shareservice.service';

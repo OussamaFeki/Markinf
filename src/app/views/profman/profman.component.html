@@ -9,5 +9,24 @@
     <div class="card-body">
     <h5 class="card-title">{{item.fullname}}</h5>
     <p class="card-text">{{item.email}}</p>
+    </div> <br>
+    <div *ngIf="isinf" class="row row-cols-1 row-cols-md-3 g-4 m-2" >
+    <h1>his products</h1>  
+  <div class="col" *ngFor="let element of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
+    <div class="card">
+      <img [src]="element.image" class="card-img-top" >
+      <div class="card-body">
+        <h5 class="card-title">{{element.name}}</h5>
+        <p class="card-text">{{element.description}}</p>
+        <small class="text-muted">{{element.price}}$</small><br>
+        <a (click)="detail(element._id)" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
+        
+      </div>
     </div>
+    <pagination-controls 
+        (pageChange)="p = $event" 
+        class="float-right" *ngIf="list!=''">
+        </pagination-controls>
+  </div>
+</div>
     </div>  

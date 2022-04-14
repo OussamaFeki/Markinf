@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
 import { AuthoManService } from 'src/app/services/autho-man.service';
 import { ToastServiceService } from 'src/app/services/toast-service.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-addprod',
   templateUrl: './addprod.component.html',
@@ -13,7 +14,11 @@ export class AddprodComponen implements OnInit,OnDestroy {
   myForm:any
   id_man:any
   image:any
-  constructor(private route:Router ,private formbuild:FormBuilder,private share:ShareserviceService,private auth:AuthoManService , private toast:ToastServiceService) {
+  constructor(private route:Router 
+    ,private formbuild:FormBuilder,
+    private share:ShareserviceService,
+    private auth:AuthoManService,
+    private toastr:ToastrService ) {
     this.myForm=this.formbuild.group({
       name:['',Validators.required],
       mark:['',Validators.required],
@@ -51,10 +56,10 @@ export class AddprodComponen implements OnInit,OnDestroy {
     console.log(this.myForm.value)
     this.share.addprod(formData,this.id_man).subscribe(doc=>{
       console.log(doc)
-      this.toast.show('registred',{ classname: 'bg-success text-light', delay: 10000 });
+      this.toastr.success('succeded','notification')
       this.myForm.reset()
     },(err)=>{
-      this.toast.show(dan, { classname: 'bg-danger text-light', delay: 15000 });
+      this.toastr.error('complite all form','Error')
     })
     
   }
@@ -62,6 +67,6 @@ export class AddprodComponen implements OnInit,OnDestroy {
     this.route.navigate(['manager/anonce'])
   }
   ngOnDestroy(): void {
-    this.toast.clear();
+    
   }
 }
