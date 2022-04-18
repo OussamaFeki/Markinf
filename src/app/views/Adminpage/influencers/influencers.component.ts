@@ -89,6 +89,9 @@ export class InfluencersComponent implements OnInit ,OnDestroy {
   this.share.deleteinf(id).subscribe((data)=>{
     console.log(data);
     this.list.splice(i,1)
+    this.share.dellistnewman(id).subscribe((doc)=>{
+      console.log(doc)
+    })
   })
  }
  chearch(){

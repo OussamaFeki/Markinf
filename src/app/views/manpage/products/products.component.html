@@ -1,73 +1,4 @@
-<!-- <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Product name</th>
-        <th scope="col">marck</th>
-        <th scope="col">image</th>
-        <th scope="col">description</th>
-        <th scope="col">price</th>
-        <th scope="col">tag</th>
-        <th scope="col">details</th>
-        <th scope="col">update</th>
-        <th scope="col"> for delete </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="lists" *ngFor="let element of list;index as i">
-        <th scope="row">{{element.name}}</th>
-        <td>{{element.mark}}</td>
-        <td><img [src]="element.image" alt="" class="image"></td>
-        <td>{{element.description}}</td>
-        <td>{{element.price}}</td>
-        <td>{{element.tag}}</td>
-        <td (click)="detail(element._id)" ><i class="fa-solid fa-file-lines"></i></td>
-        <td (click)="open(content,element._id)"><i class="fa-solid fa-pen-to-square"></i></td>
-        <td (click)="del(element._id,i)" ><i class="fa-solid fa-trash-can" ></i></td>
-        <ng-template #content let-c="close" let-d="dismiss">
-            <form [formGroup]="myForm"  class="user" (ngSubmit)="update()">
-          <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">update</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"><i class="fa-solid fa-x"></i></button>
-          </div>
-          
-          <div class="modal-body row g-3" >
-              <div class="col-md-4">
-                <label for="validationDefault01" class="form-label" >Product name:</label>
-                <input type="text" class="form-control" formControlName="name" required >
-              </div>
-              <div class="col-md-4">
-                <label for="validationDefault02" class="form-label">mark</label>
-                <input type="text" class="form-control" formControlName="mark"  required >
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">image</label>
-                <div class="input-group">
-                  <input type="file" class="form-control" required name="image"  (change)="selectImage($event)" >
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label for="validationDefault03" class="form-label">descrption</label>
-                <textarea class="form-control"   name="description" required  formControlName="description" ></textarea>
-              </div>
-              <div class="col-md-3">
-                <label for="validationDefault04" class="form-label">price</label>
-                <input type="number" class="form-control"  name="price" required  formControlName="price">
-              </div>
-              <div class="col-md-2">
-                <label for="validationDefault04" class="form-label">Tag</label>
-                <p>{{element.tag}}</p>
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
-          </div>
-          </form>
-        </ng-template>
-      </tr>
-    </tbody>
-    <p *ngIf="list===null">there is no products </p>
-  </table> -->
-  <h1>products</h1>
+ <h1>products</h1>
   <div class="row row-cols-1 row-cols-md-3 g-4" >
   <div class="col" *ngFor="let element of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
     <div class="card">
@@ -77,7 +8,7 @@
         <p class="card-text">{{element.description}}</p>
         <small class="text-muted">{{element.price}}$</small><br>
         <a (click)="detail(element._id)" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
-        <a (click)="open(content,element._id)" class="m-3"><i class="fa-solid fa-pen-to-square"></i></a>
+        <a (click)="open(content,element._id,element.name,element.description,element.price,element.mark,element.image)" class="m-3"><i class="fa-solid fa-pen-to-square"></i></a>
         <a (click)="del(element._id,i)" class="m-3"><i class="fa-solid fa-trash-can" ></i></a>
         <ng-template #content let-c="close" let-d="dismiss">
           <form [formGroup]="myForm"  class="user" (ngSubmit)="update()">

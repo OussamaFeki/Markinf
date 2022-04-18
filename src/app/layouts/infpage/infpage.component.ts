@@ -22,7 +22,9 @@ export class InfpageComponent implements OnInit {
   socket:any
   test:any
   image:any
+  
   constructor(private auth:AuthoInfService,private route:Router,private formbuilder:FormBuilder) {
+    
     this.myForm=this.formbuilder.group({
       fullname:['']
     })

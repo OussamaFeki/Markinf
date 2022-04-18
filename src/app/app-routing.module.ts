@@ -19,6 +19,7 @@ const routes: Routes = [
     {path:'signup',loadChildren:()=>import('./views/front/sign-up/sign-up-routing.module').then(m=>m.SignUpRoutingModule)},
     {path:'man/signup',loadChildren:()=>import('./views/front/signup-man/signup-man-routing.module').then(m=>m.SignupManRoutingModule)},
     {path:'annoncer',loadChildren:()=>import('./views/infpage/anonspage/anonspage-routing.module').then(m=>m.AnonspageRoutingModule)},
+    {path:'prof',loadChildren:()=>import('./views/profile/profile-routing.module').then(m=>m.ProfileRoutingModule)}
   ]},
   {path:'admin',component:AdminpageComponent,canActivate:[GuardadminGuard],children:[
     {path:'',loadChildren:()=>import('./views/Adminpage/dashbord/dashbord-routing.module').then(m=>m.DashbordRoutingModule)},

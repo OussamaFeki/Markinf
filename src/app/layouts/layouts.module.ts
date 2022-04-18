@@ -26,6 +26,7 @@ import { ConfigaccountModule } from '../views/configaccount/configaccount.module
 import { ProfinfModule } from '../views/profinf/profinf.module';
 import { NewmanModule } from '../views/infpage/newman/newman.module';
 import { AnonspageModule } from '../views/infpage/anonspage/anonspage.module';
+import { ProfileModule } from '../views/profile/profile.module';
 
 
 
@@ -61,7 +62,8 @@ import { AnonspageModule } from '../views/infpage/anonspage/anonspage.module';
     ConfigaccountModule,
     ProfinfModule,
     NewmanModule,
-    AnonspageModule
+    AnonspageModule,
+    ProfileModule
   ]
 })
 export class LayoutsModule { }

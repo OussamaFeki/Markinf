@@ -1,7 +1,7 @@
 import { AuthoManService } from 'src/app/services/autho-man.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthoInfService } from 'src/app/services/autho-inf.service';
 import { AuthoAdminService } from 'src/app/services/autho-admin.service';
@@ -22,11 +22,13 @@ export class LogInComponent implements OnInit {
     private aut:AuthoManService,
     private modalService: NgbModal,
     private authadmin:AuthoAdminService,
+    private router:ActivatedRoute
     ) { 
     this.myForm1=this.formbuilder.group({
       mail:['',[Validators.email,Validators.required]],
       pass:['',Validators.required]
     })
+    
   }
 
   ngOnInit(): void {
@@ -76,9 +78,6 @@ export class LogInComponent implements OnInit {
       })
     })      
  })
-    
   }
-  // loginfb(){
-  //   this.auth.loginfb().subscribe(doc=>console.log(doc))
-  // }
+  
 }

@@ -49,9 +49,16 @@ export class ProductsComponent implements OnInit,OnDestroy {
   detail(id:any){
     this.route.navigate(['manager/produit/'+id])
   }
-  open(content:any,id:any) {
+  open(content:any,id:any,name:any,desc:any,price:any,mark:any,img:any) {
     this.modalService.open(content);
     this.id=id
+    this.myForm.patchValue({
+      name:name,
+      description:desc,
+      price,
+      image:img,
+      mark
+    })
   }
   selectImage(event:any){
     if(event.target.files.length >0){
@@ -72,7 +79,9 @@ export class ProductsComponent implements OnInit,OnDestroy {
     // formData.append('tage', this.myForm.get('tage').value)
     // let profile=this.myForm.value
     // console.log(profile)
-    this.share.upprod(formData,this.id).subscribe(doc=>console.log(doc),(err:HttpErrorResponse)=>{console.log(err.message)})
+    this.share.upprod(formData,this.id).subscribe(doc=>{console.log(doc)
+    
+    },(err:HttpErrorResponse)=>{console.log(err.message)})
   }
   ngOnDestroy(): void {
       this.obj.unsubscribe()

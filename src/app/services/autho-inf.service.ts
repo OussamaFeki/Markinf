@@ -73,7 +73,7 @@ export class AuthoInfService {
   enregistprof(infid:any,profid:any){
     return this.http.get('http://localhost:3000/addproftoinf?infid='+infid+'&profid='+profid)
   }
-  facebook(){
-    return this.http.get('http://localhost:3000/auth/facebook')
-  }
+  isfbsavetoken(token:any){
+     localStorage.setItem('token',JSON.stringify(token))
+    }
 }

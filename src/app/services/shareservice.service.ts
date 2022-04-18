@@ -73,4 +73,7 @@ export class ShareserviceService {
   firedinf(id_man:any,id:any){
     return this.http.get('http://localhost:3000/fired?man_id='+id_man+'&id='+id)
   }
+  dellistnewman(id:any){
+    return this.http.delete('http://localhost:3000/dellistnewman/'+id)
+  }
 }
