@@ -1,1 +1,25 @@
-<p>pubs works!</p>
+ <!-- <table class="table">
+   <tr *ngFor="let item of list;index as i">
+       <td *ngIf="item.name!=null">{{item.name}}</td>
+       <td *ngIf="item.name!=null">{{list2[i]}}</td>
+   </tr>
+</table>  -->
+<p *ngIf="fbid==null">this for the influencers who loged in with facebook</p>
+<div class="row row-cols-1 row-cols-md-3 g-4" >
+  <div class="col" *ngFor="let item of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
+    <div class="card">
+      <img [src]="item.image" class="card-img-top" >
+      <div class="card-body">
+        <h5 class="card-title">{{item.name}}</h5>
+        <p class="card-text">{{item.description}}</p><br>
+        <p>reactions:</p>
+        <small *ngIf="item.name!=null" class="text-muted">{{list2[i]}}</small><br>
+        <a (click)="detail(pubids[i])" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+<pagination-controls 
+(pageChange)="p = $event" 
+class="float-right" *ngIf="list!=''">
+</pagination-controls>

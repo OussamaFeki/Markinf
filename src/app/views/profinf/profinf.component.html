@@ -8,5 +8,11 @@
      <div class="card-body">
      <h5 class="card-title">{{item.fullname}}</h5>
      <p class="card-text">{{item.email}}</p>
-     </div>
-</div>  
+     <p>friends:{{number}}</p>
+     </div>     
+</div> 
+<table *ngIf="!condition" class="table">
+    <tr *ngFor="let item of list">
+        <td *ngIf="item.message!=null">{{item.message}}</td>
+    </tr>
+ </table> 

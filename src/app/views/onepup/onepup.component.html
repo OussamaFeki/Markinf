@@ -1,0 +1,9 @@
+<div class="card mb-3">
+    <img *ngIf="full_pic!=null" [src]="item.full_picture" class="card-img-top" alt="..."  >
+      <p *ngIf="full_pic==null">ther is no image for this post </p>
+      <div class="card-body">
+        <h5 class="card-title"*ngIf="item.message!=undefined" >{{item.message}}</h5>
+        <!-- <p class="card-text">{{}}</p> -->
+        <p class="card-text"><small class="text-muted">{{item.price}}$</small></p>
+      </div>
+    </div>  

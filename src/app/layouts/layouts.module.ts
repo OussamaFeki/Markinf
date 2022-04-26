@@ -27,6 +27,8 @@ import { ProfinfModule } from '../views/profinf/profinf.module';
 import { NewmanModule } from '../views/infpage/newman/newman.module';
 import { AnonspageModule } from '../views/infpage/anonspage/anonspage.module';
 import { ProfileModule } from '../views/profile/profile.module';
+import { PubsModule } from '../views/infpage/pubs/pubs.module';
+import { OnepupModule } from '../views/onepup/onepup.module';
 
 
 
@@ -63,7 +65,9 @@ import { ProfileModule } from '../views/profile/profile.module';
     ProfinfModule,
     NewmanModule,
     AnonspageModule,
-    ProfileModule
+    ProfileModule,
+    PubsModule,
+    OnepupModule,
   ]
 })
 export class LayoutsModule { }

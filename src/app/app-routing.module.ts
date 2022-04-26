@@ -9,8 +9,7 @@ import { GaurdManagGuard } from './views/guards/gaurd-manag.guard';
 import { GuardadminGuard } from './views/guards/guardadmin.guard';
 import { GuardloginGuard } from './views/guards/guardlogin.guard';
 import { InfGuardGuard } from './views/guards/inf-guard.guard';
-
-
+import { FacebookModule } from 'ngx-facebook';
 
 const routes: Routes = [
   {path:'',component:FrontpageComponent,canActivate:[GuardloginGuard],children:[
@@ -42,6 +41,7 @@ const routes: Routes = [
         {path:'',loadChildren:()=>import('./views/manpage/cranon/cranon-routing.module').then(m=>m.CranonRoutingModule)},
         {path:'addprod',loadChildren:()=>import('./views/manpage/addprod/addprod-routing.module').then(m=>m.AddprodRoutingModule)}, 
       ]},
+      {path:'pub/:id',loadChildren:()=>import('./views/onepup/onepup-routing.module').then(m=>m.OnepupRoutingModule)},
       {path:'config',loadChildren:()=>import('./views/configaccount/configaccount-routing.module').then(m=>m.ConfigaccountRoutingModule)},
       {path:'messages',loadChildren:()=>import('./views/manpage/message/message-routing.module').then(m=>m.MessageRoutingModule)},
     ]},
@@ -55,13 +55,16 @@ const routes: Routes = [
     {path:'mans',loadChildren:()=>import('./views/infpage/manofinf/manofinf-routing.module').then(m=>m.ManofinfRoutingModule)},
     {path:'config',loadChildren:()=>import('./views/configaccount/configaccount-routing.module').then(m=>m.ConfigaccountRoutingModule)},
     {path:'profile',loadChildren:()=>import('./views/profinf/profinf-routing.module').then(m=>m.ProfinfRoutingModule)},
-    {path:'newmans',loadChildren:()=>import('./views/infpage/newman/newman-routing.module').then(m=>m.NewmanRoutingModule)}
+    {path:'newmans',loadChildren:()=>import('./views/infpage/newman/newman-routing.module').then(m=>m.NewmanRoutingModule)},
+    {path:'pub/:id',loadChildren:()=>import('./views/onepup/onepup-routing.module').then(m=>m.OnepupRoutingModule)},
     ]}, 
   {path:'**',component:NotfoundComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),
+    FacebookModule.forRoot()
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

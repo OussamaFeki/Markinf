@@ -60,7 +60,7 @@ export class ConfigaccountComponent implements OnInit {
   }
   change(){
     if(this.isman){
-    this.authman.config(this.id,this.myform).subscribe(doc=>{
+    this.authman.config(this.id,this.myform.value).subscribe(doc=>{
       console.log(doc)
     },err=>console.log(err))
     }

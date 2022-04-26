@@ -3,10 +3,9 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthoManService } from 'src/app/services/autho-man.service';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
-
 
 @Component({
   selector: 'app-products',
@@ -22,7 +21,6 @@ export class ProductsComponent implements OnInit,OnDestroy {
   man_id:any
   myForm:any
   p: number = 1;
-  
   constructor(private share :ShareserviceService,private route:Router,config: NgbModalConfig, private modalService: NgbModal,private auth:AuthoManService,private formbuild:FormBuilder) {
       this.man_id=this.auth.getprof().id 
       this.obj=this.share.getprodman(this.man_id).subscribe((doc)=>{
@@ -80,10 +78,13 @@ export class ProductsComponent implements OnInit,OnDestroy {
     // let profile=this.myForm.value
     // console.log(profile)
     this.share.upprod(formData,this.id).subscribe(doc=>{console.log(doc)
-    
+      this.obj=this.share.getprodman(this.man_id).subscribe((res)=>{
+        this.list=res
+        })
     },(err:HttpErrorResponse)=>{console.log(err.message)})
   }
   ngOnDestroy(): void {
       this.obj.unsubscribe()
   }
+  
 }

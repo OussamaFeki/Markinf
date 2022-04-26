@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthoInfService } from 'src/app/services/autho-inf.service';
+import { AuthoManService } from 'src/app/services/autho-man.service';
+import { FbserveService } from 'src/app/services/fbserve.service';
 
 @Component({
   selector: 'app-profinf',
@@ -13,16 +15,33 @@ export class ProfinfComponent implements OnInit {
   item:any
   condition:any
   myForm:any
-  constructor(private auth:AuthoInfService,private formbuilder:FormBuilder,private route:ActivatedRoute) {
+  list:any
+  number:any
+  constructor(private auth:AuthoInfService,
+    private formbuilder:FormBuilder,
+    private route:ActivatedRoute,
+    private aut:AuthoManService,
+    private fbs:FbserveService
+    ) {
     if (this.auth.IsloggedIn()){
       this.id_inf=this.auth.getprof().id
       }else{
         this.route.params.subscribe((res)=>{
           this.id_inf=res.id
-          console.log(this.id_inf)})
+          console.log(this.id_inf)
+        })
       }
       this.auth.getinf(this.id_inf).subscribe((doc:any)=>{this.item=doc;
       console.log(this.item.image)
+      if(!this.auth.IsloggedIn()){
+      this.fbs.getposts(doc.facebookId,doc.accesstoken).subscribe((result:any)=>{
+        this.list=result.posts.data
+      })
+      this.fbs.numberoffriend(doc.facebookId,doc.accesstoken).subscribe((result:any)=>{
+        this.number=result.friends.summary.total_count
+        
+      })
+      }
       })
      this.condition=this.auth.IsloggedIn()
      this.myForm=this.formbuilder.group({
