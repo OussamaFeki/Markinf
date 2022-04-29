@@ -33,7 +33,8 @@ export class PubsComponent implements OnInit {
           
            for(let i in this.all){
              for(let l in this.listprods){
-              this.test=this.all[i].message
+               if(this.all[i].message){
+                this.test=this.all[i].message
              let j=0
               if(this.test.indexOf(`#${this.listprods[l].tag}`)!==-1){ 
                 this.list[j]=this.listprods[l]
@@ -42,6 +43,8 @@ export class PubsComponent implements OnInit {
                 this.reactioncount(this.all[i].id,doc.accesstoken,j)
                 j=j+1
               }
+               }
+              
              }
            }
            
@@ -58,10 +61,12 @@ export class PubsComponent implements OnInit {
   }
   producttoin(id:any){
     this.auth.getmansofinf(id).subscribe((data:any)=>{
+      let j=0
       for( let i in data ){
         this.share.getprodman(data[i]._id).subscribe((doc:any)=>{
           for(let d in doc){
-            this.listprods[d]=doc[d]
+            this.listprods[j]=doc[d]
+            j=j+1
           }
           })
 

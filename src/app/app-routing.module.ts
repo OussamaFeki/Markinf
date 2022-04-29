@@ -27,6 +27,7 @@ const routes: Routes = [
     {path:'profile/:id',loadChildren:()=>import('./views/profinf/profinf-routing.module').then(m=>m.ProfinfRoutingModule)},
     {path:'man/:id',loadChildren:()=>import('./views/profman/profman-routing.module').then(m=>m.ProfmanRoutingModule)},
     {path:'config',loadChildren:()=>import('./views/configaccount/configaccount-routing.module').then(m=>m.ConfigaccountRoutingModule)},
+    {path:'pub',loadChildren:()=>import('./views/onepup/onepup-routing.module').then(m=>m.OnepupRoutingModule)},
   ]},
     {path:'manager',component:ManpageComponent,canActivate:[GaurdManagGuard],children:[
       {path:'',loadChildren:()=>import('./views/manpage/welcom/welcom-routing.module').then(m=>m.WelcomRoutingModule)},
@@ -41,7 +42,7 @@ const routes: Routes = [
         {path:'',loadChildren:()=>import('./views/manpage/cranon/cranon-routing.module').then(m=>m.CranonRoutingModule)},
         {path:'addprod',loadChildren:()=>import('./views/manpage/addprod/addprod-routing.module').then(m=>m.AddprodRoutingModule)}, 
       ]},
-      {path:'pub/:id',loadChildren:()=>import('./views/onepup/onepup-routing.module').then(m=>m.OnepupRoutingModule)},
+      {path:'pub',loadChildren:()=>import('./views/onepup/onepup-routing.module').then(m=>m.OnepupRoutingModule)},
       {path:'config',loadChildren:()=>import('./views/configaccount/configaccount-routing.module').then(m=>m.ConfigaccountRoutingModule)},
       {path:'messages',loadChildren:()=>import('./views/manpage/message/message-routing.module').then(m=>m.MessageRoutingModule)},
     ]},

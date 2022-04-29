@@ -1,18 +1,34 @@
 <div class="card mb-3 ">
-    <img *ngIf="item.image!=null" [src]="item.image" class="card-img-top">
-    <img *ngIf="item.image==null" src="assets/admin/img/undraw_profile.svg" class="card-img-top">
+    <img *ngIf="image!=null" [src]="item.image" class="card-img-top">
+    <img *ngIf="image==null" src="assets/admin/img/undraw_profile.svg" class="card-img-top">
     <form   class="row g-3" [formGroup]="myForm" *ngIf="condition"  (ngSubmit)="change()" >
     <input type="file"  formControlName="profile"  required (change)="selectImage($event)">
     <button type="submit" class="btn btn-primary">change</button>
     </form>
      <div class="card-body">
-     <h5 class="card-title">{{item.fullname}}</h5>
-     <p class="card-text">{{item.email}}</p>
-     <p>friends:{{number}}</p>
+     <h5 class="card-title">{{fullname}}</h5>
+     <p class="card-text">{{email}}</p>
+     <p *ngIf="!condition && fbid">friends:{{number}}</p>
      </div>     
 </div> 
 <table *ngIf="!condition" class="table">
-    <tr *ngFor="let item of list">
-        <td *ngIf="item.message!=null">{{item.message}}</td>
-    </tr>
+    <p *ngIf="fbid==null">this for the influencers who loged in with facebook</p>
+<div class="row row-cols-1 row-cols-md-3 g-4" >
+  <div class="col" *ngFor="let item1 of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
+    <div class="card">
+      <img [src]="item1.image" class="card-img-top" >
+      <div class="card-body">
+        <h5 class="card-title">{{item1.name}}</h5>
+        <p class="card-text">{{item1.description}}</p><br>
+        <p>reactions:</p>
+        <small *ngIf="item1.name!=null" class="text-muted">{{list2[i]}}</small><br>
+        <a (click)="detail(pubids[i])" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+<pagination-controls 
+(pageChange)="p = $event" 
+class="float-right" *ngIf="list!=''">
+</pagination-controls>
  </table> 
