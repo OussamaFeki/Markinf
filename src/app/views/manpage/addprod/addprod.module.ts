@@ -18,7 +18,7 @@ import { RouterModule } from '@angular/router';
     BrowserModule,
     RouterModule,
     ToastrModule.forRoot({
-      timeOut:1000
+      timeOut:10000,
     })
     
   ]

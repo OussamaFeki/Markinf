@@ -76,4 +76,10 @@ export class ShareserviceService {
   dellistnewman(id:any){
     return this.http.delete('http://localhost:3000/dellistnewman/'+id)
   }
+  searchprod(name:any){
+    return this.http.get('http://localhost:3000/researchprod?fullnam='+name)
+  }
+  searchprodforman(name:any,id_man:any){
+    return this.http.get('http://localhost:3000/researchforman?fullname='+name+'&man_id='+id_man)
+  }
 }

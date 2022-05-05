@@ -3,7 +3,6 @@ import {  FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
 import { AuthoManService } from 'src/app/services/autho-man.service';
-import { ToastServiceService } from 'src/app/services/toast-service.service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-addprod',
@@ -59,7 +58,8 @@ export class AddprodComponen implements OnInit,OnDestroy {
       this.toastr.success('succeded','notification')
       this.myForm.reset()
     },(err)=>{
-      this.toastr.error('complite all form','Error')
+      console.log(err.error);
+      this.toastr.error(err.error,'Error')
     })
     
   }

@@ -16,3 +16,7 @@ img{
     width: 310px;
     height: fit-content;
 } 
+.tag{
+    color: cornflowerblue;
+    font-size: medium;
+}

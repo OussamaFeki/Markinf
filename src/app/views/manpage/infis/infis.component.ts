@@ -22,11 +22,10 @@ p: number = 1;
      this.obj=this.auth.getinfsofman(this.id_man).subscribe((data:any)=>{
        console.log(data)
        this.list=data})
-    this.listen('event test').subscribe((data)=>{console.log(data)})
+    
    }
   
   ngOnInit(): void {
-    // this.listen('event test').subscribe((data)=>{console.log(data)})
   }
   fier(id:any,i:any){
     this.share.fireinf(this.id_man,id).subscribe((data:any)=>{

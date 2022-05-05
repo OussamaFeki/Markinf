@@ -1,11 +1,9 @@
-import { Socket } from 'ngx-socket-io';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthoInfService } from 'src/app/services/autho-inf.service';
 import io from 'socket.io-client'
 import { Observable } from 'rxjs';
-import { WebSocketService } from 'src/app/services/web-socket.service';
 @Component({
   selector: 'app-infpage',
   templateUrl: './infpage.component.html',

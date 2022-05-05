@@ -1,0 +1,20 @@
+.titre{
+    color: rgb(156, 39, 234);
+    font-size: medium;
+    font-weight:lighter;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+}
+.desc{
+    color: darkorange;
+    font-size: medium;
+    font-weight:bolder;
+}
+.second{
+    width: fit-content;
+}
+.price{
+    color: aqua;
+    font-size: small;
+    
+}

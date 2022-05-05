@@ -2,8 +2,16 @@
     <img *ngIf="full_pic!=null" [src]="item.full_picture" class="card-img-top" alt="..."  >
       <p *ngIf="full_pic==null">ther is no image for this post </p>
       <div class="card-body">
-        <h5 class="card-title"*ngIf="message!=undefined" >{{item.message}}</h5>
-        <p class="card-text">{{reactions}}</p> 
+        <h5 class="card-title"*ngIf="message!=undefined" >message</h5>
+        <h2>{{item.message}}</h2>
+        <p class="title">reactions</p>
+        <p class="card-text">{{reactions}}</p><br>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="like col-2"><i class="fa-solid fa-thumbs-up"></i><h4>{{like}}</h4></div>
+          <div class="love col-2"><i class="fa-brands fa-gratipay"></i><h4>{{love}}</h4></div>
+        </div>
+
+
         <!-- <p class="card-text"><small class="text-muted">{{}}$</small></p> -->
       </div>
     </div>  

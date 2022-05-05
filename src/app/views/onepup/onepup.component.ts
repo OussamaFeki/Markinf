@@ -17,6 +17,8 @@ export class OnepupComponent implements OnInit {
   full_pic:any
   message:any
   reactions:any
+  like:any
+  love:any
   constructor(private route:ActivatedRoute,private auth:AuthoInfService,private fbs:FbserveService) {
     if (this.auth.IsloggedIn()){
       this.id_inf=this.auth.getprof().id
@@ -41,6 +43,12 @@ export class OnepupComponent implements OnInit {
                this.full_pic=this.all[i].full_picture
                this.message=this.all[i].message
                this.reactioncount(this.id,doc.accesstoken)
+               this.fbs.numberofLike(this.id,doc.accesstoken).subscribe((doc:any)=>{
+                 this.like=doc.reactions.summary.total_count
+               })
+               this.fbs.numberoflove(this.id,doc.accesstoken).subscribe((doc:any)=>{
+                 this.love=doc.reactions.summary.total_count
+               })
              }
            }
           })

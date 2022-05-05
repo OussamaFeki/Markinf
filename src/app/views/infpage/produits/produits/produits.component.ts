@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
 import { Router } from '@angular/router';
+import { AuthoInfService } from 'src/app/services/autho-inf.service';
 
 @Component({
   selector: 'app-produits',
@@ -10,9 +11,15 @@ import { Router } from '@angular/router';
 })
 export class ProduitsComponent implements OnInit ,OnDestroy {
 list:any;
-obj:Subscription;
-  constructor(private share :ShareserviceService,private route :Router) {
-    this.obj=this.share.getallprod().subscribe(doc=>this.list=doc)
+listprods:any=[];
+id:any
+p:number=1
+  constructor(private share :ShareserviceService,
+    private route :Router,
+    private auth:AuthoInfService
+    ){
+    this.id=this.auth.getprof().id
+    this.producttoin(this.id)
    }
   
   ngOnInit(): void {
@@ -21,6 +28,21 @@ obj:Subscription;
     this.route.navigate(['influencer/produit/'+id])
   }
   ngOnDestroy(): void {
-      this.obj.unsubscribe()
+      
+  }
+  producttoin(id:any){
+    this.auth.getmansofinf(id).subscribe((data:any)=>{
+      let j=0
+      for( let i in data ){
+        this.share.getprodman(data[i]._id).subscribe((doc:any)=>{
+          for(let d in doc){
+            this.listprods[j]=doc[d]
+            j=j+1
+          }
+          })
+
+      }
+      console.log(this.listprods)
+    })
   }
 }

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ProduitsRoutingModule } from './produits-routing.module';
 import { ProduitsComponent } from './produits/produits.component';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     ProduitsRoutingModule,
-    RouterModule
+    RouterModule,
+    NgxPaginationModule,
   ]
 })
 export class ProduitsModule { }

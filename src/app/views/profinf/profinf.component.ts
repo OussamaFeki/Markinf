@@ -128,13 +128,16 @@ export class ProfinfComponent implements OnInit {
         image:file
       });
       this.myForm.get('image')?.updateValueAndValidity()
-      this.item.image=file
     }
   }
   change(){
     const formData:any =new FormData();
     formData.append('image', this.myForm.get('image').value)
-    this.auth.upavatar(this.id_inf,formData).subscribe(doc=>{console.log(doc)})
+    this.auth.upavatar(this.id_inf,formData).subscribe(doc=>{console.log(doc)
+      this.auth.getinf(this.id_inf).subscribe((doc:any)=>{this.item=doc;
+        this.image=this.item.image})
+    })
+    
   }
   reactioncount(postid:any,accesstoken:any,i:any){
     this.fbs.getreaction(postid,accesstoken).subscribe((doc:any)=>{
@@ -149,9 +152,9 @@ export class ProfinfComponent implements OnInit {
      })
    }
    detail(id:any){
-    if(this.aut.IsloggedIn()){this.router.navigate(['manager/pub?idpub='+id+'&id_inf='+this.id_inf])}
+    if(this.aut.IsloggedIn()){this.router.navigate(['manager/pub'],{queryParams:{idpub:id,id_inf:this.id_inf}})}
     else{
-      this.router.navigate(['admin/pub?idpub='+id+'&id_inf='+this.id_inf])
+      this.router.navigate(['admin/pub'],{queryParams:{idpub:id,id_inf:this.id_inf}})
     } 
   }
   producttoin(id:any){

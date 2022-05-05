@@ -47,7 +47,7 @@ export class PubsComponent implements OnInit {
               
              }
            }
-           
+          console.log(this.listprods) 
         })}
       })
    }

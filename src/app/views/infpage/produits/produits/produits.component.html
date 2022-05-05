@@ -1,23 +1,19 @@
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Product name</th>
-        <th scope="col">marck</th>
-        <th scope="col">image</th>
-        <th scope="col">description</th>
-        <th scope="col">price</th>
-        <th scope="col">details</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="lists" *ngFor="let element of list;index as i">
-        <th scope="row">{{element.name}}</th>
-        <td>{{element.mark}}</td>
-        <td>{{element.image}}</td>
-        <td>{{element.description}}</td>
-        <td>{{element.price}}</td>
-        <td (click)="detail(element._id)" ><i class="fa-solid fa-file-lines"></i></td>
-      </tr>
-    </tbody>
-    <p *ngIf="list===null">there is no products </p>
-  </table>
+<div class="row row-cols-1 row-cols-md-3 g-4" >
+  <div class="col" *ngFor="let item of listprods| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
+    <div class="card">
+      <img [src]="item.image" class="card-img-top" >
+      <div class="card-body">
+        <h5  >name:</h5>
+        <h5 class="card-title">{{item.name}}</h5>
+        <h5 class="tag" >tag:</h5>
+        <p class="card-text">#{{item.tag}}</p>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+<pagination-controls 
+(pageChange)="p = $event" 
+class="float-right" *ngIf="list!=''">
+</pagination-controls>

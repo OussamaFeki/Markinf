@@ -22,6 +22,11 @@ export class ProfmanComponent implements OnInit {
   isadm:boolean=false
   list:any
   p:number=1;
+  image:any
+  fullname:any
+  email:any
+  filter:any
+  test:any
   constructor(private auth:AuthoManService,
     private route:ActivatedRoute,
     private router:Router,
@@ -40,6 +45,9 @@ export class ProfmanComponent implements OnInit {
         console.log(this.id_man)})
     }
     this.auth.getman(this.id_man).subscribe((doc:any)=>{this.item=doc;
+      this.image=this.item.image
+      this.fullname=this.item.fullname
+      this.email=this.item.email
     this.share.getprodman(this.id_man).subscribe((doc)=>{
           this.list=doc
         
@@ -51,6 +59,11 @@ export class ProfmanComponent implements OnInit {
    this.myForm=this.formbuilder.group({
      image:[null]
    })
+   this.filter=this.formbuilder.group({
+    fullname:['']
+  })
+ console.log(this.filter)
+ this.test=this.filter.get('fullname').value
   }
 
   ngOnInit(): void {
@@ -67,9 +80,23 @@ export class ProfmanComponent implements OnInit {
   change(){
     const formData:any =new FormData();
     formData.append('image', this.myForm.get('image').value)
-    this.auth.upavatar(this.id_man,formData).subscribe(doc=>{console.log(doc)})
+    this.auth.upavatar(this.id_man,formData).subscribe(res=>{console.log(res)
+      this.auth.getman(this.id_man).subscribe((doc:any)=>{this.item=doc;
+      })
+    })
   }
   detail(id:any){
     this.router.navigate(['influencer/produit/'+id])
+  }
+  chearch(){
+    // console.log(this.filter.get('fullname').value)
+    //   this.share.searchprod(this.filter.get('fullname').value).subscribe(doc=>{this.list=doc
+    //   console.log(doc)
+    //   })
+    
+    this.share.searchprodforman(this.filter.get('fullname').value,this.id_man).subscribe(doc=>{this.list=doc
+    console.log(doc)
+    })
+    this.test=this.filter.get('fullname').value
   }
 }

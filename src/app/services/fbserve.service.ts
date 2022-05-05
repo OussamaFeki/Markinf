@@ -22,4 +22,10 @@ export class FbserveService {
   numberoffriend(userid:any,accesstoken:any){
     return this.http.get(`https://graph.facebook.com/v13.0/${userid}?fields=friends&access_token=${accesstoken}`)
   }
+  numberoflove(postid:any,accesstoken:Token){
+    return this.http.get(`https://graph.facebook.com/v13.0/${postid}?fields=reactions.type(LOVE).limit(0).summary(total_count)&access_token=${accesstoken}`)
+  }
+  numberofLike(postid:any,accesstoken:Token){
+    return this.http.get(`https://graph.facebook.com/v13.0/${postid}?fields=reactions.type(LIKE).limit(0).summary(total_count)&access_token=${accesstoken}`)
+  }
 }

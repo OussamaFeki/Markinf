@@ -12,15 +12,18 @@
      </div>     
 </div> 
 <table *ngIf="!condition" class="table">
+  <p>Ads</p>
     <p *ngIf="fbid==null">this for the influencers who loged in with facebook</p>
 <div class="row row-cols-1 row-cols-md-3 g-4" >
   <div class="col" *ngFor="let item1 of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
-    <div class="card">
+    <div class="second card">
       <img [src]="item1.image" class="card-img-top" >
       <div class="card-body">
+        <h6>name:</h6>
         <h5 class="card-title">{{item1.name}}</h5>
+        <p class="desc">description:</p>
         <p class="card-text">{{item1.description}}</p><br>
-        <p>reactions:</p>
+        <p class="titre">reactions:</p>
         <small *ngIf="item1.name!=null" class="text-muted">{{list2[i]}}</small><br>
         <a (click)="detail(pubids[i])" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
       </div>

@@ -1,8 +1,13 @@
  <div class="card mb-3">
   <img [src]="item.image" class="card-img-top" alt="...">
     <div class="card-body">
+      <h4 class="titre">name:</h4>
       <h5 class="card-title">{{item.name}}</h5>
+      <h4 class="desc">description:</h4>
       <p class="card-text">{{item.description}}</p>
+      <h3 class="second">tag:</h3>
+      <p>{{item.tag}}</p>
+      <h3 class="price" >price:</h3>
       <p class="card-text"><small class="text-muted">{{item.price}}$</small></p>
     </div>
   </div> 

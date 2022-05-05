@@ -1,4 +1,31 @@
 .card-img-top{
-    width: 400px;
+    width: 500px;
     height: 600px;
+}
+.fa-thumbs-up{
+    color: rgb(23, 57, 246);
+    font-size: 50px;
+}
+.fa-gratipay{
+    color: rgb(250, 17, 138);
+    font-size: 50px;
+}
+.card{
+    width: fit-content;
+}
+h5{
+    color: blue;
+}
+h2{
+    font-size:medium ;
+}
+.title{
+    color: rgb(156, 39, 234);
+    font-size: medium;
+    font-weight:lighter;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.love .like{
+    font-size: 50px;
+    font-family:fantasy;
 }

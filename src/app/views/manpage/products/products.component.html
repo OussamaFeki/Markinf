@@ -5,8 +5,9 @@
       <img [src]="element.image" class="card-img-top" >
       <div class="card-body">
         <h5 class="card-title">{{element.name}}</h5>
-        <p class="card-text">{{element.description}}</p>
-        <small class="text-muted">{{element.price}}$</small><br>
+        <h2 class="tag">tag:</h2>
+        <p class="card-text">#{{element.tag}}</p>
+        <small class="text-muted">${{element.price}}</small><br>
         <a (click)="detail(element._id)" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
         <a (click)="open(content,element._id,element.name,element.description,element.price,element.mark,element.image)" class="m-3"><i class="fa-solid fa-pen-to-square"></i></a>
         <a (click)="del(element._id,i)" class="m-3"><i class="fa-solid fa-trash-can" ></i></a>
@@ -59,3 +60,14 @@
 (pageChange)="p = $event" 
 class="float-right" *ngIf="list!=''">
 </pagination-controls>
+<form [formGroup]="filter" >
+  <div class="row">
+    <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+    <div class="col col-sm-auto">
+      <input id="table-filtering-search" class="form-control" type="text" formControlName="fullname">
+    </div>
+    <div class="col">
+      <button class="btn btn-primary" type="submit" (click)="chearch()"><i class="fas fa-search fa-sm"></i></button>
+    </div>
+  </div>
+</form>

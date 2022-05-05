@@ -1,7 +1,7 @@
 
  <div class="card mb-3 ">
-   <img *ngIf="item.image!=null" [src]="item.image" class="card-img-top">
-   <img *ngIf="item.image==null" src="assets/admin/img/undraw_profile.svg" class="card-img-top">
+   <img *ngIf="image!=null" [src]="item.image" class="card-img-top">
+   <img *ngIf="image==null" src="assets/admin/img/undraw_profile.svg" class="card-img-top">
    <form   class="row g-3" [formGroup]="myForm"  (ngSubmit)="change()" *ngIf="condition" >
    <input type="file"  formControlName="profile"  required (change)="selectImage($event)">
    <button type="submit" class="btn btn-primary">change</button>
@@ -10,23 +10,43 @@
     <h5 class="card-title">{{item.fullname}}</h5>
     <p class="card-text">{{item.email}}</p>
     </div> <br>
-    <div *ngIf="isinf" class="row row-cols-1 row-cols-md-3 g-4 m-2" >
-    <h1>his products</h1>  
+  </div>
+  <div *ngIf="!condition">
+   <h1>his products</h1><br>
+   <form [formGroup]="filter" >
+    <div class="row">
+      <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+      <div class="col col-sm-auto">
+        <input id="table-filtering-search" class="form-control" type="text" formControlName="fullname">
+      </div>
+      <div class="col">
+        <button class="btn btn-primary" type="submit" (click)="chearch()"><i class="fas fa-search fa-sm"></i></button>
+      </div>
+    </div>
+  </form>
+   <div  class="row row-cols-1 row-cols-md-3 g-4 m-2" >
   <div class="col" *ngFor="let element of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
     <div class="card">
       <img [src]="element.image" class="card-img-top" >
       <div class="card-body">
         <h5 class="card-title">{{element.name}}</h5>
         <p class="card-text">{{element.description}}</p>
+        <h3>tag:</h3>
+        <p>#{{element.tag}}</p>
         <small class="text-muted">{{element.price}}$</small><br>
         <a (click)="detail(element._id)" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
         
       </div>
     </div>
-    <pagination-controls 
+    
+  </div>
+  
+</div>
+<p *ngIf="list==''&&test!=''">there is no product with this name that you are searching for</p>
+<p *ngIf="test==''&& list==''">there is no product at all</p>
+<pagination-controls 
         (pageChange)="p = $event" 
         class="float-right" *ngIf="list!=''">
         </pagination-controls>
-  </div>
 </div>
-    </div>  
+      

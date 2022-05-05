@@ -32,7 +32,7 @@
     <p *ngIf="!list" >there is no influencers </p>
     <pagination-controls 
 (pageChange)="p = $event" 
-class="float-right">
+class="float-right" *ngIf="list">
 </pagination-controls>
   </table>
   <table class="table" *ngIf="mancond" >

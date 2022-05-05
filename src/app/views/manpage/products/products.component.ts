@@ -20,6 +20,7 @@ export class ProductsComponent implements OnInit,OnDestroy {
   man:any
   man_id:any
   myForm:any
+  filter:any
   p: number = 1;
   constructor(private share :ShareserviceService,private route:Router,config: NgbModalConfig, private modalService: NgbModal,private auth:AuthoManService,private formbuild:FormBuilder) {
       this.man_id=this.auth.getprof().id 
@@ -32,6 +33,9 @@ export class ProductsComponent implements OnInit,OnDestroy {
         image:['',Validators.required],
         description:['',Validators.required],
         price:['',Validators.required], 
+      })
+      this.filter=this.formbuild.group({
+        fullname:['']
       })
       config.backdrop = 'static';
       config.keyboard = true;
@@ -78,7 +82,7 @@ export class ProductsComponent implements OnInit,OnDestroy {
     // let profile=this.myForm.value
     // console.log(profile)
     this.share.upprod(formData,this.id).subscribe(doc=>{console.log(doc)
-      this.obj=this.share.getprodman(this.man_id).subscribe((res)=>{
+      this.share.getprodman(this.man_id).subscribe((res)=>{
         this.list=res
         })
     },(err:HttpErrorResponse)=>{console.log(err.message)})
@@ -86,5 +90,14 @@ export class ProductsComponent implements OnInit,OnDestroy {
   ngOnDestroy(): void {
       this.obj.unsubscribe()
   }
-  
+  chearch(){
+    // console.log(this.filter.get('fullname').value)
+    //   this.share.searchprod(this.filter.get('fullname').value).subscribe(doc=>{this.list=doc
+    //   console.log(doc)
+    //   })
+    
+    this.share.searchprodforman(this.filter.get('fullname').value,this.man_id).subscribe(doc=>{this.list=doc
+    console.log(doc)
+    })
+  }
 }
