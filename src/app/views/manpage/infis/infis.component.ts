@@ -5,7 +5,6 @@ import { Subscription, Observable } from 'rxjs';
 import { AuthoManService } from 'src/app/services/autho-man.service';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
 import io from 'socket.io-client'
-import { WebSocketService } from 'src/app/services/web-socket.service';
 const socket=io('http://localhost:3000')
 @Component({
   selector: 'app-infis',
@@ -17,7 +16,7 @@ obj:Subscription
 list:any
 id_man:any
 p: number = 1;
-  constructor(private auth:AuthoManService ,private share:ShareserviceService,private router:Router,private websocket:WebSocketService ) {
+  constructor(private auth:AuthoManService ,private share:ShareserviceService,private router:Router ) {
     this.id_man=this.auth.getprof().id
      this.obj=this.auth.getinfsofman(this.id_man).subscribe((data:any)=>{
        console.log(data)
@@ -32,8 +31,7 @@ p: number = 1;
       console.log(data.msg)
       this.list.splice(i,1)
       this.share.firedinf(this.id_man,id).subscribe((data:any)=>{
-        console.log(data.msg)
-        this.list.splice(i,1)
+        console.log(data.msg)      
       },(err:HttpErrorResponse)=>{
         console.log(err)
       })

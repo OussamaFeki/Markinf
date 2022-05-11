@@ -16,6 +16,7 @@
       <tr>
         <th scope="col">Fullname </th>
         <th scope="col">email</th>
+        <th scope="col" >num of friends </th>
         <th scope="col">for details</th>
         <th scope="col">for delete</th>
       </tr>
@@ -25,6 +26,7 @@
         <td>{{item.fullname}}</td>
         <td *ngIf="item.email!=null">{{item.email}}</td>
         <td *ngIf="item.email==null">this influencer use facebook account</td>
+        <td  >{{numberfriend[i]}}</td>
         <td><i class="fa-solid fa-file-lines"  (click)="toprofinf(item._id)"></i></td>
         <td><i class="fa-solid fa-trash-can" (click)="del(item._id,i)"></i></td>
       </tr>
@@ -41,6 +43,7 @@ class="float-right" *ngIf="list">
         <tr>
           <th scope="col">Fullname </th>
           <th scope="col">email</th>
+          <th scope="col" >num of friends </th>
           <th scope="col">opperation</th>
         </tr>
       </thead>
@@ -49,6 +52,7 @@ class="float-right" *ngIf="list">
           <td>{{item.fullname}}</td>
           <td *ngIf="item.email!=null">{{item.email}}</td>
           <td *ngIf="item.email==null">this influencer use facebook account</td>
+          <td>{{numberfriend[i]}}</td>
           <td *ngIf="!invit[i]&&!accept[i]&&!wait[i]" ><i class="fa-solid fa-user-plus" (click)="invitation(item._id,i)"></i></td>
           <td *ngIf="accept[i]"><i class="fa-solid fa-user-check" ></i></td>
           <td *ngIf="invit[i]" ><i class="fa-solid fa-user-clock"(click)="desinvit(item._id,i)"></i></td>

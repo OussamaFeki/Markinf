@@ -72,4 +72,7 @@ export class AuthoManService {
   // configpass(id_man:any,form:any){
   //   return this.http.put('http://localhost:3000/configman/:id_man'+id_man,form)
   // }
+  configprices(id_man:any,form:any){
+    return this.http.put('http://localhost:3000/configprice/'+id_man,form)
+  }
 }

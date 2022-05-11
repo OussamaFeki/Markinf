@@ -22,7 +22,7 @@ export class NewinfComponent implements OnInit,OnDestroy {
      this.id_man=this.auth.getprof().id
      this.socket=io('http://localhost:3000')
       this.obj=this.share.boiteinvit(this.id_man).subscribe((data:any)=> {
-       this.list=data
+       this.list=data.doc
        console.log(this.list)
        for(let i in this.list){
          if(this.list[i].facebookId){
@@ -40,6 +40,13 @@ export class NewinfComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     this.obj=this.listen(`data ${this.id_man}`).subscribe((data:any)=>{
       this.list=data
+      for(let i in this.list){
+        if(this.list[i].facebookId){
+         this.fbs.numberoffriend(this.list[i].facebookId,this.list[i].accesstoken).subscribe((res:any)=>{
+         this.numberfriend[i]=res.friends.summary.total_count
+         })
+        }else{this.numberfriend[i]=0}
+      }
      })
   }
   accepter(id:any,i:any){
@@ -55,6 +62,20 @@ export class NewinfComponent implements OnInit,OnDestroy {
    this.auth.refuse(this.id_man,id).subscribe((data:any)=>{
     console.log(data)
     this.list.splice(i,1)
+    this.numberfriend.splice(i,1)
+    this.share.boiteinvit(this.id_man).subscribe((data:any)=> {
+      this.list=data.doc
+      console.log(this.list)
+      for(let i in this.list){
+        if(this.list[i].facebookId){
+         this.fbs.numberoffriend(this.list[i].facebookId,this.list[i].accesstoken).subscribe((res:any)=>{
+         this.numberfriend[i]=res.friends.summary.total_count
+         })
+        }else{this.numberfriend[i]=0}
+      }
+
+      
+      })
   },(err)=>{
     console.log(err)
   })
@@ -77,8 +98,5 @@ export class NewinfComponent implements OnInit,OnDestroy {
       sub.next(data)
       })
     })
-  }
-  addnumberfriend(fbid:any,accesstoken:any,i:number){
-  
   }
 }

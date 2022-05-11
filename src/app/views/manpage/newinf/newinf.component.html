@@ -14,7 +14,7 @@
         <td>{{item.fullname}}</td>
         <td *ngIf="item.email!=null">{{item.email}}</td>
         <td *ngIf="item.email==null">this influencer use facebook account</td>
-        <td  >{{numberfriend[i]}}</td>
+        <td>{{numberfriend[i]}}</td>
         <td (click)="accepter(item._id,i)"><i class="fa-solid fa-circle-check"></i></td>
         <td (click)="refuse(item._id,i)"><i class="fa-solid fa-circle-xmark"></i></td>
       </tr>

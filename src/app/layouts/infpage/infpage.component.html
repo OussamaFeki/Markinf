@@ -33,7 +33,7 @@
         <li class="nav-item ">
             <a class="nav-link" routerLink="newmans" (click)="desnot()">
                 <i class="fa-brands fa-black-tie"></i>
-                <span>New Managers</span><span *ngIf="test" class="badge badge-danger badge-counter">*</span></a>
+                <span>New Managers</span><span *ngIf="test>0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{test}}</span></a>
         </li>
         <!-- Divider -->
         <hr class="sidebar-divider">

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthoInfService } from 'src/app/services/autho-inf.service';
 import io from 'socket.io-client'
 import { Observable } from 'rxjs';
+import { ShareserviceService } from 'src/app/services/shareservice.service';
 @Component({
   selector: 'app-infpage',
   templateUrl: './infpage.component.html',
@@ -18,10 +19,12 @@ export class InfpageComponent implements OnInit {
   counter:any
   numberofnewman:any
   socket:any
-  test:any
+  test:number=0
   image:any
   
-  constructor(private auth:AuthoInfService,private route:Router,private formbuilder:FormBuilder) {
+  constructor(private auth:AuthoInfService,private route:Router,
+    private formbuilder:FormBuilder,
+    private share:ShareserviceService) {
     
     this.myForm=this.formbuilder.group({
       fullname:['']
@@ -30,6 +33,9 @@ export class InfpageComponent implements OnInit {
     this.id=this.auth.getprof().id
     this.auth.getinf(this.id).subscribe(doc=>{this.prof=doc
     this.image=this.prof.image
+    this.share.boiteinvitofinf(this.id).subscribe((res:any)=>{
+      this.test=res.notif
+    })
     })
     console.log(this.auth.IsloggedIn())
     this.socket=io('http://localhost:3000')
@@ -61,6 +67,8 @@ export class InfpageComponent implements OnInit {
     })
   }
   desnot(){
-    this.test=false
+    this.test=0
+    this.share.restnotifinf(this.id).subscribe(doc=>console.log(doc))
+
   }
 }

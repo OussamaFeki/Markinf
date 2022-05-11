@@ -19,7 +19,7 @@ export class ManpageComponent implements OnInit {
   address:any
   countnotif:any
   socket:any
-  test:any
+  test:number=0
   image:any
   constructor(private route:Router,private auth:AuthoManService,private share:ShareserviceService,private formbuilder:FormBuilder) {
     this.username=this.auth.getprof().fullname
@@ -27,7 +27,12 @@ export class ManpageComponent implements OnInit {
     this.socket=io('http://localhost:3000')
     this.share.getman(this.id).subscribe(doc=>{this.prof=doc
     this.image=this.prof.image
+    console.log(this.id)
+    this.share.boiteinvit(this.id).subscribe((res:any)=>{
+      this.test=res.notif
     })
+    })
+    
     console.log(this.auth.IsloggedIn())
     this.myForm=this.formbuilder.group({
       fullname:['']
@@ -60,6 +65,9 @@ export class ManpageComponent implements OnInit {
     })
   }
   desnotif(){
-    this.test=false
+    this.test=0
+    this.share.restnotif(this.id).subscribe(doc=>{
+      console.log(doc)
+    })
   }
 }

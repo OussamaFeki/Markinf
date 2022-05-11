@@ -1,16 +1,40 @@
-<h1>Configueration</h1>
+<h1>Configueration</h1> 
 <div class="contatiner" >
-    <form [formGroup]="myform" (ngSubmit)="change()">
+      
+       <form #f="ngForm"(ngSubmit)="change(f)">
       <div class="mb-3 m-2">
-        <label for="exampleFormControlInput1" class="form-label">oldpassword</label><br>
-        <input type="email" class="form-control-user" id="exampleFormControlInput1" placeholder="OldPassword" formControlName="oldpass" required>
+        <input type="password" name="oldpass" class="form-control-user"   placeholder="OldPassword"  ngModel>
       </div>
       <div class="mb-3 m-2">
-        <label for="exampleFormControlInput1" class="form-label">Newpassword</label><br>
-        <input type="email" class="form-control-user" id="exampleFormControlInput1" placeholder="NewPassword" formContorlName="newpass" required>
+        <input type="password" name="newpass" class=" form-control-user"   placeholder="NewPassword"  ngModel>
       </div>
       <div class="mb-3 m-2">
         <button type="submit" class="btn btn-primary">change</button>
       </div>
-    </form> 
+    </form>   
+     <form *ngIf="isman && !sala_ischanged" #form="ngForm"(ngSubmit)="changesalary(form)">
+      <div class="mb-2 m-2">
+        <label for="exampleFormControlInput1" class="form-label">for standard salary</label><br>
+        <input type="number" class="form-control-user"  placeholder="standard salary" name="standard" ngModel>
+      </div>
+      <div class="mb-2 m-2">
+        <label for="exampleFormControlInput1" class="form-label">for each love</label><br>
+        <input type="number" class="form-control-user"  placeholder="for each multi loves" name="eachlove" ngModel>
+      </div>
+      <div class="mb-2 m-2">
+        <label for="exampleFormControlInput1" class="form-label">for each like</label><br>
+        <input type="number" class="form-control-user"  placeholder="for each multi likes" name="eachlike" ngModel>
+      </div>
+      <div class="mb-2 m-2">
+        <button type="submit" class="btn btn-primary">change salary</button>
+      </div>
+    </form>  
+    <div *ngIf="sala_ischanged">
+     <h1>standard salary:</h1>
+     {{item.standard}} 
+     <h2>for each multi loves:</h2>
+     {{item.foreachmultilove}}
+     <h3>for each multi likes:</h3>
+     {{item.foreachmultilike}}
+    </div> 
 </div>

@@ -30,14 +30,15 @@ export class PubsComponent implements OnInit {
        if(this.fbid){
         this.fbs.getposts(this.fbid,doc.accesstoken).subscribe((res:any)=>{
           this.all=res.posts.data
-          
+          let j=0
            for(let i in this.all){
              for(let l in this.listprods){
                if(this.all[i].message){
                 this.test=this.all[i].message
-             let j=0
+             
               if(this.test.indexOf(`#${this.listprods[l].tag}`)!==-1){ 
                 this.list[j]=this.listprods[l]
+                console.log(this.list[j])
                 this.pubids[j]=this.all[i].id
                 console.log(j)
                 this.reactioncount(this.all[i].id,doc.accesstoken,j)
@@ -48,6 +49,7 @@ export class PubsComponent implements OnInit {
              }
            }
           console.log(this.listprods) 
+          console.log(this.list)
         })}
       })
    }

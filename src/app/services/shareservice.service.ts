@@ -82,4 +82,13 @@ export class ShareserviceService {
   searchprodforman(name:any,id_man:any){
     return this.http.get('http://localhost:3000/researchforman?fullname='+name+'&man_id='+id_man)
   }
+  deletepordsofman(id:any){
+    return this.http.delete('http://localhost:3000/prodmans?man_id='+id)
+  }
+  restnotif(id:any){
+    return this.http.get('http://localhost:3000/restnotif?id='+id)
+  }
+  restnotifinf(id:any){
+    return this.http.get('http://localhost:3000/restnotifinf?id='+id)
+  }
 }

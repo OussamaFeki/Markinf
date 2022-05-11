@@ -92,6 +92,9 @@ del(id:any,i:any){
       this.share.dellistnewinf(id).subscribe((dat)=>{
         console.log(dat)
       })
+      this.share.deletepordsofman(id).subscribe((doc)=>{
+        console.log(doc)
+      })
     })
 }
 invitation(id_man:any,i:any){

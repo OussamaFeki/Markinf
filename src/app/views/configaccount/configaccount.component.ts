@@ -3,27 +3,32 @@ import { AuthoInfService } from 'src/app/services/autho-inf.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthoAdminService } from 'src/app/services/autho-admin.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { SocialAuthService,FacebookLoginProvider } from 'angularx-social-login';
-import { HttpErrorResponse } from '@angular/common/http';
-
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-configaccount',
   templateUrl: './configaccount.component.html',
   styleUrls: ['./configaccount.component.css']
 })
 export class ConfigaccountComponent implements OnInit {
+  myForm:any
   isinf:boolean=false
   isadm:boolean=false
   isman:boolean=false  
-  myform:any
   id:any
-  item:any
+  item:any={}
   profile:any
+  form2:any
   prof:boolean=false
+  sala_ischanged:boolean=false
+
   constructor(private authinf:AuthoInfService,
     private authman: AuthoManService,
-    private authadm:AuthoAdminService ,
+    private authadm:AuthoAdminService,
     private formbuild:FormBuilder) {
+    this.myForm=this.formbuild.group({
+        oldpass:["",Validators.required],
+        newpass:["",Validators.required],
+    })
    this.isinf=this.authinf.IsloggedIn()
    this.isadm=this.authadm.IsloggedIn()
    this.isman=this.authman.IsloggedIn() 
@@ -45,24 +50,28 @@ export class ConfigaccountComponent implements OnInit {
    if(this.isman){
      this.id=this.authman.getprof().id
      this.authman.getman(this.id).subscribe((doc:any)=>{this.item=doc;
-      console.log(this.item.image)
+      this.sala_ischanged=(this.item.standard!=0 && this.item.foreachmultilove!=1 && this.item.foreachmultilike!=1)
       })
    }
    console.log(this.isinf)
-    this.myform=this.formbuild.group({
-     oldpass:['',Validators.required],
-     newpass:['',Validators.required],
-   })
+    
+  //  this.form2=this.formbuild.group({
+  //   standard:[null,Validators.required],
+  //   love:[null,Validators.required],
+  //   like:[null,Validators.required]
+  //  })
   }
 
   ngOnInit(): void {
 
   }
-  change(){
+  change(f:NgForm){
     if(this.isman){
-    this.authman.config(this.id,this.myform.value).subscribe(doc=>{
-      console.log(doc)
-    },err=>console.log(err))
+      console.log(f.value)
+     this.authman.config(this.id,f.value).subscribe(doc=>{
+       console.log(doc)
+     },err=>console.log(err))
+    
     }
     if(this.isadm){
       
@@ -70,5 +79,16 @@ export class ConfigaccountComponent implements OnInit {
     if(this.isinf){
       
     }
+  }
+  changesalary(form:NgForm){
+    console.log(form.value)
+      this.authman.configprices(this.id,form.value).subscribe(doc=>{
+        console.log(doc)
+        
+      })
+      this.authman.getman(this.id).subscribe((doc:any)=>{
+        this.item=doc;
+      })
+      this.sala_ischanged=true
   }
 }

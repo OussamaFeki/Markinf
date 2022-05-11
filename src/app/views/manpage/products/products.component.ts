@@ -26,6 +26,7 @@ export class ProductsComponent implements OnInit,OnDestroy {
       this.man_id=this.auth.getprof().id 
       this.obj=this.share.getprodman(this.man_id).subscribe((doc)=>{
       this.list=doc
+      console.log(this.list[0])
       })
       this.myForm=this.formbuild.group({
         name:['',Validators.required],

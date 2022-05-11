@@ -9,6 +9,7 @@ import { AuthoInfService } from 'src/app/services/autho-inf.service';
 import { AuthoManService } from 'src/app/services/autho-man.service';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
 import io from 'socket.io-client'
+import { FbserveService } from 'src/app/services/fbserve.service';
 @Component({
   selector: 'app-influencers',
   templateUrl: './influencers.component.html',
@@ -27,7 +28,16 @@ export class InfluencersComponent implements OnInit ,OnDestroy {
   wait:any=[]
   p: number = 1;
   socket:any
-  constructor(private share:ShareserviceService,private route:ActivatedRoute,private auth:AuthoAdminService,private formbuilder:FormBuilder,private router:Router,private auth2:AuthoInfService,private auth1:AuthoManService){
+  numberfriend:any=[]
+  constructor(private share:ShareserviceService,
+    private route:ActivatedRoute,
+    private auth:AuthoAdminService,
+    private formbuilder:FormBuilder,
+    private router:Router,
+    private auth2:AuthoInfService,
+    private auth1:AuthoManService,
+    private fbs:FbserveService
+    ){
     this.route.queryParams.subscribe(params=>{
       console.log(params.fullname)
       if (params.fullname!=undefined){
@@ -38,6 +48,13 @@ export class InfluencersComponent implements OnInit ,OnDestroy {
       }
       this.obj=this.share.getinf(this.search).subscribe((doc:any)=>{
         this.list=doc
+        for(let i in this.list){
+          if(this.list[i].facebookId){
+           this.fbs.numberoffriend(this.list[i].facebookId,this.list[i].accesstoken).subscribe((res:any)=>{
+           this.numberfriend[i]=res.friends.summary.total_count
+           })
+          }else{this.numberfriend[i]=0}
+        }
         if(this.mancond){
           this.id=this.auth1.getprof().id
           for(let i in this.list){
@@ -89,6 +106,7 @@ export class InfluencersComponent implements OnInit ,OnDestroy {
   this.share.deleteinf(id).subscribe((data)=>{
     console.log(data);
     this.list.splice(i,1)
+    this.numberfriend.splice(i,1)
     this.share.dellistnewman(id).subscribe((doc)=>{
       console.log(doc)
     })
