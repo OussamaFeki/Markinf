@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthoAdminService } from 'src/app/services/autho-admin.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-configaccount',
   templateUrl: './configaccount.component.html',
@@ -24,7 +25,9 @@ export class ConfigaccountComponent implements OnInit {
   constructor(private authinf:AuthoInfService,
     private authman: AuthoManService,
     private authadm:AuthoAdminService,
-    private formbuild:FormBuilder) {
+    private formbuild:FormBuilder,
+    private toastr:ToastrService
+    ) {
     this.myForm=this.formbuild.group({
         oldpass:["",Validators.required],
         newpass:["",Validators.required],
@@ -70,7 +73,8 @@ export class ConfigaccountComponent implements OnInit {
       console.log(f.value)
      this.authman.config(this.id,f.value).subscribe(doc=>{
        console.log(doc)
-     },err=>console.log(err))
+       this.toastr.success('password changed','notification')
+     },err=> this.toastr.error(err.error,'Error'))
     
     }
     if(this.isadm){
@@ -84,11 +88,11 @@ export class ConfigaccountComponent implements OnInit {
     console.log(form.value)
       this.authman.configprices(this.id,form.value).subscribe(doc=>{
         console.log(doc)
-        
+        this.authman.getman(this.id).subscribe((res:any)=>{
+          this.item=res;
+        })
       })
-      this.authman.getman(this.id).subscribe((doc:any)=>{
-        this.item=doc;
-      })
+
       this.sala_ischanged=true
   }
 }

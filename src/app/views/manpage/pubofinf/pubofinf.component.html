@@ -1,0 +1,30 @@
+<div class="row row-cols-1 row-cols-md-3 g-4" >
+  <div class="col" *ngFor="let item of list | paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
+    <div class="card">
+      <img [src]="item.image" class="image card-img-top" >
+      <div class="card-body">
+        <h5 class="card-title">{{item.name}}</h5>
+        <p class="card-text">{{item.description}}</p><br>
+        <h5>influencer:</h5>
+        <p>
+          <img class="img-profile rounded-circle" *ngIf="influencer[i].image==null" src='assets/admin/img/undraw_profile.svg'>
+          <img class="img-profile rounded-circle" *ngIf="influencer[i].image!=null" [src]="influencer[i].image">
+          {{influencer[i].fullname}} </p>
+        <p>reactions:</p>
+        <p *ngIf="item.name!=null">{{list2[i]}}</p>
+        <p>  loves reactions :<small>{{listlove[i]}}</small></p>
+        <p>  likes reactions :<small>{{listlike[i]}}</small></p>
+        <small class="text-muted">{{item.price}}$</small>
+        <a (click)="detail(pubids[i],influencer[i]._id)" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
+        <button type="button" *ngIf="!acceptedpub[i]"  class="btn btn-success" (click)="accepter(foraccepte[i].id,id,foraccepte[i].full_picture,i)">accept</button>
+        <button type="button" *ngIf="acceptedpub[i]"  class="btn btn-danger" (click)="cancel(foraccepte[i].id,id,foraccepte[i].full_picture,i)">cancel</button>
+      
+      </div>
+    </div>
+  </div> 
+</div> 
+<pagination-controls 
+ (pageChange)="p = $event" 
+class="float-right" *ngIf="list!=''" >
+</pagination-controls> 
+ 

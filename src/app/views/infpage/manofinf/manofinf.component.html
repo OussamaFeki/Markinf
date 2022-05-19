@@ -5,6 +5,8 @@
         <th scope="col">Fullname </th>
         <th scope="col">email</th>
         <th scope="col">avatar</th>
+        <th scope="col">for likes </th>
+        <th scope="col">for loves </th>
         <th scope="col">for details</th>
         <th scope="col">for delete</th>
       </tr>
@@ -16,6 +18,8 @@
         <td><img class="img-profile rounded-circle" *ngIf="item.image==null" src='assets/admin/img/undraw_profile.svg'>
         <img class="img-profile rounded-circle" *ngIf="item.image!=null" [src]="item.image">
         </td>
+        <td>{{item.foreachmultilike}}</td>
+        <td>{{item.foreachmultilove}}</td>
         <td><i class="fa-solid fa-file-lines" (click)="toprofman(item._id)" ></i></td>
         <td><i class="fa-solid fa-user-minus" (click)="fier(item._id,i)"></i></td>
       </tr>

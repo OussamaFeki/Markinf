@@ -1,7 +1,7 @@
 
  <div class="card mb-3 ">
-   <img *ngIf="image!=null" [src]="item.image" class="card-img-top">
-   <img *ngIf="image==null" src="assets/admin/img/undraw_profile.svg" class="card-img-top">
+   <img *ngIf="image!=null" [src]="item.image" class="rounded-circle card-img-top">
+   <img *ngIf="image==null" src="assets/admin/img/undraw_profile.svg" class="rounded-circle card-img-top">
    <form   class="row g-3" [formGroup]="myForm"  (ngSubmit)="change()" *ngIf="condition" >
    <input type="file"  formControlName="profile"  required (change)="selectImage($event)">
    <button type="submit" class="btn btn-primary">change</button>

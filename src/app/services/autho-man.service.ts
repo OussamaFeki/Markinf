@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -74,5 +77,14 @@ export class AuthoManService {
   // }
   configprices(id_man:any,form:any){
     return this.http.put('http://localhost:3000/configprice/'+id_man,form)
+  }
+  acceptpub(pub_id:any,id_manager:any,imageUrl:any){
+     return this.http.get('http://localhost:3000/acceptpub?pub_id='+pub_id+'&id_manager='+id_manager+'&imageUrl='+imageUrl)
+  }
+  isaccpub(pub_id:any,id_manager:any,image:any){
+    return this.http.get(`http://localhost:3000/isaccpub?id=${pub_id}&id_manager=${id_manager}&picture=${image}`)
+  }
+  cancelpub(pub_id:any,id_manager:any,imageUrl:any){
+    return this.http.get('http://localhost:3000/cancel?pub_id='+pub_id+'&id_manager='+id_manager+'&imageUrl='+imageUrl)
   }
 }

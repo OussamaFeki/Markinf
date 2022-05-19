@@ -56,7 +56,7 @@ class="float-right" *ngIf="list">
           <td *ngIf="!invit[i]&&!accept[i]&&!wait[i]" ><i class="fa-solid fa-user-plus" (click)="invitation(item._id,i)"></i></td>
           <td *ngIf="accept[i]"><i class="fa-solid fa-user-check" ></i></td>
           <td *ngIf="invit[i]" ><i class="fa-solid fa-user-clock"(click)="desinvit(item._id,i)"></i></td>
-          <td *ngIf="wait[i]" routerLink="../ninf">attend...</td>
+          <td *ngIf="wait[i]" routerLink="../ninf">waiting...</td>
         </tr>
       </tbody>
       <p *ngIf="!list" >there is no managers </p>

@@ -14,6 +14,7 @@ list:any;
 listprods:any=[];
 id:any
 p:number=1
+managers:any=[{}]
   constructor(private share :ShareserviceService,
     private route :Router,
     private auth:AuthoInfService
@@ -37,6 +38,7 @@ p:number=1
         this.share.getprodman(data[i]._id).subscribe((doc:any)=>{
           for(let d in doc){
             this.listprods[j]=doc[d]
+            this.managers[j]=data[i]
             j=j+1
           }
           })

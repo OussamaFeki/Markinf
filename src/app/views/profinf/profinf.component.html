@@ -1,6 +1,6 @@
 <div class="card mb-3 ">
-    <img *ngIf="image!=null" [src]="item.image" class="card-img-top">
-    <img *ngIf="image==null" src="assets/admin/img/undraw_profile.svg" class="card-img-top">
+    <img *ngIf="image!=null" [src]="item.image" class="image rounded-circle card-img-top">
+    <img *ngIf="image==null" src="assets/admin/img/undraw_profile.svg" class="image rounded-circle card-img-top">
     <form   class="row g-3" [formGroup]="myForm" *ngIf="condition"  (ngSubmit)="change()" >
     <input type="file"  formControlName="profile"  required (change)="selectImage($event)">
     <button type="submit" class="btn btn-primary">change</button>
@@ -13,7 +13,7 @@
     <div class="m-3" >
     <b class="interet">interet:</b>
     <p>{{item.interet}}</p>
-    <b>full interet:</b>
+    <b>full profit:</b>
     <p>{{totalinteret}}</p>
     <b>rest interet:</b>
     <p></p> 
@@ -25,16 +25,20 @@
 <div class="row row-cols-1 row-cols-md-3 g-4" >
   <div class="col" *ngFor="let item1 of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
     <div class="second card">
-      <img [src]="item1.image" class="card-img-top" >
+      <img [src]="item1.image" class="image card-img-top" >
       <div class="card-body">
         <h6>name:</h6>
         <h5 class="card-title">{{item1.name}}</h5>
-        <p class="desc">description:</p>
-        <p class="card-text">{{item1.description}}</p><br>
+        <p class="desc" *ngIf="!isman">manager:</p>
+        <p class="card-text" *ngIf="!isman">
+          <img class="img-profile rounded-circle" *ngIf="managers[i].image==null" src='assets/admin/img/undraw_profile.svg'>
+          <img class="img-profile rounded-circle" *ngIf="managers[i].image!=null" [src]="managers[i].image">
+          {{managers[i].fullname}}</p><br>
         <p class="titre">reactions:<small *ngIf="item1.name!=null" class="text-muted">{{list2[i]}}</small></p>
         <br>
-        <p>gain:<small>{{listinteretforlove[i]}}</small></p>
-        <br>   
+        <p> gains for love reactions :<small>{{listinteretforlove[i]}}</small></p>
+        <br>
+        <p> gains for like reactions :<small>{{listinteretforlike[i]}}</small></p>
         <a (click)="detail(pubids[i])" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
       </div>
     </div>

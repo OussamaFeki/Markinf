@@ -5,15 +5,20 @@ import {SocialAuthServiceConfig,SocialAuthService,SocialLoginModule} from 'angul
 import {FacebookLoginProvider} from 'angularx-social-login'
 import { ConfigaccountRoutingModule } from './configaccount-routing.module';
 import { ConfigaccountComponent } from './configaccount.component';
-
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [ConfigaccountComponent],
   imports: [
     CommonModule,
     ConfigaccountRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut:5000,
+      easeTime:100,
+    })
   ]
 })
 export class ConfigaccountModule { }

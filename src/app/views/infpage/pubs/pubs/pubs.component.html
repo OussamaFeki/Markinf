@@ -5,16 +5,24 @@
    </tr>
 </table>  -->
 <p *ngIf="fbid==null">this for the influencers who loged in with facebook</p>
+<p *ngIf="list==''">if you recently publicate an article on your sociel media please wait your manager for accepted this article </p> 
 <div class="row row-cols-1 row-cols-md-3 g-4" >
   <div class="col" *ngFor="let item of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
     <div class="card">
-      <img [src]="item.image" class="card-img-top" >
+      <img [src]="item.image" class="image card-img-top" >
       <div class="card-body">
         <h5 class="card-title">{{item.name}}</h5>
         <p class="card-text">{{item.description}}</p><br>
+        <h5>manager:</h5>
+        <p><img class="img-profile rounded-circle" *ngIf="managers[i].image==null" src='assets/admin/img/undraw_profile.svg'>
+          <img class="img-profile rounded-circle" *ngIf="managers[i].image!=null" [src]="managers[i].image">
+          {{managers[i].fullname}}</p>
         <p>reactions:</p>
         <small *ngIf="item.name!=null" class="text-muted">{{list2[i]}}</small><br>
+        <p> gains for love reactions :<small>{{listinteretforlove[i]}}</small></p>
+        <p> gains for like reactions :<small>{{listinteretforlike[i]}}</small></p>
         <a (click)="detail(pubids[i])" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
+        
       </div>
     </div>
   </div>

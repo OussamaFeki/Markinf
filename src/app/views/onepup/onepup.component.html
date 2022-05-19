@@ -11,7 +11,8 @@
           <div class="love col-2"><i class="fa-brands fa-gratipay"></i><h4>{{love}}</h4></div>
         </div>
 
-
+        <button type="button" *ngIf="!acceptedpub && isman"  class="btn btn-success" (click)="accepter(item.id,id_man,item.full_picture)">accept</button>
+        <button type="button" *ngIf="acceptedpub && isman"  class="btn btn-danger" (click)="cancel(item.id,id_man,item.full_picture)">cancel</button>
         <!-- <p class="card-text"><small class="text-muted">{{}}$</small></p> -->
       </div>
     </div>  

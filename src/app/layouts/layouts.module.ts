@@ -29,6 +29,7 @@ import { AnonspageModule } from '../views/infpage/anonspage/anonspage.module';
 import { ProfileModule } from '../views/profile/profile.module';
 import { PubsModule } from '../views/infpage/pubs/pubs.module';
 import { OnepupModule } from '../views/onepup/onepup.module';
+import { PubofinfModule } from '../views/manpage/pubofinf/pubofinf.module';
 
 
 
@@ -68,6 +69,7 @@ import { OnepupModule } from '../views/onepup/onepup.module';
     ProfileModule,
     PubsModule,
     OnepupModule,
+    PubofinfModule,
   ]
 })
 export class LayoutsModule { }

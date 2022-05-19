@@ -25,6 +25,7 @@ export class ProfinfComponent implements OnInit {
   listprod:any=[]
   listlove:any=[]
   listinteretforlove:any=[]
+  listlike:any=[]
   all:any
   test:any
   pubids:any=[]
@@ -33,7 +34,11 @@ export class ProfinfComponent implements OnInit {
   image:any
   fullname:any
   email:any
+  listinteretforlike:any=[]
   totalinteret:Number=0
+  accpted:any
+  managers:any=[{}]
+  isman:boolean=false
   constructor(private auth:AuthoInfService,
     private formbuilder:FormBuilder,
     private route:ActivatedRoute,
@@ -43,7 +48,7 @@ export class ProfinfComponent implements OnInit {
     private router:Router,
     private authadmin:AuthoAdminService,
     private calcul:CalculatorService
-    ) { 
+    ) { this.isman=this.aut.IsloggedIn()
       if(this.aut.IsloggedIn()){
         this.id= this.aut.getprof().id
         this.products(this.id)
@@ -66,19 +71,24 @@ export class ProfinfComponent implements OnInit {
       this.fbs.getposts(doc.facebookId,doc.accesstoken).subscribe((res:any)=>{
         this.all=res.posts.data
         let j=0
-        var sum=0
          for(let i in this.all){
            for(let l in this.listprod){
              if(this.all[i].message){
               this.test=this.all[i].message
               console.log(this.test)
               if(this.test.indexOf(`#${this.listprod[l].tag}`)!==-1){ 
-               this.list[j]=this.listprod[l]
-               this.pubids[j]=this.all[i].id
-               this.reactioncount(this.all[i].id,doc.accesstoken,j)
-               this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
-               sum=sum+this.listinteretforlove[j]
-               j=j+1
+                this.auth.isaccpub(this.all[i].id,this.listprod[l].id_manager,this.all[i].full_picture).subscribe((resultat:any)=>{
+                  this.accpted=resultat
+                  if(this.accpted){
+                    this.list[j]=this.listprod[l]
+                    this.pubids[j]=this.all[i].id
+                    this.reactioncount(this.all[i].id,doc.accesstoken,j)
+                    this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
+                    this.likecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
+                    j=j+1
+                  }
+                })
+              
              }
              
              }
@@ -91,7 +101,7 @@ export class ProfinfComponent implements OnInit {
         
       })
       }
-      if(this.authadmin.IsloggedIn()){
+      if(!this.aut.IsloggedIn()){
         this.producttoin(this.id_inf)
         this.fbs.getposts(this.fbid,doc.accesstoken).subscribe((res:any)=>{
           this.all=res.posts.data
@@ -102,21 +112,27 @@ export class ProfinfComponent implements OnInit {
                 this.test=this.all[i].message
              
               if(this.test.indexOf(`#${this.listprod[l].tag}`)!==-1){ 
-                this.list[j]=this.listprod[l]
-                this.pubids[j]=this.all[i].id
-                console.log(j)
-                this.reactioncount(this.all[i].id,doc.accesstoken,j)
-                this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
-                j=j+1
+                this.auth.isaccpub(this.all[i].id,this.listprod[l].id_manager,this.all[i].full_picture).subscribe((resultat:any)=>{
+                  this.accpted=resultat
+                  if(this.accpted){
+                    this.list[j]=this.listprod[l]
+                  this.pubids[j]=this.all[i].id
+                  console.log(j)
+                  this.reactioncount(this.all[i].id,doc.accesstoken,j)
+                  this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
+                  this.likecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
+                  this.managerofprod(this.listprod[l].id_manager,j)
+                  j=j+1
+                  }
+                  
+                })
               }
                }
               
              }
              
            }
-           console.log(this.listinteretforlove)
-           console.log(this.pubids)
-           console.log(this.totalinteret)
+           console.log(this.listlove)
            
         })    
     
@@ -150,7 +166,7 @@ export class ProfinfComponent implements OnInit {
     const formData:any =new FormData();
     formData.append('image', this.myForm.get('image').value)
     this.auth.upavatar(this.id_inf,formData).subscribe(doc=>{console.log(doc)
-      this.auth.getinf(this.id_inf).subscribe((doc:any)=>{this.item=doc;
+      this.auth.getinf(this.id_inf).subscribe((res:any)=>{this.item=res;
         this.image=this.item.image})
     })
     
@@ -165,6 +181,12 @@ export class ProfinfComponent implements OnInit {
     this.fbs.numberoflove(postid,accesstoken).subscribe((doc:any)=>{
       this.listlove[i]=doc.reactions.summary.total_count
       this.intertofprod(id,i)
+    })
+  }
+  likecount(postid:any,accesstoken:any,i:any,id:any){
+    this.fbs.numberofLike(postid,accesstoken).subscribe((doc:any)=>{
+      this.listlike[i]=doc.reactions.summary.total_count
+      this.intertofprodlikes(id,i)
     })
   }
    products(id:any){
@@ -197,11 +219,26 @@ export class ProfinfComponent implements OnInit {
   }
   intertofprod(id:any,i:any){
    this.aut.getman(id).subscribe((data:any)=>{
-    // this.listinteretforlove[i]=this.calcul.calculinteretlove(data.standard,this.listlove[i],data.foreachmultilove)
-    this.listinteretforlove[i]=this.calcul.calculinteretlove(12,this.listlove[i],data.foreachmultilove)
+    this.listinteretforlove[i]=this.calcul.calculinteretlove(data.standard,this.listlove[i],data.foreachmultilove)
+    // this.listinteretforlove[i]=this.calcul.calculinteretlove(12,this.listlove[i],data.foreachmultilove)
     console.log(this.listinteretforlove[i])
     this.totalinteret=this.totalinteret+this.listinteretforlove[i]
     console.log(this.totalinteret)
+    })
+  }
+  intertofprodlikes(id:any,i:any){
+    this.aut.getman(id).subscribe((data:any)=>{
+      this.listinteretforlike[i]=this.calcul.calculinteretlove(data.standard,this.listlike[i],data.foreachmultilike)
+      // this.listinteretforlove[i]=this.calcul.calculinteretlove(12,this.listlove[i],data.foreachmultilove)
+      console.log(this.listinteretforlike[i])
+      this.totalinteret=this.totalinteret+this.listinteretforlike[i]
+      console.log(this.totalinteret)
+      })
+  }
+  managerofprod(id:any,i:any){
+    this.aut.getman(id).subscribe(doc=>{
+      this.managers[i]=doc
+      console.log( this.managers[i])
     })
   }
 }

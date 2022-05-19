@@ -45,6 +45,7 @@ const routes: Routes = [
       {path:'pub',loadChildren:()=>import('./views/onepup/onepup-routing.module').then(m=>m.OnepupRoutingModule)},
       {path:'config',loadChildren:()=>import('./views/configaccount/configaccount-routing.module').then(m=>m.ConfigaccountRoutingModule)},
       {path:'messages',loadChildren:()=>import('./views/manpage/message/message-routing.module').then(m=>m.MessageRoutingModule)},
+      {path:'pubinfs',loadChildren:()=>import('./views/manpage/pubofinf/pubofinf-routing.module').then(m=>m.PubofinfRoutingModule)}
     ]},
   {path:'influencer',component:InfpageComponent,canActivate:[InfGuardGuard],children:[
     {path:'',loadChildren:()=>import('./views/infpage/welcom/welcom-routing.module').then(m=>m.WelcomRoutingModule)},
@@ -63,8 +64,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes),
-    FacebookModule.forRoot()
+  imports: [RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]
 })

@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { AddprodComponen } from './addprod.component';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AddprodComponen],
@@ -17,8 +18,10 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     BrowserModule,
     RouterModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut:10000,
+      timeOut:5000,
+      easeTime:100,
     })
     
   ]

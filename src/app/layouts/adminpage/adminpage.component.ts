@@ -25,8 +25,8 @@ export class AdminpageComponent implements OnInit {
    search(){
     this.address='?fullname='+this.myForm.get('fullname').value
     if(this.myForm.get('fullname').value){
-       this.route.navigateByUrl(`admin/influencers${this.address}`)
+       this.route.navigateByUrl(`/admin/managers${this.address}`)
     }else{
-      this.route.navigate(['/admin/influencers'])}
+      this.route.navigate(['/admin/managers'])}
    }
 }
