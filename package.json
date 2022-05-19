@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -12,8 +12,10 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.2.0",
+    "@angular/cli": "~12.2.16",
     "@angular/common": "~12.2.0",
     "@angular/compiler": "~12.2.0",
+    "@angular/compiler-cli": "~12.2.0",
     "@angular/core": "~12.2.0",
     "@angular/forms": "~12.2.0",
     "@angular/localize": "~12.2.0",
@@ -26,6 +28,7 @@
     "@types/socket.io-client": "^3.0.0",
     "angularx-social-login": "^4.1.0",
     "bootstrap": "^4.5.0",
+    "express": "^4.18.1",
     "ng-image-slider": "^2.8.0",
     "ngx-facebook": "^3.0.0-0",
     "ngx-pagination": "^5.1.1",
@@ -35,10 +38,8 @@
     "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4",
-    "@angular/cli": "~12.2.16",
-    "@angular/compiler-cli": "~12.2.0",
-    "typescript": "~4.3.5"
+    "typescript": "~4.3.5",
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.2.16",
@@ -50,6 +51,9 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0"
-    
+  },
+  "engines":{
+    "npm":"6.14.15",
+    "node":"14.18.0"
   }
 }
