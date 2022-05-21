@@ -12,9 +12,15 @@
 }
 .second{
     width: fit-content;
+    color:blueviolet;
+    font-weight: bolder;
 }
 .price{
     color: aqua;
     font-size: small;
     
+}
+.card-img-top{
+    width: 400px;
+    height: 500px;
 }

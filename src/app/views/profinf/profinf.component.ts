@@ -39,6 +39,7 @@ export class ProfinfComponent implements OnInit {
   accpted:any
   managers:any=[{}]
   isman:boolean=false
+  managernumber:Number=0
   constructor(private auth:AuthoInfService,
     private formbuilder:FormBuilder,
     private route:ActivatedRoute,
@@ -56,6 +57,8 @@ export class ProfinfComponent implements OnInit {
     if (this.auth.IsloggedIn()){
       this.id_inf=this.auth.getprof().id
       console.log(this.id_inf)
+      //  this.auth.getmansofinf(this.id_inf).subscribe((data:any)=>{
+      //    this.managernumber=data.length})
       }else{
         this.route.params.subscribe((res)=>{
           this.id_inf=res.id
@@ -67,6 +70,7 @@ export class ProfinfComponent implements OnInit {
       this.fullname=this.item.fullname
       this.email=this.item.email
       this.fbid=doc.facebookId
+      console.log(this.aut.IsloggedIn())
       if(this.aut.IsloggedIn()&&this.fbid){  
       this.fbs.getposts(doc.facebookId,doc.accesstoken).subscribe((res:any)=>{
         this.all=res.posts.data
@@ -94,6 +98,8 @@ export class ProfinfComponent implements OnInit {
              }
            }
          }
+        //  this.auth.getmansofinf(this.id_inf).subscribe((data:any)=>{
+        //   this.managernumber=data.length})
          console.log(this.listinteretforlove)
       })
       this.fbs.numberoffriend(doc.facebookId,doc.accesstoken).subscribe((result:any)=>{
@@ -110,19 +116,18 @@ export class ProfinfComponent implements OnInit {
              for(let l in this.listprod){
                if(this.all[i].message){
                 this.test=this.all[i].message
-             
-              if(this.test.indexOf(`#${this.listprod[l].tag}`)!==-1){ 
+                if(this.test.indexOf(`#${this.listprod[l].tag}`)!==-1){ 
                 this.auth.isaccpub(this.all[i].id,this.listprod[l].id_manager,this.all[i].full_picture).subscribe((resultat:any)=>{
                   this.accpted=resultat
                   if(this.accpted){
                     this.list[j]=this.listprod[l]
-                  this.pubids[j]=this.all[i].id
-                  console.log(j)
-                  this.reactioncount(this.all[i].id,doc.accesstoken,j)
-                  this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
-                  this.likecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
-                  this.managerofprod(this.listprod[l].id_manager,j)
-                  j=j+1
+                    this.pubids[j]=this.all[i].id
+                    console.log(j)
+                    this.reactioncount(this.all[i].id,doc.accesstoken,j)
+                    this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
+                    this.likecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
+                    this.managerofprod(this.listprod[l].id_manager,j)
+                    j=j+1
                   }
                   
                 })
@@ -148,7 +153,8 @@ export class ProfinfComponent implements OnInit {
        image:[null]
      })
     
-    // this.totalinteret=this.listinteretforlove
+     this.auth.getmansofinf(this.id_inf).subscribe((data:any)=>{
+      this.managernumber=data.length})
   }
 
   ngOnInit(): void {
@@ -230,7 +236,6 @@ export class ProfinfComponent implements OnInit {
     this.aut.getman(id).subscribe((data:any)=>{
       this.listinteretforlike[i]=this.calcul.calculinteretlove(data.standard,this.listlike[i],data.foreachmultilike)
       // this.listinteretforlove[i]=this.calcul.calculinteretlove(12,this.listlove[i],data.foreachmultilove)
-      console.log(this.listinteretforlike[i])
       this.totalinteret=this.totalinteret+this.listinteretforlike[i]
       console.log(this.totalinteret)
       })

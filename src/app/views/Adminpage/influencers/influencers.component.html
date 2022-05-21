@@ -31,10 +31,10 @@
         <td><i class="fa-solid fa-trash-can" (click)="del(item._id,i)"></i></td>
       </tr>
     </tbody>
-    <p *ngIf="!list" >there is no influencers </p>
+    <p *ngIf="list==''" >there is no influencers </p>
     <pagination-controls 
 (pageChange)="p = $event" 
-class="float-right" *ngIf="list">
+class="float-right" *ngIf="list!=''">
 </pagination-controls>
   </table>
   <table class="table" *ngIf="mancond" >

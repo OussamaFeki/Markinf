@@ -19,7 +19,8 @@ export class ManofinfComponent implements OnInit ,OnDestroy {
   constructor(private auth:AuthoInfService,private share:ShareserviceService,private router:Router) {
     this.id=this.auth.getprof().id
     this.obj=this.auth.getmansofinf(this.id).subscribe((data:any)=>{this.list=data
-    console.log(data)
+    console.log(this.list.length)
+    
     })
    }
 

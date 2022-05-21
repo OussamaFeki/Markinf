@@ -11,18 +11,15 @@
             <p>{{item.name}}</p>
           </div>
         </div>
-        <!-- <h5  >name:</h5>
-        <h5 class="card-title">{{item.name}}</h5>
-        <h5 class="tag" >tag:</h5>
-        <p class="card-text">#{{item.tag}}</p> -->
-        
-        
       </div>
       <hr class="my-0" />
     <div class="card-body pb-0">
       <div class="d-flex justify-content-between">
         <p class="text-dark">manager</p>
-        <p class="text-dark">  {{managers[i].fullname}}</p>
+        <p class="text-dark">
+          <img class="img-profile rounded-circle" *ngIf="managers[i].image==null" src='assets/admin/img/undraw_profile.svg'>
+          <img class="img-profile rounded-circle" *ngIf="managers[i].image!=null" [src]="managers[i].image">
+          {{managers[i].fullname}}</p>
       </div>
       <hr class="my-0" />
     <div class="card-body pb-0">

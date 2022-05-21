@@ -44,7 +44,7 @@ class="float-right">
           <td *ngIf="wait[i]" routerLink="../newmans">waiting...</td>
         </tr>
       </tbody>
-      <p *ngIf="!list" >there is no managers </p>
+      <p *ngIf="list==''" >there is no managers </p>
       <pagination-controls 
 (pageChange)="p = $event" 
 class="float-right">

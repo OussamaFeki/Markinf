@@ -1,4 +1,4 @@
-<div class="card mb-3 ">
+<!-- <div class="card mb-3 ">
     <img *ngIf="image!=null" [src]="item.image" class="image rounded-circle card-img-top">
     <img *ngIf="image==null" src="assets/admin/img/undraw_profile.svg" class="image rounded-circle card-img-top">
     <form   class="row g-3" [formGroup]="myForm" *ngIf="condition"  (ngSubmit)="change()" >
@@ -18,32 +18,164 @@
     <b>rest interet:</b>
     <p></p> 
     </div>     
-</div> 
-<table *ngIf="!condition" class="table">
-  <p>Ads</p>
-    <p *ngIf="fbid==null">this for the influencers who loged in with facebook</p>
-<div class="row row-cols-1 row-cols-md-3 g-4" >
-  <div class="col" *ngFor="let item1 of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
-    <div class="second card">
-      <img [src]="item1.image" class="image card-img-top" >
+</div>  -->
+<div class="row gutters-sm">
+  <div class="col-md-4 mb-3">
+    <div class="card">
       <div class="card-body">
-        <h6>name:</h6>
-        <h5 class="card-title">{{item1.name}}</h5>
-        <p class="desc" *ngIf="!isman">manager:</p>
-        <p class="card-text" *ngIf="!isman">
-          <img class="img-profile rounded-circle" *ngIf="managers[i].image==null" src='assets/admin/img/undraw_profile.svg'>
-          <img class="img-profile rounded-circle" *ngIf="managers[i].image!=null" [src]="managers[i].image">
-          {{managers[i].fullname}}</p><br>
-        <p class="titre">reactions:<small *ngIf="item1.name!=null" class="text-muted">{{list2[i]}}</small></p>
-        <br>
-        <p> gains for love reactions :<small>{{listinteretforlove[i]}}</small></p>
-        <br>
-        <p> gains for like reactions :<small>{{listinteretforlike[i]}}</small></p>
-        <a (click)="detail(pubids[i])" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
+        <div class="d-flex flex-column align-items-center text-center">
+          <img *ngIf="image!=null" [src]="item.image" class="image rounded-circle card-img-top">
+        <img *ngIf="image==null" src="assets/admin/img/undraw_profile.svg" class="image rounded-circle card-img-top">
+          <div class="mt-3">
+            <h4>{{fullname}}</h4>
+            <form   class="row g-3" [formGroup]="myForm" *ngIf="condition"  (ngSubmit)="change()" >
+              <input type="file"  formControlName="image"  required (change)="selectImage($event)">
+              <button type="submit" class="btn btn-primary">change</button>
+              </form>
+            <p class="text-muted font-size-sm"*ngIf="!condition && fbid">friends:{{number}}</p>
+            <button *ngIf="isman" class="btn btn-primary">Follow</button>
+            <button *ngIf="isman" class="btn btn-outline-primary">Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="row"*ngIf="!condition && fbid">
+          <div class="col-sm-3">
+            <h6 class="mb-0">number of friends</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">{{number}}
+          </div>
+        </div>
+        <hr *ngIf="!condition && fbid">
+        <div class="row" *ngIf="!fbid">
+          <div class="col-sm-3">
+            <h6 class="mb-0">Email</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+          {{email}}
+          </div>
+        </div>
+        <hr *ngIf="!fbid">
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">total profit:</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            ${{totalinteret}}
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">payed:</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            $0
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">not payed</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            $0
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">number of managers</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            {{managernumber}}
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<table *ngIf="!condition" class="table">
+  <h2 *ngIf="list!=''">Ads</h2>
+  <p *ngIf="list==''">this influencer did not post for a product or you should accepte their postes   </p>
+  <p *ngIf="fbid==null">this for the influencers who loged in with facebook</p>
+  <!-- <div class="row row-cols-1 row-cols-md-3 g-4" >
+    <div class="col" *ngFor="let item1 of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
+      <div class="second card">
+        <img [src]="item1.image" class="image card-img-top" >
+        <div class="card-body">
+          <h6>name:</h6>
+          <h5 class="card-title">{{item1.name}}</h5>
+          <p class="desc" *ngIf="!isman">manager:</p>
+          <p class="card-text" *ngIf="!isman">
+            <img class="img-profile rounded-circle" *ngIf="managers[i].image==null" src='assets/admin/img/undraw_profile.svg'>
+            <img class="img-profile rounded-circle" *ngIf="managers[i].image!=null" [src]="managers[i].image">
+            {{managers[i].fullname}}</p><br>
+          <p class="titre">reactions:<small *ngIf="item1.name!=null" class="text-muted">{{list2[i]}}</small></p>
+          <br>
+          <p> gains for love reactions :<small>{{listinteretforlove[i]}}</small></p>
+          <br>
+          <p> gains for like reactions :<small>{{listinteretforlike[i]}}</small></p>
+          <a (click)="detail(pubids[i])" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="row row-cols-1 row-cols-md-3 g-4" >
+    <div class="col" *ngFor="let item1 of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
+      <div class="card m-2 mt-2" style="border-radius: 15px;">
+        <img [src]="item1.image" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                class="imageprod img-fluid" />
+        <div class="card-body pb-0">
+          <div class="d-flex justify-content-between">
+            <div>
+              <p class="text-black-50">name:</p>
+              <p>{{item1.name}}</p>
+            </div>
+          </div>
+        </div>
+        <hr class="my-0" />
+        <div class="card-body pb-0">
+          <div class="d-flex justify-content-between" *ngIf="!isman">
+            <p class="text-dark">manager</p>
+            <p class="text-dark">
+              <img class="imageman img-profile rounded-circle" *ngIf="managers[i].image==null" src='assets/admin/img/undraw_profile.svg'>
+              <img class="imageman img-profile rounded-circle" *ngIf="managers[i].image!=null" [src]="managers[i].image">
+              {{managers[i].fullname}}</p>
+          </div>
+          <hr class="my-0" *ngIf="!isman" />
+          <div class="d-flex justify-content-between">
+            <p class="text-dark">reactions:</p>
+            <p class="text-dark">{{list2[i]}}</p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <p class="text-dark">gains for love reactions :</p>
+            <p class="text-dark">${{listinteretforlove[i]}}</p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <p class="text-dark">gains for like reactions :</p>
+            <p class="text-dark">${{listinteretforlike[i]}}</p>
+          </div>
+          <hr class="my-0" />
+          <div class="d-flex justify-content-between">
+            <p class="text-dark">price:</p>
+            <p class="text-dark">${{item1.price}}</p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <p class="tag">tag:</p>
+            <p class="text-dark">#{{item1.tag}}</p>
+          </div>
+          <a (click)="detail(pubids[i])" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
+          <hr class="my-0">
+        </div>
+      
+      </div>
+  </div>
+  </div>
 <pagination-controls 
 (pageChange)="p = $event" 
 class="float-right" *ngIf="list!=''">
