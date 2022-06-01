@@ -24,6 +24,7 @@ export class OnepupComponent implements OnInit {
   acceptedpub:any
   isman:boolean=false
   id_man:any
+  is_accepted:boolean=false
   constructor(private route:ActivatedRoute,
     private auth:AuthoInfService,
     private fbs:FbserveService,
@@ -85,6 +86,9 @@ export class OnepupComponent implements OnInit {
       
       this.acceptedpub=doc
       console.log(this.acceptedpub)
+      if(this.acceptedpub==true){
+        this.is_accepted=true
+      }
     },(err:HttpErrorResponse)=>{
       console.log(err)
     })

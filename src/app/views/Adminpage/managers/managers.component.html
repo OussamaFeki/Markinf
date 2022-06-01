@@ -9,11 +9,11 @@
       </tr>
     </thead>
     <tbody >
-      <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage: 5, currentPage: p };index as i">
+      <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage: itemsofpage, currentPage: p };index as i">
         <td>{{item.fullname}}</td>
         <td>{{item.email}}</td>
         <td><i class="fa-solid fa-file-lines" (click)="toprofman(item._id)"></i></td>
-        <td><i class="fa-solid fa-trash-can" (click)="del(item._id,i)"></i></td>
+        <td><i class="fa-solid fa-trash-can" (click)="del(item._id,i+itemsofpage*(p-1))"></i></td>
       </tr>
     </tbody>
     <p *ngIf="!list" >there is no managers </p>
@@ -27,21 +27,23 @@ class="float-right">
         <tr>
           <th scope="col">Fullname </th>
           <th scope="col">email</th>
-          <th scope="col">for likes </th>
-          <th scope="col">for loves </th>
+          <th scope="col">standard salary</th>
+          <th scope="col">multi.likes </th>
+          <th scope="col">multi.loves </th>
           <th scope="col">opperation</th>
         </tr>
       </thead>
       <tbody >
-        <tr class="listes" *ngFor="let item of list | paginate:{ itemsPerPage: 7, currentPage: p };index as i">
+        <tr class="listes" *ngFor="let item of list | paginate:{ itemsPerPage: itemsofpage, currentPage: p };index as i">
           <td>{{item.fullname}}</td>
           <td>{{item.email}}</td>
-          <td>{{item.foreachmultilike}}</td>
-          <td>{{item.foreachmultilove}}</td>
-          <td *ngIf="!invit[i]&&!accept[i]&&!wait[i]" ><i class="fa-solid fa-user-plus" (click)="invitation(item._id,i)"></i></td>
-          <td *ngIf="accept[i]" routerLink="../mans"><i class="fa-solid fa-user-check" ></i></td>
-          <td *ngIf="invit[i]"><i class="fa-solid fa-user-clock" (click)="desinvit(item._id,i)"></i></td>
-          <td *ngIf="wait[i]" routerLink="../newmans">waiting...</td>
+          <td>${{item.standard}}</td>
+          <td>X{{item.foreachmultilike}}</td>
+          <td>X{{item.foreachmultilove}}</td>
+          <td *ngIf="!invit[i+itemsofpage*(p-1)]&&!accept[i+itemsofpage*(p-1)]&&!wait[i+itemsofpage*(p-1)]" ><i class="fa-solid fa-user-plus" (click)="invitation(item._id,i+5*(p-1))"></i></td>
+          <td *ngIf="accept[i+itemsofpage*(p-1)]" routerLink="../mans"><i class="fa-solid fa-user-check" ></i></td>
+          <td *ngIf="invit[i+itemsofpage*(p-1)]"><i class="fa-solid fa-user-clock" (click)="desinvit(item._id,i+itemsofpage*(p-1))"></i></td>
+          <td *ngIf="wait[i+itemsofpage*(p-1)]" routerLink="../newmans">waiting...</td> 
         </tr>
       </tbody>
       <p *ngIf="list==''" >there is no managers </p>

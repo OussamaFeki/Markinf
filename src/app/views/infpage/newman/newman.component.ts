@@ -13,6 +13,7 @@ export class NewmanComponent implements OnInit,OnDestroy {
   obj:Subscription;
   id_inf:any;
   p: number = 1;
+  itemsofpage:number=5;
   socket:any
   constructor(private share:ShareserviceService,private auth:AuthoInfService) {
     this.id_inf=this.auth.getprof().id

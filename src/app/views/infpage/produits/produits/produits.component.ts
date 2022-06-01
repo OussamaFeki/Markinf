@@ -14,6 +14,7 @@ list:any;
 listprods:any=[];
 id:any
 p:number=1
+itemsofpage:number=5
 managers:any=[{}]
   constructor(private share :ShareserviceService,
     private route :Router,

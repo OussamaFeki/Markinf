@@ -37,4 +37,14 @@ export class AuthoAdminService {
     }
     return true
   }}
+  //for new managers 
+  getnewmanagers(){
+   return this.http.get('http://localhost:3000/getinscripts')
+  }
+  accpterinscrip(id:any){
+    return this.http.get('http://localhost:3000/ajoutermanager?id_man='+id)
+  }
+  refuseinscription(id:any){
+    return this.http.get('http://localhost:3000/delateincription?id_man='+id)
+  }
 }

@@ -22,13 +22,13 @@
       </tr>
     </thead>
     <tbody >
-      <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage: 5, currentPage: p };index as i">
+      <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage: itemsofpage, currentPage: p };index as i">
         <td>{{item.fullname}}</td>
         <td *ngIf="item.email!=null">{{item.email}}</td>
         <td *ngIf="item.email==null">this influencer use facebook account</td>
-        <td  >{{numberfriend[i]}}</td>
+        <td  >{{numberfriend[i+itemsofpage*(p-1)]}}</td>
         <td><i class="fa-solid fa-file-lines"  (click)="toprofinf(item._id)"></i></td>
-        <td><i class="fa-solid fa-trash-can" (click)="del(item._id,i)"></i></td>
+        <td><i class="fa-solid fa-trash-can" (click)="del(item._id,i+itemsofpage*(p-1))"></i></td>
       </tr>
     </tbody>
     <p *ngIf="list==''" >there is no influencers </p>
@@ -48,15 +48,15 @@ class="float-right" *ngIf="list!=''">
         </tr>
       </thead>
       <tbody >
-        <tr class="listes" *ngFor="let item of list | paginate:{ itemsPerPage: 5, currentPage: p };index as i">
+        <tr class="listes" *ngFor="let item of list | paginate:{ itemsPerPage: itemsofpage, currentPage: p };index as i">
           <td>{{item.fullname}}</td>
           <td *ngIf="item.email!=null">{{item.email}}</td>
           <td *ngIf="item.email==null">this influencer use facebook account</td>
-          <td>{{numberfriend[i]}}</td>
-          <td *ngIf="!invit[i]&&!accept[i]&&!wait[i]" ><i class="fa-solid fa-user-plus" (click)="invitation(item._id,i)"></i></td>
-          <td *ngIf="accept[i]"><i class="fa-solid fa-user-check" ></i></td>
-          <td *ngIf="invit[i]" ><i class="fa-solid fa-user-clock"(click)="desinvit(item._id,i)"></i></td>
-          <td *ngIf="wait[i]" routerLink="../ninf">waiting...</td>
+          <td>{{numberfriend[i+itemsofpage*(p-1)]}}</td>
+          <td *ngIf="!invit[i+itemsofpage*(p-1)]&&!accept[i+itemsofpage*(p-1)]&&!wait[i+itemsofpage*(p-1)]" ><i class="fa-solid fa-user-plus" (click)="invitation(item._id,i+itemsofpage*(p-1))"></i></td>
+          <td *ngIf="accept[i+itemsofpage*(p-1)]"><i class="fa-solid fa-user-check" ></i></td>
+          <td *ngIf="invit[i+itemsofpage*(p-1)]" ><i class="fa-solid fa-user-clock"(click)="desinvit(item._id,i+itemsofpage*(p-1))"></i></td>
+          <td *ngIf="wait[i+itemsofpage*(p-1)]" routerLink="../ninf">waiting...</td>
         </tr>
       </tbody>
       <p *ngIf="!list" >there is no managers </p>

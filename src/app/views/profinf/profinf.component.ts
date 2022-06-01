@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthoAdminService } from 'src/app/services/autho-admin.service';
 import { AuthoInfService } from 'src/app/services/autho-inf.service';
 import { AuthoManService } from 'src/app/services/autho-man.service';
@@ -8,12 +9,13 @@ import { CalculatorService } from 'src/app/services/calculator.service';
 import { FbserveService } from 'src/app/services/fbserve.service';
 import { ShareserviceService } from 'src/app/services/shareservice.service';
 
+
 @Component({
   selector: 'app-profinf',
   templateUrl: './profinf.component.html',
   styleUrls: ['./profinf.component.css']
 })
-export class ProfinfComponent implements OnInit {
+export class ProfinfComponent implements OnInit,OnDestroy  {
   id_inf:any
   item:any={}
   condition:any
@@ -40,6 +42,8 @@ export class ProfinfComponent implements OnInit {
   managers:any=[{}]
   isman:boolean=false
   managernumber:Number=0
+  youpaytohim:Number=0
+  // sub:Subscription
   constructor(private auth:AuthoInfService,
     private formbuilder:FormBuilder,
     private route:ActivatedRoute,
@@ -49,29 +53,47 @@ export class ProfinfComponent implements OnInit {
     private router:Router,
     private authadmin:AuthoAdminService,
     private calcul:CalculatorService
-    ) { this.isman=this.aut.IsloggedIn()
+    ) { 
+      this.isman=this.aut.IsloggedIn()
       if(this.aut.IsloggedIn()){
         this.id= this.aut.getprof().id
         this.products(this.id)
     }
     if (this.auth.IsloggedIn()){
       this.id_inf=this.auth.getprof().id
-      console.log(this.id_inf)
       //  this.auth.getmansofinf(this.id_inf).subscribe((data:any)=>{
       //    this.managernumber=data.length})
+      this.forinf()
       }else{
         this.route.params.subscribe((res)=>{
           this.id_inf=res.id
           console.log(this.id_inf)
+          this.forinf()
+          this.auth.getinf(res.id).subscribe((doc:any)=>{this.item=doc;
+            this.image=this.item.image
+            this.fullname=this.item.fullname
+            this.email=this.item.email
+            this.fbid=doc.facebookId
+            this.fbs.numberoffriend(doc.facebookId,doc.accesstoken).subscribe((result:any)=>{
+              this.number=result.friends.summary.total_count
+              
+            })})
         })
       }
+      if(this.isman){
+      this.gethisprofit(this.id,this.id_inf)
+      // this.sub=
       this.auth.getinf(this.id_inf).subscribe((doc:any)=>{this.item=doc;
       this.image=this.item.image
       this.fullname=this.item.fullname
       this.email=this.item.email
       this.fbid=doc.facebookId
+      this.fbs.numberoffriend(doc.facebookId,doc.accesstoken).subscribe((result:any)=>{
+        this.number=result.friends.summary.total_count
+        
+      })
       console.log(this.aut.IsloggedIn())
-      if(this.aut.IsloggedIn()&&this.fbid){  
+      if(this.fbid){  
       this.fbs.getposts(doc.facebookId,doc.accesstoken).subscribe((res:any)=>{
         this.all=res.posts.data
         let j=0
@@ -98,66 +120,76 @@ export class ProfinfComponent implements OnInit {
              }
            }
          }
-        //  this.auth.getmansofinf(this.id_inf).subscribe((data:any)=>{
-        //   this.managernumber=data.length})
-         console.log(this.listinteretforlove)
+         
       })
-      this.fbs.numberoffriend(doc.facebookId,doc.accesstoken).subscribe((result:any)=>{
-        this.number=result.friends.summary.total_count
-        
-      })
-      }
-      if(!this.aut.IsloggedIn()){
-        this.producttoin(this.id_inf)
-        this.fbs.getposts(this.fbid,doc.accesstoken).subscribe((res:any)=>{
-          this.all=res.posts.data
-           let j=0
-           for(let i in this.all){
-             for(let l in this.listprod){
-               if(this.all[i].message){
-                this.test=this.all[i].message
-                if(this.test.indexOf(`#${this.listprod[l].tag}`)!==-1){ 
-                this.auth.isaccpub(this.all[i].id,this.listprod[l].id_manager,this.all[i].full_picture).subscribe((resultat:any)=>{
-                  this.accpted=resultat
-                  if(this.accpted){
-                    this.list[j]=this.listprod[l]
-                    this.pubids[j]=this.all[i].id
-                    console.log(j)
-                    this.reactioncount(this.all[i].id,doc.accesstoken,j)
-                    this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
-                    this.likecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
-                    this.managerofprod(this.listprod[l].id_manager,j)
-                    j=j+1
-                  }
-                  
-                })
-              }
-               }
-              
-             }
-             
-           }
-           console.log(this.listlove)
-           
-        })    
-    
-        this.fbs.numberoffriend(doc.facebookId,doc.accesstoken).subscribe((result:any)=>{
-          this.number=result.friends.summary.total_count
-          
-        })
-
+      
       }
       })
+     }
+    //  else{
+    //    console.log(this.isman)
+    //    console.log(this.id_inf)
+    //     this.forinf()
+    //    }
      this.condition=this.auth.IsloggedIn()
      this.myForm=this.formbuilder.group({
        image:[null]
      })
-    
+     
      this.auth.getmansofinf(this.id_inf).subscribe((data:any)=>{
       this.managernumber=data.length})
   }
 
   ngOnInit(): void {
+    // console.log(this.totalinteret)
+    //  if(!this.isman&&this.totalinteret==0){
+    //    this.auth.getinf(this.id_inf).subscribe((doc:any)=>{
+    //      this.item=doc;
+    //      this.image=this.item.image
+    //      this.fullname=this.item.fullname
+    //      this.email=this.item.email
+    //      if(doc.facebookId){
+    //        this.producttoin(this.id_inf)
+    //        this.fbs.getposts(doc.facebookId,doc.accesstoken).subscribe((res:any)=>{
+    //          this.all=res.posts.data
+    //           let j=0
+    //           for(let i in this.all){
+    //             for(let l in this.listprod){
+    //               if(this.all[i].message){
+    //                this.test=this.all[i].message
+    //                 console.log(this.test)
+    //                if(this.test.indexOf(`#${this.listprod[l].tag}`)!==-1){ 
+    //                this.auth.isaccpub(this.all[i].id,this.listprod[l].id_manager,this.all[i].full_picture).subscribe((resultat:any)=>{
+    //                  this.accpted=resultat
+    //                  if(this.accpted){
+    //                    this.list[j]=this.listprod[l]
+    //                    this.pubids[j]=this.all[i].id
+    //                    console.log(j)
+    //                    this.reactioncount(this.all[i].id,doc.accesstoken,j)
+    //                    this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
+    //                    this.likecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
+    //                    this.managerofprod(this.listprod[l].id_manager,j)
+    //                    j=j+1
+    //                  }
+                   
+    //                })
+    //              }
+    //               }
+               
+    //             }
+              
+    //           }
+    //           console.log(this.listlove)
+            
+    //        })    
+
+    //      } 
+        
+    //    })
+    //  }
+  }
+  ngOnDestroy(): void {
+      // this.sub.unsubscribe()
   }
   selectImage(event:any){
     if(event.target.files.length >0){
@@ -198,7 +230,6 @@ export class ProfinfComponent implements OnInit {
    products(id:any){
      this.share.getprodman(id).subscribe((doc:any)=>{
        this.listprod=doc
-       console.log(this.listprod)
      })
    }
    detail(id:any){
@@ -227,9 +258,8 @@ export class ProfinfComponent implements OnInit {
    this.aut.getman(id).subscribe((data:any)=>{
     this.listinteretforlove[i]=this.calcul.calculinteretlove(data.standard,this.listlove[i],data.foreachmultilove)
     // this.listinteretforlove[i]=this.calcul.calculinteretlove(12,this.listlove[i],data.foreachmultilove)
-    console.log(this.listinteretforlove[i])
     this.totalinteret=this.totalinteret+this.listinteretforlove[i]
-    console.log(this.totalinteret)
+    
     })
   }
   intertofprodlikes(id:any,i:any){
@@ -237,13 +267,68 @@ export class ProfinfComponent implements OnInit {
       this.listinteretforlike[i]=this.calcul.calculinteretlove(data.standard,this.listlike[i],data.foreachmultilike)
       // this.listinteretforlove[i]=this.calcul.calculinteretlove(12,this.listlove[i],data.foreachmultilove)
       this.totalinteret=this.totalinteret+this.listinteretforlike[i]
-      console.log(this.totalinteret)
+      // console.log(this.totalinteret)
       })
   }
   managerofprod(id:any,i:any){
     this.aut.getman(id).subscribe(doc=>{
       this.managers[i]=doc
-      console.log( this.managers[i])
     })
+  }
+  forinf(){
+    // sub=
+    this.auth.getinf(this.id_inf).subscribe((doc:any)=>{
+      this.item=doc;
+      this.image=this.item.image
+      this.fullname=this.item.fullname
+      this.email=this.item.email
+      
+      this.fbid=doc.facebookId
+      console.log('work please')
+      if(doc.facebookId){
+        this.producttoin(this.item._id)
+        this.fbs.getposts(doc.facebookId,doc.accesstoken).subscribe((res:any)=>{
+          this.all=res.posts.data
+           let j=0
+           for(let i in this.all){
+             for(let l in this.listprod){
+               if(this.all[i].message){
+                this.test=this.all[i].message
+                console.log(this.test)
+                if(this.test.indexOf(`#${this.listprod[l].tag}`)!==-1){ 
+                this.auth.isaccpub(this.all[i].id,this.listprod[l].id_manager,this.all[i].full_picture).subscribe((resultat:any)=>{
+                  this.accpted=resultat
+                  if(this.accpted){
+                    this.list[j]=this.listprod[l]
+                    this.pubids[j]=this.all[i].id
+                    console.log(j)
+                    this.reactioncount(this.all[i].id,doc.accesstoken,j)
+                    this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
+                    this.likecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
+                    this.managerofprod(this.listprod[l].id_manager,j)
+                    j=j+1
+                  }
+                
+                },err=>console.log(err))
+              }
+               }
+            
+             }
+           
+           }
+        },err=>console.log(err))    
+
+      } 
+     
+    })
+  }
+  gethisprofit(id_man:any,id_inf:any){
+    this.share.getprofit(id_man,id_inf).subscribe((doc:any)=>{
+      console.log(doc)
+      this.youpaytohim=doc.money
+    })
+  }
+  calculaterest(){
+    
   }
 }

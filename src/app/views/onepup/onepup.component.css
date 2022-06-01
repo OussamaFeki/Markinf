@@ -1,8 +1,8 @@
-.card-img-top{
-    width: 500px;
-    height: 600px;
-}
-.fa-thumbs-up{
+ .image{
+   width:max-content;
+   height: 400px;
+}   
+ .fa-thumbs-up{
     color: rgb(23, 57, 246);
     font-size: 50px;
 }
@@ -11,8 +11,8 @@
     font-size: 50px;
 }
 .card{
-    width: fit-content;
-}
+    width:auto;
+} 
 h5{
     color: blue;
 }
@@ -27,5 +27,4 @@ h2{
 }
 .love .like{
     font-size: 50px;
-    font-family:fantasy;
 }

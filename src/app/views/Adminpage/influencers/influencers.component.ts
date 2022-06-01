@@ -27,6 +27,7 @@ export class InfluencersComponent implements OnInit ,OnDestroy {
   accept:any=[]
   wait:any=[]
   p: number = 1;
+  itemsofpage:number=5;
   socket:any
   numberfriend:any=[]
   constructor(private share:ShareserviceService,

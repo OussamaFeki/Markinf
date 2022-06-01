@@ -5,6 +5,7 @@
         <th scope="col">Fullname </th>
         <th scope="col">email</th>
         <th scope="col">avatar</th>
+        <th scope="col">for standar salary </th>
         <th scope="col">for likes </th>
         <th scope="col">for loves </th>
         <th scope="col">for details</th>
@@ -12,16 +13,17 @@
       </tr>
     </thead>
     <tbody >
-      <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage: 7, currentPage: p };index as i">
+      <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage: itemsofpage, currentPage: p };index as i">
         <td>{{item.fullname}}</td>
         <td>{{item.email}}</td>
         <td><img class="img-profile rounded-circle" *ngIf="item.image==null" src='assets/admin/img/undraw_profile.svg'>
         <img class="img-profile rounded-circle" *ngIf="item.image!=null" [src]="item.image">
         </td>
-        <td>{{item.foreachmultilike}}</td>
-        <td>{{item.foreachmultilove}}</td>
+        <td>${{item.standard}}</td>
+        <td>X{{item.foreachmultilike}}</td>
+        <td>X{{item.foreachmultilove}}</td>
         <td><i class="fa-solid fa-file-lines" (click)="toprofman(item._id)" ></i></td>
-        <td><i class="fa-solid fa-user-minus" (click)="fier(item._id,i)"></i></td>
+        <td><i class="fa-solid fa-user-minus" (click)="fier(item._id,i+itemsofpage*(p-1))"></i></td>
       </tr>
     </tbody>
     <p *ngIf="list==''" >there is no influencers</p>

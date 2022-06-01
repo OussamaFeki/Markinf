@@ -11,19 +11,23 @@
       <div class="mb-3 m-2">
         <button type="submit" class="btn btn-primary">change</button>
       </div>
-    </form>   
+    </form>
+    <hr *ngIf="isman">
+    <div class="alert alert-warning" role="alert" *ngIf="isman">
+      this informations could change for one only time
+    </div><br>   
      <form *ngIf="isman && !sala_ischanged" #form="ngForm"(ngSubmit)="changesalary(form)">
       <div class="mb-2 m-2">
         <label for="exampleFormControlInput1" class="form-label">for standard salary</label><br>
-        <input type="number" class="form-control-user"  placeholder="standard salary" name="standard" ngModel>
+        <input type="number" class="form-control-user" value="{{item.standard}}"  placeholder="standard salary" name="standard" ngModel>
       </div>
       <div class="mb-2 m-2">
         <label for="exampleFormControlInput1" class="form-label">for each love</label><br>
-        <input type="number" class="form-control-user"  placeholder="for each multi loves" name="eachlove" ngModel>
+        <input type="number" class="form-control-user" value="{{item.foreachmultilove}}"  placeholder="for each multi loves" name="eachlove" ngModel>
       </div>
       <div class="mb-2 m-2">
         <label for="exampleFormControlInput1" class="form-label">for each like</label><br>
-        <input type="number" class="form-control-user"  placeholder="for each multi likes" name="eachlike" ngModel>
+        <input type="number" class="form-control-user" value="{{item.foreachmultilike}}"  placeholder="for each multi likes" name="eachlike" ngModel>
       </div>
       <div class="mb-2 m-2">
         <button type="submit" class="btn btn-primary">change salary</button>

@@ -1,6 +1,6 @@
  <h1>products</h1>
   <div class="row row-cols-1 row-cols-md-3 g-4 m-3" >
-  <div class="col" *ngFor="let element of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >
+  <div class="col" *ngFor="let element of list| paginate:{ itemsPerPage:itemsofpage, currentPage: p } ;index as i" >
     <div class="card">
       <img [src]="element.image" class="card-img-top" >
       <div class="card-body">
@@ -10,7 +10,7 @@
         <small class="text-muted">${{element.price}}</small><br>
         <a (click)="detail(element._id)" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
         <a (click)="open(content,element._id,element.name,element.description,element.price,element.mark,element.image)" class="m-3"><i class="fa-solid fa-pen-to-square"></i></a>
-        <a (click)="del(element._id,i)" class="m-3"><i class="fa-solid fa-trash-can" ></i></a>
+        <a (click)="del(element._id,i+itemsofpage*(p-1))" class="m-3"><i class="fa-solid fa-trash-can" ></i></a>
         <ng-template #content let-c="close" let-d="dismiss">
           <form [formGroup]="myForm"  class="user" (ngSubmit)="update()">
         <div class="modal-header">

@@ -16,6 +16,7 @@ export class NewinfComponent implements OnInit,OnDestroy {
   obj:Subscription
   id_man:any
   p: number = 1;
+  itemsofpage:number=5
   socket:any;
   numberfriend:any=[]
   constructor(private share:ShareserviceService,private auth:AuthoManService,private fbs:FbserveService) {
@@ -72,9 +73,7 @@ export class NewinfComponent implements OnInit,OnDestroy {
          this.numberfriend[i]=res.friends.summary.total_count
          })
         }else{this.numberfriend[i]=0}
-      }
-
-      
+      } 
       })
   },(err)=>{
     console.log(err)
@@ -85,6 +84,18 @@ export class NewinfComponent implements OnInit,OnDestroy {
       console.log(data)
       console.log('refused')
       this.list.splice(i,1)
+      this.numberfriend.splice(i,1)
+      this.share.boiteinvit(this.id_man).subscribe((data:any)=> {
+        this.list=data.doc
+        console.log(this.list)
+        for(let i in this.list){
+          if(this.list[i].facebookId){
+           this.fbs.numberoffriend(this.list[i].facebookId,this.list[i].accesstoken).subscribe((res:any)=>{
+           this.numberfriend[i]=res.friends.summary.total_count
+           })
+          }else{this.numberfriend[i]=0}
+        } 
+        })
     },(err)=>{
       console.log(err)
     })

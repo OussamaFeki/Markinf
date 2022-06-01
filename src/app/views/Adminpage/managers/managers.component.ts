@@ -24,6 +24,7 @@ accept:any=[]
 wait:any=[]
 p: number = 1;
 obs:any
+itemsofpage:number=5;
 constructor(private share:ShareserviceService,private route:ActivatedRoute,private auth:AuthoAdminService
   ,private auth1:AuthoInfService
   ,private auth2:AuthoManService,

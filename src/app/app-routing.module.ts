@@ -28,6 +28,8 @@ const routes: Routes = [
     {path:'man/:id',loadChildren:()=>import('./views/profman/profman-routing.module').then(m=>m.ProfmanRoutingModule)},
     {path:'config',loadChildren:()=>import('./views/configaccount/configaccount-routing.module').then(m=>m.ConfigaccountRoutingModule)},
     {path:'pub',loadChildren:()=>import('./views/onepup/onepup-routing.module').then(m=>m.OnepupRoutingModule)},
+    {path:'listinscri',loadChildren:()=>import('./views/Adminpage/registman/registman-routing.module').then(m=>m.RegistmanRoutingModule)},
+    {path:'produit/:id',loadChildren:()=>import('./views/oneprod/oneprod-routing.module').then(m=>m.OneprodRoutingModule)},
   ]},
     {path:'manager',component:ManpageComponent,canActivate:[GaurdManagGuard],children:[
       {path:'',loadChildren:()=>import('./views/manpage/welcom/welcom-routing.module').then(m=>m.WelcomRoutingModule)},

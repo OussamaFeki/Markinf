@@ -2,7 +2,11 @@
     width: 300px;
     height: 300px;
 }
-img{
+.imageman{
     width:30px;
     height:30px;
+}
+.td{
+    width: fit-content;
+    height: fit-content;
 }

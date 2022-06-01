@@ -1,5 +1,5 @@
 <div class="row row-cols-1 row-cols-md-3 g-4" >
-  <div class="col" *ngFor="let item of listprods| paginate:{ itemsPerPage: 6, currentPage: p } ;index as i" >
+  <div class="col" *ngFor="let item of listprods| paginate:{ itemsPerPage: itemsofpage, currentPage: p } ;index as i" >
     <div class="card m-2 mt-2" style="border-radius: 15px;">
       <!-- <img [src]="item.image" class="card-img-top" > -->
       <img [src]="item.image" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
@@ -17,21 +17,25 @@
       <div class="d-flex justify-content-between">
         <p class="text-dark">manager</p>
         <p class="text-dark">
-          <img class="img-profile rounded-circle" *ngIf="managers[i].image==null" src='assets/admin/img/undraw_profile.svg'>
-          <img class="img-profile rounded-circle" *ngIf="managers[i].image!=null" [src]="managers[i].image">
-          {{managers[i].fullname}}</p>
+          <img class="img-profile rounded-circle" *ngIf="managers[i+itemsofpage*(p-1)].image==null" src='assets/admin/img/undraw_profile.svg'>
+          <img class="img-profile rounded-circle" *ngIf="managers[i+itemsofpage*(p-1)].image!=null" [src]="managers[i+itemsofpage*(p-1)].image">
+          {{managers[i+itemsofpage*(p-1)].fullname}}</p>
       </div>
       <hr class="my-0" />
-    <div class="card-body pb-0">
-      <div class="d-flex justify-content-between">
-        <p class="text-dark">price:</p>
-        <p class="text-dark">${{item.price}}</p>
+      <div class="card-body pb-0">
+        <div class="d-flex justify-content-between">
+          <p class="text-dark">price:</p>
+          <p class="text-dark">${{item.price}}</p>
+        </div>
+        <div class="d-flex justify-content-between">
+          <p class="tag">tag:</p>
+          <p class="text-dark">#{{item.tag}}</p>
+        </div>
+        <hr class="my-0" />
+        <div class="d-flex justify-content-between">
+         <a (click)="detail(item._id)" class="m-3"><i class="fa-solid fa-file-lines"></i></a>
+        </div> 
       </div>
-      <div class="d-flex justify-content-between">
-        <p class="tag">tag:</p>
-        <p class="text-dark">#{{item.tag}}</p>
-      </div>
-    </div>
     </div>
     
   </div>

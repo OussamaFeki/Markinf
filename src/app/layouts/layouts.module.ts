@@ -30,6 +30,7 @@ import { ProfileModule } from '../views/profile/profile.module';
 import { PubsModule } from '../views/infpage/pubs/pubs.module';
 import { OnepupModule } from '../views/onepup/onepup.module';
 import { PubofinfModule } from '../views/manpage/pubofinf/pubofinf.module';
+import { RegistmanModule } from '../views/Adminpage/registman/registman.module';
 
 
 
@@ -70,6 +71,7 @@ import { PubofinfModule } from '../views/manpage/pubofinf/pubofinf.module';
     PubsModule,
     OnepupModule,
     PubofinfModule,
+    RegistmanModule
   ]
 })
 export class LayoutsModule { }

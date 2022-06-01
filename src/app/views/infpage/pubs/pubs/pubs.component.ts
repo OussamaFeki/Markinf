@@ -14,7 +14,7 @@ import { AuthoManService } from 'src/app/services/autho-man.service';
   styleUrls: ['./pubs.component.css']
 })
 export class PubsComponent implements OnInit {
-  list:any=[]
+  list:any=[{}]
   all:any
   id:any
   fbid:any
@@ -30,6 +30,7 @@ export class PubsComponent implements OnInit {
   listinteretforlike:any=[]
   accpted:boolean=false
   managers:any=[{}]
+  totalprofit:number=0
   constructor(private auth:AuthoInfService,
     private fbs:FbserveService,
     private share :ShareserviceService,
@@ -45,19 +46,21 @@ export class PubsComponent implements OnInit {
         this.fbs.getposts(this.fbid,doc.accesstoken).subscribe((res:any)=>{
           this.all=res.posts.data
           let j=0
+          
            for(let i in this.all){
              for(let l in this.listprods){
                if(this.all[i].message){
                 this.test=this.all[i].message
              
-              if(this.test.indexOf(`#${this.listprods[l].tag}`)!==-1){ 
+              if(this.test.indexOf(`#${this.listprods[l].tag}`)!==-1){
+                console.log(this.test) 
                 this.auth.isaccpub(this.all[i].id,this.listprods[l].id_manager,this.all[i].full_picture).subscribe((resultat:any)=>{ 
                   this.accpted=resultat
+                  
+                  console.log(this.accpted)
                   if(this.accpted){
                     this.list[j]=this.listprods[l]
-                    console.log(this.list[j])
                     this.pubids[j]=this.all[i].id
-                    console.log(j)
                     this.reactioncount(this.all[i].id,doc.accesstoken,j)
                     this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprods[l].id_manager)
                     this.likecount(this.all[i].id,doc.accesstoken,j,this.listprods[l].id_manager)
@@ -70,9 +73,7 @@ export class PubsComponent implements OnInit {
               
           }
         }
-
-          console.log(this.listprods) 
-          console.log(this.list)
+        console.log(this.list)
         })}
       })
    }
@@ -96,7 +97,6 @@ export class PubsComponent implements OnInit {
           })
 
       }
-      console.log(this.listprods)
     })
   }
   detail(id:any){
@@ -107,7 +107,7 @@ export class PubsComponent implements OnInit {
      this.listinteretforlove[i]=this.calcul.calculinteretlove(data.standard,this.listlove[i],data.foreachmultilove)
      // this.listinteretforlove[i]=this.calcul.calculinteretlove(12,this.listlove[i],data.foreachmultilove)
      console.log(this.listinteretforlove[i])
-     
+     this.totalprofit=this.totalprofit+this.listinteretforlove[i]
      })
    }
    lovecount(postid:any,accesstoken:any,i:any,id:any){
@@ -121,8 +121,8 @@ export class PubsComponent implements OnInit {
     this.aut.getman(id).subscribe((data:any)=>{
       this.listinteretforlike[i]=this.calcul.calculinteretlove(data.standard,this.listlike[i],data.foreachmultilike)
       // this.listinteretforlove[i]=this.calcul.calculinteretlove(12,this.listlove[i],data.foreachmultilove)
-      console.log(this.listinteretforlike[i])
-      })
+      this.totalprofit=this.totalprofit+this.listinteretforlike[i]
+    })
   }
   likecount(postid:any,accesstoken:any,i:any,id:any){
     this.fbs.numberofLike(postid,accesstoken).subscribe((doc:any)=>{
@@ -140,7 +140,6 @@ export class PubsComponent implements OnInit {
   managerofprod(id:any,i:any){
     this.aut.getman(id).subscribe(doc=>{
       this.managers[i]=doc
-      console.log( this.managers[i])
     })
   }
 

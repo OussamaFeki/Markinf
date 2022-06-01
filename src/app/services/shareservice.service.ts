@@ -91,4 +91,7 @@ export class ShareserviceService {
   restnotifinf(id:any){
     return this.http.get('http://localhost:3000/restnotifinf?id='+id)
   }
+  getprofit(id_man:any,id_inf:any){
+    return this.http.get('http://localhost:3000/getprofitmyinf?id_man='+id_man+'&id_inf='+id_inf)
+  }
 }

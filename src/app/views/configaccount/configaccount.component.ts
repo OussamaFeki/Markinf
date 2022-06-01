@@ -5,6 +5,7 @@ import { AuthoAdminService } from 'src/app/services/autho-admin.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-configaccount',
   templateUrl: './configaccount.component.html',
@@ -53,7 +54,7 @@ export class ConfigaccountComponent implements OnInit {
    if(this.isman){
      this.id=this.authman.getprof().id
      this.authman.getman(this.id).subscribe((doc:any)=>{this.item=doc;
-      this.sala_ischanged=(this.item.standard!=0 && this.item.foreachmultilove!=1 && this.item.foreachmultilike!=1)
+      this.sala_ischanged=((this.item.standard!=0 &&(this.item.foreachmultilove!=1 || this.item.foreachmultilike!=1))&&(this.item.standard!=null && this.item.foreachmultilove!=null && this.item.foreachmultilike!=null))
       })
    }
    console.log(this.isinf)
@@ -85,14 +86,13 @@ export class ConfigaccountComponent implements OnInit {
     }
   }
   changesalary(form:NgForm){
-    console.log(form.value)
-      this.authman.configprices(this.id,form.value).subscribe(doc=>{
-        console.log(doc)
-        this.authman.getman(this.id).subscribe((res:any)=>{
-          this.item=res;
-        })
+      this.authman.configprices(this.id,form.value).subscribe((doc:any)=>{
+        this.item=doc
+        this.sala_ischanged=((this.item.standard!=0 &&(this.item.foreachmultilove!=1 || this.item.foreachmultilike!=1))&&(this.item.standard!=null && this.item.foreachmultilove!=null && this.item.foreachmultilike!=null))
+      },(error:HttpErrorResponse)=>{
+        this.toastr.error(error.error,'Error')
       })
-
-      this.sala_ischanged=true
+      
+      
   }
 }

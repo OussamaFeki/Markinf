@@ -86,7 +86,12 @@ export class ProfmanComponent implements OnInit {
     })
   }
   detail(id:any){
-    this.router.navigate(['influencer/produit/'+id])
+    if(this.autinf.IsloggedIn()){
+      this.router.navigate(['influencer/produit/'+id])
+    }
+    if(this.autad.IsloggedIn()){
+      this.router.navigate(['admin/produit/'+id])
+    }
   }
   chearch(){
     // console.log(this.filter.get('fullname').value)

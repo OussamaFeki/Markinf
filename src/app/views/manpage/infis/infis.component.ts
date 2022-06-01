@@ -16,6 +16,7 @@ obj:Subscription
 list:any
 id_man:any
 p: number = 1;
+itemsofpage:number=5
   constructor(private auth:AuthoManService ,private share:ShareserviceService,private router:Router ) {
     this.id_man=this.auth.getprof().id
      this.obj=this.auth.getinfsofman(this.id_man).subscribe((data:any)=>{

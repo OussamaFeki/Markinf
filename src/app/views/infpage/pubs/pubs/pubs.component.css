@@ -3,7 +3,15 @@
     height: 360px;
     
 }
-img{
+.imageman{
     weight:10px;
     height:40px;
+}
+.imageprod{
+    height: 270px;
+}
+.total{
+    font-size: x-large;
+    color: blueviolet;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }

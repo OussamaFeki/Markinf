@@ -22,6 +22,7 @@ export class ProductsComponent implements OnInit,OnDestroy {
   myForm:any
   filter:any
   p: number = 1;
+  itemsofpage:number=3;
   constructor(private share :ShareserviceService,private route:Router,config: NgbModalConfig, private modalService: NgbModal,private auth:AuthoManService,private formbuild:FormBuilder) {
       this.man_id=this.auth.getprof().id 
       this.obj=this.share.getprodman(this.man_id).subscribe((doc)=>{

@@ -1,6 +1,6 @@
-
- <div class="card mb-3 ">
-   <img *ngIf="image!=null" [src]="item.image" class="rounded-circle card-img-top">
+<div class="row gutters-sm">
+ <div class="col-md-4 mb-3">
+   <!-- <img *ngIf="image!=null" [src]="item.image" class="rounded-circle card-img-top">
    <img *ngIf="image==null" src="assets/admin/img/undraw_profile.svg" class="rounded-circle card-img-top">
    <form   class="row g-3" [formGroup]="myForm"  (ngSubmit)="change()" *ngIf="condition" >
    <input type="file"  formControlName="profile"  required (change)="selectImage($event)">
@@ -9,9 +9,74 @@
     <div class="card-body">
     <h5 class="card-title">{{item.fullname}}</h5>
     <p class="card-text">{{item.email}}</p>
-    </div> <br>
+    </div> <br> -->
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex flex-column align-items-center text-center">
+          <img *ngIf="image!=null" [src]="item.image" class="image rounded-circle card-img-top">
+          <img *ngIf="image==null" src="assets/admin/img/undraw_profile.svg" class="image rounded-circle card-img-top">
+          <div class="mt-3">
+            <h4>{{item.fullname}}</h4>
+            <form   class="row g-3" [formGroup]="myForm"  (ngSubmit)="change()" *ngIf="condition" >
+              <input type="file"  formControlName="profile"  required (change)="selectImage($event)">
+              <button type="submit" class="btn btn-primary">change</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div *ngIf="!condition">
+  <div class="col-md-8">
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">number of influencers</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">0
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">Email</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            {{item.email}}
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">standerd salary for influencers</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            ${{item.standard}}
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">multiplicateur salary with likes</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            X{{item.foreachmultilike}}
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">multiplicateur salary with loves</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            X{{item.foreachmultilove}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!condition">
    <h1>his products</h1><br>
    <form [formGroup]="filter" >
     <div class="row">

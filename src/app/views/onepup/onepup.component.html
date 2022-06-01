@@ -1,6 +1,11 @@
-<div class="card mb-3">
-    <img *ngIf="full_pic!=null" [src]="item.full_picture" class="card-img-top" alt="..."  >
-      <p *ngIf="full_pic==null">ther is no image for this post </p>
+<!-- <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+     <div class="col-md-4">
+       <img *ngIf="full_pic!=null" [src]="item.full_picture" class="card-img-top" alt="..."  >
+       <p *ngIf="full_pic==null">ther is no image for this post </p>
+     </div>
+    </div>
+    <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title"*ngIf="message!=undefined" >message</h5>
         <h2>{{item.message}}</h2>
@@ -11,8 +16,30 @@
           <div class="love col-2"><i class="fa-brands fa-gratipay"></i><h4>{{love}}</h4></div>
         </div>
 
-        <button type="button" *ngIf="!acceptedpub && isman"  class="btn btn-success" (click)="accepter(item.id,id_man,item.full_picture)">accept</button>
-        <button type="button" *ngIf="acceptedpub && isman"  class="btn btn-danger" (click)="cancel(item.id,id_man,item.full_picture)">cancel</button>
-        <!-- <p class="card-text"><small class="text-muted">{{}}$</small></p> -->
+        <button type="button" *ngIf="!acceptedpub && isman && !is_accepted"  class="btn btn-success" (click)="accepter(item.id,id_man,item.full_picture)">accept</button>
+        <button type="button" *ngIf="acceptedpub && isman && !is_accepted"  class="btn btn-danger" (click)="cancel(item.id,id_man,item.full_picture)">cancel</button>
       </div>
-    </div>  
+    </div> 
+</div>   -->
+<div class="card mb-3" >
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img *ngIf="full_pic!=null" [src]="item.full_picture" class="image img-fluid rounded-start">
+       <p *ngIf="full_pic==null">ther is no image for this post </p>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"*ngIf="message!=undefined" >message</h5>
+        <h2>{{item.message}}</h2>
+        <p class="title">reactions</p>
+        <p class="card-text">{{reactions}}</p><br>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="like col-2"><i class="fa-solid fa-thumbs-up"></i><h4>{{like}}</h4></div>
+          <div class="love col-2"><i class="fa-brands fa-gratipay"></i><h4>{{love}}</h4></div>
+        </div>
+        <button type="button" *ngIf="!acceptedpub && isman && !is_accepted"  class="btn btn-success" (click)="accepter(item.id,id_man,item.full_picture)">accept</button>
+        <button type="button" *ngIf="acceptedpub && isman && !is_accepted"  class="btn btn-danger" (click)="cancel(item.id,id_man,item.full_picture)">cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

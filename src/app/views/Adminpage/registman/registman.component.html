@@ -1,0 +1,25 @@
+<h1>managers</h1> <br>
+<p *ngIf="list==''" >there is no inscriptions</p>
+<table class="table" *ngIf="list!=''">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Fullname </th>
+        <th scope="col">email</th>
+        <th scope="col">for accepte</th>
+        <th scope="col">for delete</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage: itemsofpage, currentPage: p };index as i">
+        <td>{{item.fullname}}</td>
+        <td>{{item.email}}</td>
+        <td><i class="fa-solid fa-circle-check" (click)="accepter(item._id,i+itemsofpage*(p-1))"></i></td>
+        <td><i class="fa-solid fa-trash-can" (click)="del(item._id,i+itemsofpage*(p-1))"></i></td>
+      </tr>
+    </tbody>
+    <p *ngIf="!list" >there is no managers </p>
+    <pagination-controls 
+(pageChange)="p = $event" 
+class="float-right">
+</pagination-controls>
+  </table>

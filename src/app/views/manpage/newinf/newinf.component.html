@@ -10,13 +10,13 @@
       </tr>
     </thead>
     <tbody >
-      <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage: 5, currentPage: p } ;index as i">
+      <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage:itemsofpage, currentPage: p } ;index as i">
         <td>{{item.fullname}}</td>
         <td *ngIf="item.email!=null">{{item.email}}</td>
         <td *ngIf="item.email==null">this influencer use facebook account</td>
         <td>{{numberfriend[i]}}</td>
-        <td (click)="accepter(item._id,i)"><i class="fa-solid fa-circle-check"></i></td>
-        <td (click)="refuse(item._id,i)"><i class="fa-solid fa-circle-xmark"></i></td>
+        <td (click)="accepter(item._id,i+itemsofpage*(p-1))"><i class="fa-solid fa-circle-check"></i></td>
+        <td (click)="refuse(item._id,i+itemsofpage*(p-1))"><i class="fa-solid fa-circle-xmark"></i></td>
       </tr>
     </tbody>
     <p *ngIf="list==''" >there is no influencers </p>

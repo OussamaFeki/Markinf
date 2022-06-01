@@ -23,11 +23,13 @@ export class PubofinfComponent implements OnInit {
   listprods:any=[]
   pubids:any=[]
   p: number = 1;
+  itemsofpage:number=3
   listlike:any=[]
   listlove:any=[];
   foraccepte:any=[];
   acceptedpub:any=[];
-  influencer:any=[{}]
+  influencer:any=[{}];
+  is_accepted:any=[]
   constructor(
     private auth:AuthoInfService,
     private fbs:FbserveService,
@@ -61,8 +63,6 @@ export class PubofinfComponent implements OnInit {
                     this.pubids[j]=this.all[t].id
                     this.influencer[j]=data[i]
                     this.foraccepte[j]=this.all[t]
-                    console.log(id)
-                    console.log(this.list[j])
                     this.isaccepted(this.all[t].id,id,this.all[t].full_picture,j)
                     this.reactioncount(this.all[t].id,data[i].accesstoken,j)
                     this.lovecount(this.all[t].id,data[i].accesstoken,j)
@@ -75,14 +75,11 @@ export class PubofinfComponent implements OnInit {
           })
         }
       }
-      console.log(this.foraccepte)
-      console.log(this.influencer)
     })
   }
   products(id:any){
     this.share.getprodman(id).subscribe((doc:any)=>{
       this.listprods=doc
-      console.log(this.listprods)
     })
   }
   reactioncount(postid:any,accesstoken:any,i:any){
@@ -98,28 +95,30 @@ export class PubofinfComponent implements OnInit {
   lovecount(postid:any,accesstoken:any,i:any){
     this.fbs.numberoflove(postid,accesstoken).subscribe((doc:any)=>{
       this.listlove[i]=doc.reactions.summary.total_count
-      console.log(this.listlove[i])
     })
     
   }
   accepter(id:any,id_manager:any,fullpicture:any,i:any){
      this.aut.acceptpub(id,id_manager,fullpicture).subscribe((doc)=>{
-     console.log(doc) 
      })
     console.log(id)
     this.acceptedpub[i]=true
   }
   isaccepted(id:any,id_manager:any,fullpicture:any,i:any){
     this.aut.isaccpub(id,id_manager,fullpicture).subscribe(doc=>{
-      console.log(doc)
       this.acceptedpub[i]=doc
+      if(this.acceptedpub[i]==true){
+        this.is_accepted[i]=true
+      }
+      else{
+        this.is_accepted[i]=false 
+      }
     },(err:HttpErrorResponse)=>{
-      console.log(err)
+      
     })
   }
   cancel(id:any,id_manager:any,fullpicture:any,i:any){
     this.aut.cancelpub(id,id_manager,fullpicture).subscribe(doc=>{
-      console.log(doc)
       this.acceptedpub[i]=false
     })
   }
