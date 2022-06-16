@@ -27,6 +27,7 @@ export class ProfmanComponent implements OnInit {
   email:any
   filter:any
   test:any
+  influencers:number=0
   constructor(private auth:AuthoManService,
     private route:ActivatedRoute,
     private router:Router,
@@ -53,6 +54,9 @@ export class ProfmanComponent implements OnInit {
         
         }) 
     
+    })
+    this.auth.getinfsofman(this.id_man).subscribe((doc:any)=>{
+     this.influencers=doc.length
     })
     
    this.condition=this.auth.IsloggedIn()

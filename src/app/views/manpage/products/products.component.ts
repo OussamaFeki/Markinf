@@ -32,7 +32,7 @@ export class ProductsComponent implements OnInit,OnDestroy {
       this.myForm=this.formbuild.group({
         name:['',Validators.required],
         mark:[null,Validators.required],
-        image:['',Validators.required],
+        image:[''],
         description:['',Validators.required],
         price:['',Validators.required], 
       })

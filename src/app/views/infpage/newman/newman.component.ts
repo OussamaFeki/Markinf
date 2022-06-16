@@ -19,7 +19,8 @@ export class NewmanComponent implements OnInit,OnDestroy {
     this.id_inf=this.auth.getprof().id
     this.socket=io('http://localhost:3000')
     this.obj=this.share.boiteinvitofinf(this.id_inf).subscribe((data:any)=> {
-      this.list=data.doc
+      this.list=data.doc 
+      console.log(this.list)
     }) }
   
   ngOnInit(): void {

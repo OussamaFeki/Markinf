@@ -13,7 +13,7 @@
       <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage: itemsofpage, currentPage: p } ;index as i">
         <td>{{item.fullname}}</td>
         <td *ngIf="item.email!=null">{{item.email}}</td>
-        <td *ngIf="item.email==null">this influencer use facebook account</td>
+        <td *ngIf="item.email==null">this influencer use a facebook account</td>
         <td class="td"><img class="img-profile rounded-circle" *ngIf="item.image==null" src='assets/admin/img/undraw_profile.svg'>
           <img class="img-profile rounded-circle" *ngIf="item.image!=null" [src]="item.image"></td>
         <td><i class="fa-solid fa-file-lines" (click)="toprofinf(item._id)" ></i></td>

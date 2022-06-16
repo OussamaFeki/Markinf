@@ -21,6 +21,7 @@ export class InfpageComponent implements OnInit {
   socket:any
   test:number=0
   image:any
+  fbid:any
   
   constructor(private auth:AuthoInfService,private route:Router,
     private formbuilder:FormBuilder,
@@ -33,6 +34,7 @@ export class InfpageComponent implements OnInit {
     this.id=this.auth.getprof().id
     this.auth.getinf(this.id).subscribe(doc=>{this.prof=doc
     this.image=this.prof.image
+    this.fbid=this.prof.facebookId
     this.share.boiteinvitofinf(this.id).subscribe((res:any)=>{
       this.test=res.notif
     })

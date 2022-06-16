@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProfinfRoutingModule } from './profinf-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfinfComponent } from './profinf.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -13,7 +14,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CommonModule,
     ProfinfRoutingModule,
     ReactiveFormsModule,
+    NgbModule,
     NgxPaginationModule,
+    FormsModule
   ]
 })
 export class ProfinfModule { }

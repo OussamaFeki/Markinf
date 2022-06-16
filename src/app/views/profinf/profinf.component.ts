@@ -1,6 +1,7 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { AuthoAdminService } from 'src/app/services/autho-admin.service';
 import { AuthoInfService } from 'src/app/services/autho-inf.service';
@@ -20,6 +21,7 @@ export class ProfinfComponent implements OnInit,OnDestroy  {
   item:any={}
   condition:any
   myForm:any
+  forpay:any
   list:any=[]
   number:any
   list2:any=[]
@@ -37,13 +39,14 @@ export class ProfinfComponent implements OnInit,OnDestroy  {
   fullname:any
   email:any
   listinteretforlike:any=[]
-  totalinteret:Number=0
+  totalinteret:number=0
   accpted:any
   managers:any=[{}]
   isman:boolean=false
-  managernumber:Number=0
-  youpaytohim:Number=0
-  // sub:Subscription
+  managernumber:number=0
+  youpaytohim:number=0
+  notpayed:number=0
+  sub:Subscription
   constructor(private auth:AuthoInfService,
     private formbuilder:FormBuilder,
     private route:ActivatedRoute,
@@ -52,19 +55,25 @@ export class ProfinfComponent implements OnInit,OnDestroy  {
     private share:ShareserviceService,
     private router:Router,
     private authadmin:AuthoAdminService,
-    private calcul:CalculatorService
+    private calcul:CalculatorService,
+    config: NgbModalConfig, 
+    private modalService: NgbModal
     ) { 
       this.isman=this.aut.IsloggedIn()
       if(this.aut.IsloggedIn()){
         this.id= this.aut.getprof().id
         this.products(this.id)
+        this.route.params.subscribe((res)=>{
+          this.id_inf=res.id
+         this.forMan()
+        })
     }
     if (this.auth.IsloggedIn()){
       this.id_inf=this.auth.getprof().id
       //  this.auth.getmansofinf(this.id_inf).subscribe((data:any)=>{
       //    this.managernumber=data.length})
       this.forinf()
-      }else{
+      }if(this.authadmin.IsloggedIn()){
         this.route.params.subscribe((res)=>{
           this.id_inf=res.id
           console.log(this.id_inf)
@@ -80,116 +89,27 @@ export class ProfinfComponent implements OnInit,OnDestroy  {
             })})
         })
       }
-      if(this.isman){
-      this.gethisprofit(this.id,this.id_inf)
-      // this.sub=
-      this.auth.getinf(this.id_inf).subscribe((doc:any)=>{this.item=doc;
-      this.image=this.item.image
-      this.fullname=this.item.fullname
-      this.email=this.item.email
-      this.fbid=doc.facebookId
-      this.fbs.numberoffriend(doc.facebookId,doc.accesstoken).subscribe((result:any)=>{
-        this.number=result.friends.summary.total_count
-        
-      })
-      console.log(this.aut.IsloggedIn())
-      if(this.fbid){  
-      this.fbs.getposts(doc.facebookId,doc.accesstoken).subscribe((res:any)=>{
-        this.all=res.posts.data
-        let j=0
-         for(let i in this.all){
-           for(let l in this.listprod){
-             if(this.all[i].message){
-              this.test=this.all[i].message
-              console.log(this.test)
-              if(this.test.indexOf(`#${this.listprod[l].tag}`)!==-1){ 
-                this.auth.isaccpub(this.all[i].id,this.listprod[l].id_manager,this.all[i].full_picture).subscribe((resultat:any)=>{
-                  this.accpted=resultat
-                  if(this.accpted){
-                    this.list[j]=this.listprod[l]
-                    this.pubids[j]=this.all[i].id
-                    this.reactioncount(this.all[i].id,doc.accesstoken,j)
-                    this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
-                    this.likecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
-                    j=j+1
-                  }
-                })
-              
-             }
-             
-             }
-           }
-         }
-         
-      })
-      
-      }
-      })
-     }
-    //  else{
-    //    console.log(this.isman)
-    //    console.log(this.id_inf)
-    //     this.forinf()
-    //    }
      this.condition=this.auth.IsloggedIn()
      this.myForm=this.formbuilder.group({
        image:[null]
      })
-     
-     this.auth.getmansofinf(this.id_inf).subscribe((data:any)=>{
+    //  for paying manager
+     this.forpay=this.formbuilder.group({
+      Card:['',[Validators.required,Validators.minLength(8)]],
+      price:[null,[Validators.required,Validators.max(this.notpayed)]]
+     })
+     // for number of manager 
+     this.sub=this.auth.getmansofinf(this.id_inf).subscribe((data:any)=>{
       this.managernumber=data.length})
+      config.backdrop = 'static';
+      config.keyboard = true;
   }
 
   ngOnInit(): void {
-    // console.log(this.totalinteret)
-    //  if(!this.isman&&this.totalinteret==0){
-    //    this.auth.getinf(this.id_inf).subscribe((doc:any)=>{
-    //      this.item=doc;
-    //      this.image=this.item.image
-    //      this.fullname=this.item.fullname
-    //      this.email=this.item.email
-    //      if(doc.facebookId){
-    //        this.producttoin(this.id_inf)
-    //        this.fbs.getposts(doc.facebookId,doc.accesstoken).subscribe((res:any)=>{
-    //          this.all=res.posts.data
-    //           let j=0
-    //           for(let i in this.all){
-    //             for(let l in this.listprod){
-    //               if(this.all[i].message){
-    //                this.test=this.all[i].message
-    //                 console.log(this.test)
-    //                if(this.test.indexOf(`#${this.listprod[l].tag}`)!==-1){ 
-    //                this.auth.isaccpub(this.all[i].id,this.listprod[l].id_manager,this.all[i].full_picture).subscribe((resultat:any)=>{
-    //                  this.accpted=resultat
-    //                  if(this.accpted){
-    //                    this.list[j]=this.listprod[l]
-    //                    this.pubids[j]=this.all[i].id
-    //                    console.log(j)
-    //                    this.reactioncount(this.all[i].id,doc.accesstoken,j)
-    //                    this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
-    //                    this.likecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
-    //                    this.managerofprod(this.listprod[l].id_manager,j)
-    //                    j=j+1
-    //                  }
-                   
-    //                })
-    //              }
-    //               }
-               
-    //             }
-              
-    //           }
-    //           console.log(this.listlove)
-            
-    //        })    
-
-    //      } 
-        
-    //    })
-    //  }
+    
   }
   ngOnDestroy(): void {
-      // this.sub.unsubscribe()
+       this.sub.unsubscribe()
   }
   selectImage(event:any){
     if(event.target.files.length >0){
@@ -251,6 +171,7 @@ export class ProfinfComponent implements OnInit,OnDestroy  {
           })
 
       }
+      console.log(this.listprod)
     })
     
   }
@@ -259,7 +180,13 @@ export class ProfinfComponent implements OnInit,OnDestroy  {
     this.listinteretforlove[i]=this.calcul.calculinteretlove(data.standard,this.listlove[i],data.foreachmultilove)
     // this.listinteretforlove[i]=this.calcul.calculinteretlove(12,this.listlove[i],data.foreachmultilove)
     this.totalinteret=this.totalinteret+this.listinteretforlove[i]
-    
+    if(this.youpaytohim<this.totalinteret && this.notpayed==0){
+      this.calculaterest()
+    }else{
+      if(this.notpayed>0){
+        this.notpayed=this.notpayed+this.listinteretforlove[i]
+      }
+    }
     })
   }
   intertofprodlikes(id:any,i:any){
@@ -267,7 +194,12 @@ export class ProfinfComponent implements OnInit,OnDestroy  {
       this.listinteretforlike[i]=this.calcul.calculinteretlove(data.standard,this.listlike[i],data.foreachmultilike)
       // this.listinteretforlove[i]=this.calcul.calculinteretlove(12,this.listlove[i],data.foreachmultilove)
       this.totalinteret=this.totalinteret+this.listinteretforlike[i]
-      // console.log(this.totalinteret)
+      if(this.youpaytohim<this.totalinteret && this.notpayed==0){
+        this.calculaterest()
+      }else{
+      if(this.notpayed>0){
+        this.notpayed=this.notpayed+this.listinteretforlike[i]
+      }}
       })
   }
   managerofprod(id:any,i:any){
@@ -276,15 +208,12 @@ export class ProfinfComponent implements OnInit,OnDestroy  {
     })
   }
   forinf(){
-    // sub=
-    this.auth.getinf(this.id_inf).subscribe((doc:any)=>{
+    this.sub=this.auth.getinf(this.id_inf).subscribe((doc:any)=>{
       this.item=doc;
       this.image=this.item.image
       this.fullname=this.item.fullname
       this.email=this.item.email
-      
       this.fbid=doc.facebookId
-      console.log('work please')
       if(doc.facebookId){
         this.producttoin(this.item._id)
         this.fbs.getposts(doc.facebookId,doc.accesstoken).subscribe((res:any)=>{
@@ -322,6 +251,52 @@ export class ProfinfComponent implements OnInit,OnDestroy  {
      
     })
   }
+  forMan(){
+    this.gethisprofit(this.id,this.id_inf)
+       this.sub=this.auth.getinf(this.id_inf).subscribe((doc:any)=>{this.item=doc;
+      this.image=this.item.image
+      this.fullname=this.item.fullname
+      this.email=this.item.email
+      this.fbid=doc.facebookId
+      this.fbs.numberoffriend(doc.facebookId,doc.accesstoken).subscribe((result:any)=>{
+        this.number=result.friends.summary.total_count
+        
+      })
+      console.log(this.aut.IsloggedIn())
+      if(this.fbid){  
+      this.fbs.getposts(doc.facebookId,doc.accesstoken).subscribe((res:any)=>{
+        this.all=res.posts.data
+        let j=0
+         for(let i in this.all){
+           for(let l in this.listprod){
+             if(this.all[i].message){
+              this.test=this.all[i].message
+              console.log(this.test)
+              if(this.test.indexOf(`#${this.listprod[l].tag}`)!==-1){ 
+                this.auth.isaccpub(this.all[i].id,this.listprod[l].id_manager,this.all[i].full_picture).subscribe((resultat:any)=>{
+                  this.accpted=resultat
+                  if(this.accpted){
+                    this.list[j]=this.listprod[l]
+                    this.pubids[j]=this.all[i].id
+                    this.reactioncount(this.all[i].id,doc.accesstoken,j)
+                    this.lovecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
+                    this.likecount(this.all[i].id,doc.accesstoken,j,this.listprod[l].id_manager)
+                    j=j+1
+                  }
+                })
+              
+             }
+             
+             }
+           }
+         }
+         this.calculaterest()
+      })
+      
+      }
+      })
+
+  }
   gethisprofit(id_man:any,id_inf:any){
     this.share.getprofit(id_man,id_inf).subscribe((doc:any)=>{
       console.log(doc)
@@ -329,6 +304,13 @@ export class ProfinfComponent implements OnInit,OnDestroy  {
     })
   }
   calculaterest(){
-    
+    this.notpayed=this.totalinteret-this.youpaytohim
+    console.log(this.notpayed)
+  }
+  open(content:any){
+    this.modalService.open(content);
+  }
+  update(){
+    console.log(this.forpay.value)
   }
 }

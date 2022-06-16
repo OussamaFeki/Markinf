@@ -1,9 +1,9 @@
  <h1>products</h1>
-  <div class="row row-cols-1 row-cols-md-3 g-4 m-3" >
+  <div class="row row-cols-1 row-cols-md-3 g-4" >
   <div class="col" *ngFor="let element of list| paginate:{ itemsPerPage:itemsofpage, currentPage: p } ;index as i" >
-    <div class="card">
-      <img [src]="element.image" class="card-img-top" >
-      <div class="card-body">
+    <div class="card m-2 mt-2" style="border-radius: 15px;">
+      <img [src]="element.image" class="image img-fluid" style="border-top-left-radius: 15px; border-top-right-radius: 15px;" >
+      <div class="card-body pb-0">
         <h5 class="card-title">{{element.name}}</h5>
         <h2 class="tag">tag:</h2>
         <p class="card-text">#{{element.tag}}</p>
@@ -36,10 +36,13 @@
             <div class="col-md-6">
               <label for="validationDefault03" class="form-label">descrption</label>
               <textarea class="form-control"   name="description" required  formControlName="description" ></textarea>
+              <div class="alert alert-danger" *ngIf=" myForm.get('price').touched && myForm.get('description').hasError('required')">this input is required </div>
             </div>
             <div class="col-md-3">
               <label for="validationDefault04" class="form-label">price</label>
               <input type="number" class="form-control"  name="price" required  formControlName="price">
+              <div class="alert alert-danger" *ngIf=" myForm.get('price').touched && myForm.get('price').hasError('required')">this input is required </div> 
+              <div class="alert alert-danger" *ngIf=" myForm.get('price').touched &&myForm.get('price').hasError('max')">this input must be >0</div>
             </div>
             <div class="col-md-2">
               <label for="validationDefault04" class="form-label">Tag</label>
@@ -47,7 +50,7 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+          <button type="submit" class="btn btn-outline-dark" (click)="c('Save click')" [disabled]="myForm.invalid">Save</button>
         </div>
         </form>
       </ng-template>

@@ -12,8 +12,8 @@
               <button type="submit" class="btn btn-primary">change</button>
               </form>
             <p class="text-muted font-size-sm"*ngIf="!condition && fbid">friends:{{number}}</p>
-            <button *ngIf="isman" class="btn btn-primary">Follow</button>
-            <button *ngIf="isman" class="btn btn-outline-primary">Message</button>
+            <!-- <button *ngIf="isman" class="btn btn-primary">Follow</button>
+            <button *ngIf="isman" class="btn btn-outline-primary">Message</button> -->
           </div>
         </div>
       </div>
@@ -39,7 +39,7 @@
           </div>
         </div>
         <hr *ngIf="!fbid">
-        <div class="row">
+        <div class="row" *ngIf="totalinteret>0" >
           <div class="col-sm-3">
             <h6 class="mb-0">total profit:</h6>
           </div>
@@ -47,10 +47,10 @@
             ${{totalinteret}}
           </div>
         </div>
-        <hr>
+        <hr *ngIf="totalinteret>0">
         <div class="row">
           <div class="col-sm-3">
-            <h6 class="mb-0">payed:</h6>
+            <h6 class="mb-0">paid:</h6>
           </div>
           <div class="col-sm-9 text-secondary">
             ${{youpaytohim}}
@@ -59,10 +59,10 @@
         <hr>
         <div class="row">
           <div class="col-sm-3">
-            <h6 class="mb-0">not payed</h6>
+            <h6 class="mb-0">not paid:</h6>
           </div>
           <div class="col-sm-9 text-secondary">
-            $0
+            ${{notpayed}}
           </div>
         </div>
         <hr>
@@ -74,13 +74,43 @@
             {{managernumber}}
           </div>
         </div>
+        <!-- for paying (manager) -->
+        <div class="row" *ngIf="isman">
+        <button class="btn btn-primary" (click)="open(content)">pay</button>
+        </div>
+        <ng-template #content let-c="close" let-d="dismiss">
+          <form [formGroup]="forpay"  class="user" (ngSubmit)="update()">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">update</h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"><i class="fa-solid fa-x"></i></button>
+        </div>
+        
+        <div class="modal-body row g-3" >
+            <div class="col-md-4">
+              <label for="validationDefault02" class="form-label">Card</label>
+              <input type="text" class="form-control" formControlName="Card"  required minlength="8" >
+               <div class="alert alert-danger" *ngIf=" forpay.get('Card').touched && forpay.get('Card').hasError('required')">this input is required </div> 
+               <div class="alert alert-danger" *ngIf=" forpay.get('Card').touched &&forpay.get('Card').hasError('minlength')">chars must be >8 </div> 
+            </div>
+            <div class="col-md-4">
+              <label for="validationDefault04" class="form-label">price</label>
+              <input type="number" class="form-control"  name="price" required  formControlName="price">
+              <div class="alert alert-danger" *ngIf=" forpay.get('price').touched && forpay.get('price').hasError('required')">this input is required </div> 
+               <div class="alert alert-danger" *ngIf=" forpay.get('price').touched &&forpay.get('price').hasError('max')">this input must be less or equal then {{notpayed}} </div> 
+            </div> 
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-outline-dark" (click)="c('Save click')" [disabled]="forpay.invalid">Save</button>
+        </div>
+        </form>
+      </ng-template>
       </div>
     </div>
   </div>
 </div>
 <table *ngIf="!condition" class="table">
   <h2 *ngIf="list!=''">Ads</h2>
-  <p *ngIf="list==''&&isman">this influencer did not post for a product or you should accepte their postes   </p>
+  <p *ngIf="list==''&&isman&&fbid">this influencer did not post for any product or you should accepte their postes</p>
   <p *ngIf="fbid==null">this for the influencers who loged in with facebook</p>
   <div class="row row-cols-1 row-cols-md-3 g-4" >
     <div class="col" *ngFor="let item1 of list| paginate:{ itemsPerPage: 3, currentPage: p } ;index as i" >

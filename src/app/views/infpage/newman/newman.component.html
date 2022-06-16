@@ -5,6 +5,9 @@
       <tr>
         <th scope="col">Fullname </th>
         <th scope="col">email</th>
+        <th scope="col">standard salary</th>
+        <th scope="col">multi.likes</th>
+        <th scope="col">multi.loves</th>
         <th scope="col">for accept</th>
         <th scope="col">for refuse</th>
       </tr>
@@ -13,6 +16,9 @@
       <tr class="listes" *ngFor="let item of list| paginate:{ itemsPerPage: itemsofpage, currentPage: p };index as i">
         <td>{{item.fullname}}</td>
         <td>{{item.email}}</td>
+        <td>${{item.standard}}</td>
+        <td>X{{item.foreachmultilike}}</td>
+        <td>X{{item.foreachmultilove}}</td>
         <td (click)="accepter(item._id,i+itemsofpage*(p-1))"><i class="fa-solid fa-circle-check"></i></td>
         <td (click)="refuse(item._id,i+itemsofpage*(p-1))"><i class="fa-solid fa-circle-xmark"></i></td>
       </tr>

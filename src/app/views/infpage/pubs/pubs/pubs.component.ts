@@ -73,7 +73,7 @@ export class PubsComponent implements OnInit {
               
           }
         }
-        console.log(this.list)
+        
         })}
       })
    }
@@ -81,6 +81,7 @@ export class PubsComponent implements OnInit {
   ngOnInit(): void {
   }
   reactioncount(postid:any,accesstoken:any,i:any){
+    
    this.fbs.getreaction(postid,accesstoken).subscribe((doc:any)=>{
      this.list2[i]=doc.reactions.summary.total_count
    })
